@@ -1,0 +1,337 @@
+/* ============================================
+   PHASE 5: DATA-HEAVY PAGES STYLES
+   ============================================ */
+
+/* ── Disclosures / Documents ── */
+.docs-section { padding: 5rem 0; background: var(--white); }
+.docs-grid {
+  max-width: 1000px;
+  margin: 2rem auto 0;
+  padding: 0 2rem;
+}
+.docs-category {
+  margin-bottom: 2.5rem;
+}
+.docs-category h3 {
+  font-family: var(--font-heading);
+  font-size: 1.15rem;
+  color: var(--navy);
+  padding-bottom: 0.8rem;
+  border-bottom: 2px solid rgba(212,168,83,0.2);
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.docs-category h3 i { color: var(--gold); }
+.doc-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.2rem;
+  background: var(--off-white);
+  border-radius: var(--radius-md);
+  margin-bottom: 0.5rem;
+  transition: all 0.3s;
+  border: 1px solid transparent;
+}
+.doc-item:hover {
+  border-color: rgba(212,168,83,0.2);
+  box-shadow: var(--shadow-sm);
+}
+.doc-info {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+.doc-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-sm);
+  background: rgba(212,168,83,0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gold);
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+.doc-info h4 {
+  font-size: 0.88rem;
+  color: var(--navy);
+  margin-bottom: 0.15rem;
+}
+.doc-info p {
+  font-size: 0.75rem;
+  color: var(--gray-400);
+}
+.doc-download {
+  padding: 0.4rem 1rem;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--gold);
+  color: var(--gold);
+  font-size: 0.75rem;
+  font-weight: 600;
+  transition: all 0.3s;
+  white-space: nowrap;
+}
+.doc-download:hover {
+  background: var(--gold);
+  color: var(--navy);
+}
+
+/* ── Staff Statement Table ── */
+.table-section { padding: 5rem 0; background: var(--white); }
+.table-wrap {
+  max-width: 1200px;
+  margin: 2rem auto 0;
+  padding: 0 2rem;
+  overflow-x: auto;
+}
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+.data-table thead {
+  background: var(--navy);
+}
+.data-table th {
+  padding: 1rem 1.2rem;
+  color: var(--gold);
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-align: left;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  white-space: nowrap;
+}
+.data-table tbody tr {
+  border-bottom: 1px solid rgba(0,0,0,0.04);
+  transition: background 0.2s;
+}
+.data-table tbody tr:hover {
+  background: rgba(212,168,83,0.04);
+}
+.data-table tbody tr:nth-child(even) {
+  background: var(--off-white);
+}
+.data-table tbody tr:nth-child(even):hover {
+  background: rgba(212,168,83,0.06);
+}
+.data-table td {
+  padding: 0.9rem 1.2rem;
+  font-size: 0.85rem;
+  color: var(--gray-600);
+}
+
+/* ── Comprehensive Info ── */
+.comp-section { padding: 5rem 0; background: var(--white); }
+.comp-grid {
+  max-width: 1200px;
+  margin: 2rem auto 0;
+  padding: 0 2rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+.comp-card {
+  padding: 2rem;
+  border-radius: var(--radius-xl);
+  background: var(--off-white);
+  border: 1px solid rgba(0,0,0,0.04);
+}
+.comp-card h3 {
+  font-family: var(--font-heading);
+  font-size: 1.05rem;
+  color: var(--navy);
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.comp-card h3 i { color: var(--gold); font-size: 1.1rem; }
+.comp-card p, .comp-card li {
+  color: var(--gray-500);
+  font-size: 0.85rem;
+  line-height: 1.8;
+}
+.comp-card ul { padding-left: 1.2rem; }
+.comp-card li { list-style: disc; margin-bottom: 0.3rem; }
+
+/* ── Student Section ── */
+.student-tabs {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+}
+.student-tab {
+  padding: 0.6rem 1.5rem;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--gray-200);
+  color: var(--gray-500);
+  font-size: 0.85rem;
+  font-weight: 500;
+  transition: all 0.3s;
+  cursor: pointer;
+}
+.student-tab:hover, .student-tab.active {
+  background: var(--navy);
+  border-color: var(--navy);
+  color: var(--gold);
+}
+.student-content-grid {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+}
+.student-card {
+  padding: 2rem;
+  border-radius: var(--radius-xl);
+  background: var(--off-white);
+  border: 1px solid rgba(0,0,0,0.04);
+  transition: all 0.3s;
+}
+.student-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+}
+.student-card-icon {
+  width: 55px;
+  height: 55px;
+  border-radius: var(--radius-md);
+  background: rgba(212,168,83,0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gold);
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+}
+.student-card h3 {
+  font-family: var(--font-heading);
+  font-size: 1.05rem;
+  color: var(--navy);
+  margin-bottom: 0.5rem;
+}
+.student-card p {
+  color: var(--gray-500);
+  font-size: 0.85rem;
+  line-height: 1.7;
+}
+.student-card ul { padding-left: 1.2rem; margin-top: 0.5rem; }
+.student-card li {
+  list-style: disc;
+  color: var(--gray-500);
+  font-size: 0.82rem;
+  line-height: 1.7;
+  margin-bottom: 0.3rem;
+}
+
+/* ── Admissions ── */
+.admission-steps {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 0 2rem;
+}
+.admission-step {
+  display: grid;
+  grid-template-columns: 60px 1fr;
+  gap: 1.5rem;
+  padding: 2rem 0;
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+}
+.admission-step:last-child { border-bottom: none; }
+.step-num {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--navy);
+  font-family: var(--font-heading);
+  font-size: 1.2rem;
+  font-weight: 800;
+  flex-shrink: 0;
+}
+.admission-step h3 {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  color: var(--navy);
+  margin-bottom: 0.4rem;
+}
+.admission-step p {
+  color: var(--gray-500);
+  font-size: 0.88rem;
+  line-height: 1.7;
+}
+
+/* Fee table */
+.fee-grid {
+  max-width: 900px;
+  margin: 2rem auto 0;
+  padding: 0 2rem;
+}
+.fee-card {
+  padding: 2rem;
+  border-radius: var(--radius-xl);
+  background: var(--off-white);
+  border: 1px solid rgba(0,0,0,0.04);
+  margin-bottom: 1.5rem;
+  transition: all 0.3s;
+}
+.fee-card:hover { box-shadow: var(--shadow-md); }
+.fee-card h3 {
+  font-family: var(--font-heading);
+  font-size: 1.05rem;
+  color: var(--navy);
+  margin-bottom: 1rem;
+}
+.fee-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.6rem 0;
+  border-bottom: 1px solid rgba(0,0,0,0.04);
+  font-size: 0.88rem;
+}
+.fee-row:last-child { border-bottom: none; }
+.fee-row span:first-child { color: var(--gray-500); }
+.fee-row span:last-child { color: var(--navy); font-weight: 600; }
+.fee-total {
+  background: var(--navy);
+  color: var(--gold);
+  border-radius: var(--radius-md);
+  padding: 0.8rem 1.2rem;
+  margin-top: 1rem;
+}
+.fee-total .fee-row span { color: var(--gold); }
+
+/* ── Alumni ── */
+.alumni-form-card {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 3rem;
+  background: var(--off-white);
+  border-radius: var(--radius-xl);
+  border: 1px solid rgba(0,0,0,0.04);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .comp-grid { grid-template-columns: 1fr; }
+  .student-content-grid { grid-template-columns: 1fr; }
+  .doc-item { flex-direction: column; align-items: flex-start; gap: 0.8rem; }
+  .admission-step { grid-template-columns: 45px 1fr; gap: 1rem; }
+}

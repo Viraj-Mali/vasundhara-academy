@@ -1,0 +1,177 @@
+/* ============================================
+   CONTACT & ENQUIRE STYLES  
+   ============================================ */
+.contact-section {
+  padding: 5rem 0;
+  background: var(--white);
+}
+.contact-grid {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+}
+.contact-info-list { margin-top: 2rem; }
+.contact-info-item {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  padding: 1.2rem;
+  background: var(--off-white);
+  border-radius: var(--radius-md);
+}
+.contact-info-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: var(--radius-md);
+  background: rgba(212,168,83,0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gold);
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+.contact-info-item h4 {
+  font-size: 0.9rem;
+  color: var(--navy);
+  margin-bottom: 0.3rem;
+}
+.contact-info-item p {
+  color: var(--gray-500);
+  font-size: 0.85rem;
+  line-height: 1.6;
+}
+.contact-form-card {
+  background: var(--off-white);
+  padding: 2.5rem;
+  border-radius: var(--radius-xl);
+  border: 1px solid rgba(0,0,0,0.04);
+}
+.contact-form-card h3 {
+  font-family: var(--font-heading);
+  font-size: 1.3rem;
+  color: var(--navy);
+  margin-bottom: 1.5rem;
+}
+.contact-map {
+  padding: 3rem 0;
+  background: var(--off-white);
+}
+.contact-map iframe {
+  width: 100%;
+  height: 400px;
+  border: none;
+  border-radius: var(--radius-lg);
+}
+
+/* ── Why Vasundhara ── */
+.why-section {
+  padding: 5rem 0;
+  background: var(--white);
+}
+.why-grid {
+  max-width: 1200px;
+  margin: 2rem auto 0;
+  padding: 0 2rem;
+}
+.why-item {
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  gap: 2rem;
+  padding: 2.5rem 0;
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+  align-items: start;
+}
+.why-item:last-child { border-bottom: none; }
+.why-num {
+  font-family: var(--font-heading);
+  font-size: 3rem;
+  font-weight: 800;
+  color: rgba(212,168,83,0.2);
+  line-height: 1;
+}
+.why-item h3 {
+  font-family: var(--font-heading);
+  font-size: 1.3rem;
+  color: var(--navy);
+  margin-bottom: 0.5rem;
+}
+.why-item p {
+  color: var(--gray-500);
+  font-size: 0.92rem;
+  line-height: 1.8;
+}
+.why-item-features {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.8rem;
+}
+.why-item-features span {
+  padding: 0.3rem 0.8rem;
+  border-radius: var(--radius-full);
+  background: rgba(212,168,83,0.08);
+  color: var(--gold);
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+/* ── Enquire Now ── */
+.enquire-section {
+  padding: 5rem 0;
+  background: var(--white);
+}
+.enquire-inner {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+.enquire-card {
+  background: var(--off-white);
+  border-radius: var(--radius-xl);
+  padding: 3rem;
+  border: 1px solid rgba(0,0,0,0.04);
+}
+.enquire-quick {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+.enquire-quick-card {
+  background: var(--white);
+  padding: 1.5rem;
+  border-radius: var(--radius-md);
+  text-align: center;
+  transition: all 0.3s;
+  border: 1px solid rgba(0,0,0,0.04);
+}
+.enquire-quick-card:hover {
+  border-color: var(--gold);
+  box-shadow: var(--shadow-sm);
+}
+.enquire-quick-card i {
+  font-size: 1.5rem;
+  color: var(--gold);
+  margin-bottom: 0.5rem;
+}
+.enquire-quick-card h4 {
+  font-size: 0.85rem;
+  color: var(--navy);
+  margin-bottom: 0.3rem;
+}
+.enquire-quick-card p {
+  color: var(--gray-500);
+  font-size: 0.82rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .contact-grid { grid-template-columns: 1fr; }
+  .why-item { grid-template-columns: 60px 1fr; gap: 1rem; }
+  .why-num { font-size: 2.2rem; }
+  .enquire-quick { grid-template-columns: 1fr; }
+}

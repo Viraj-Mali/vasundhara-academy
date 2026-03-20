@@ -1,0 +1,212 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// =============== ADMIN ===============
+model Admin {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String
+  name      String
+  createdAt DateTime @default(now())
+}
+
+// =============== PAGE CONTENT ===============
+model PageContent {
+  id        String   @id @default(cuid())
+  pageSlug  String   @unique
+  title     String
+  content   String   // JSON string for flexible content
+  updatedAt DateTime @updatedAt
+}
+
+// =============== MESSAGES (President/Principal) ===============
+model Message {
+  id        String   @id @default(cuid())
+  role      String   // "president" or "principal"
+  name      String
+  title     String
+  photo     String?
+  message   String
+  updatedAt DateTime @updatedAt
+}
+
+// =============== BOARD OF DIRECTORS ===============
+model BoardMember {
+  id          String  @id @default(cuid())
+  name        String
+  designation String
+  photo       String?
+  order       Int     @default(0)
+}
+
+// =============== STAFF ===============
+model Staff {
+  id            String  @id @default(cuid())
+  name          String
+  designation   String
+  qualification String?
+  subject       String?
+  photo         String?
+  category      String  @default("teaching") // teaching, non-teaching
+  order         Int     @default(0)
+}
+
+// =============== EVENTS ===============
+model Event {
+  id          String   @id @default(cuid())
+  title       String
+  slug        String   @unique
+  description String
+  date        DateTime
+  category    String   @default("event") // event, achievement, media
+  photos      String?  // JSON array of photo URLs
+  featured    Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+// =============== FACILITIES ===============
+model Facility {
+  id          String  @id @default(cuid())
+  title       String
+  category    String  // educational, hostel, counseling, healthcare, sports, outings
+  description String
+  photos      String? // JSON array
+  order       Int     @default(0)
+}
+
+// =============== COMMITTEES ===============
+model Committee {
+  id      String            @id @default(cuid())
+  name    String            @unique
+  description String?
+  members CommitteeMember[]
+}
+
+model CommitteeMember {
+  id          String    @id @default(cuid())
+  name        String
+  designation String
+  phone       String?
+  photo       String?
+  order       Int       @default(0)
+  committeeId String
+  committee   Committee @relation(fields: [committeeId], references: [id], onDelete: Cascade)
+}
+
+// =============== ADMISSIONS ===============
+model Admission {
+  id             String   @id @default(cuid())
+  studentName    String
+  parentName     String
+  phone          String
+  email          String?
+  grade          String
+  previousSchool String?
+  address        String?
+  message        String?
+  status         String   @default("pending") // pending, reviewed, accepted, rejected
+  createdAt      DateTime @default(now())
+}
+
+// =============== ENQUIRIES ===============
+model Enquiry {
+  id        String   @id @default(cuid())
+  name      String
+  phone     String
+  email     String?
+  subject   String?
+  message   String
+  status    String   @default("new") // new, read, replied
+  createdAt DateTime @default(now())
+}
+
+// =============== ALUMNI ===============
+model Alumni {
+  id           String   @id @default(cuid())
+  name         String
+  graduateYear String
+  phone        String?
+  email        String?
+  occupation   String?
+  message      String?
+  createdAt    DateTime @default(now())
+}
+
+// =============== GALLERY ===============
+model GalleryImage {
+  id        String   @id @default(cuid())
+  title     String?
+  url       String
+  category  String   @default("general")
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+}
+
+// =============== NOTIFICATIONS/ANNOUNCEMENTS ===============
+model Notification {
+  id        String   @id @default(cuid())
+  title     String
+  content   String?
+  type      String   @default("announcement") // announcement, news, urgent
+  active    Boolean  @default(true)
+  startDate DateTime @default(now())
+  endDate   DateTime?
+  createdAt DateTime @default(now())
+}
+
+// =============== DOCUMENTS (for public disclosures) ===============
+model Document {
+  id        String   @id @default(cuid())
+  title     String
+  category  String   // affiliation, self-affidavit, result, academic
+  fileUrl   String
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+}
+
+// =============== ACTIVITY LOG ===============
+model ActivityLog {
+  id          String   @id @default(cuid())
+  action      String   // create, update, delete
+  entityType  String   // staff, admission, event, gallery, etc.
+  entityName  String   // human-readable name of the item
+  description String?  // optional extra detail
+  userId      String?  // admin email/name who performed
+  createdAt   DateTime @default(now())
+}
+
+// =============== BLOG / NEWS ===============
+model BlogPost {
+  id          String   @id @default(cuid())
+  title       String
+  slug        String   @unique
+  content     String   // full HTML/markdown content
+  excerpt     String?  // short preview text
+  coverImage  String?
+  category    String   @default("news") // news, announcement, article, achievement
+  author      String?
+  published   Boolean  @default(false)
+  featured    Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+// =============== NOTICE BOARD ===============
+model Notice {
+  id            String    @id @default(cuid())
+  title         String
+  content       String
+  category      String    @default("general") // general, exam, holiday, circular, result
+  priority      String    @default("normal")  // low, normal, high, urgent
+  attachmentUrl String?
+  active        Boolean   @default(true)
+  expiresAt     DateTime?
+  createdAt     DateTime  @default(now())
+}
