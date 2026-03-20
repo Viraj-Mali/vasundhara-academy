@@ -58,8 +58,21 @@ export default function AdminGallery() {
 
       const res = await fetch('/api/admin/upload', { method: 'POST', body: formData });
       if (res.ok) {
-        const data = await res.json();
-        setImages(prev => [data, ...prev]);
+        const uploadData = await res.json();
+        // 2. SAVE TO DATABASE
+        const dbRes = await fetch('/api/admin/gallery', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            url: uploadData.url,
+            category: uploadCategory,
+            title: uploadTitle || file.name.replace(/\.[^.]+$/, '')
+          })
+        });
+        if (dbRes.ok) {
+          const newImage = await dbRes.json();
+          setImages(prev => [newImage, ...prev]);
+        }
       }
     }
     setUploadTitle('');

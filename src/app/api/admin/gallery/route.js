@@ -9,6 +9,16 @@ export async function GET() {
   return NextResponse.json(data);
 }
 
+export async function POST(req) {
+  const auth = await checkAdminAuth();
+  if (auth) return auth;
+  const { url, title, category } = await req.json();
+  const newImage = await prisma.galleryImage.create({
+    data: { url, title, category }
+  });
+  return NextResponse.json(newImage);
+}
+
 export async function DELETE(req) {
   const auth = await checkAdminAuth();
   if (auth) return auth;
