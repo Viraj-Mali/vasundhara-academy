@@ -60,13 +60,30 @@ export default function ApplyPage() {
                   </h4>
                   <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
                     <div className="form-group">
-                      <label className="form-label">Student&apos;s Full Name *</label>
-                      <input className="form-input" type="text" placeholder="Full name" required value={form.studentName} onChange={e => setForm({...form, studentName: e.target.value})} />
+                      <label className="form-label" htmlFor="studentName">Student&apos;s Full Name *</label>
+                      <input 
+                        id="studentName"
+                        name="studentName"
+                        className="form-input" 
+                        type="text" 
+                        placeholder="Full name" 
+                        required 
+                        autocomplete="name"
+                        value={form.studentName} 
+                        onChange={e => setForm({...form, studentName: e.target.value})} 
+                      />
                     </div>
                     <div className="form-group">
-                      <label className="form-label">Applying for Grade *</label>
-                      <select className="form-select" required value={form.grade} onChange={e => setForm({...form, grade: e.target.value})}>
-                        <option value="">Select Grade...</option>
+                      <label className="form-label" htmlFor="grade">Applying for Grade *</label>
+                      <select 
+                        id="grade"
+                        name="grade"
+                        className="form-select" 
+                        required 
+                        value={form.grade} 
+                        onChange={e => setForm({...form, grade: e.target.value})}
+                      >
+                        <option value="">Select Grade…</option>
                         {[1,2,3,4,5,6,7,8,9,10].map(g => (
                           <option key={g} value={`Grade ${g}`}>Grade {g}</option>
                         ))}
@@ -79,29 +96,76 @@ export default function ApplyPage() {
                   </h4>
                   <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
                     <div className="form-group">
-                      <label className="form-label">Parent/Guardian Name *</label>
-                      <input className="form-input" type="text" placeholder="Full name" required value={form.parentName} onChange={e => setForm({...form, parentName: e.target.value})} />
+                      <label className="form-label" htmlFor="parentName">Parent/Guardian Name *</label>
+                      <input 
+                        id="parentName"
+                        name="parentName"
+                        className="form-input" 
+                        type="text" 
+                        placeholder="Full name" 
+                        required 
+                        autocomplete="name"
+                        value={form.parentName} 
+                        onChange={e => setForm({...form, parentName: e.target.value})} 
+                      />
                     </div>
                     <div className="form-group">
-                      <label className="form-label">Phone Number *</label>
-                      <input className="form-input" type="tel" placeholder="+91 XXXXX XXXXX" required value={form.phone} onChange={e => setForm({...form, phone: e.target.value})} />
+                      <label className="form-label" htmlFor="phone">Phone Number *</label>
+                      <input 
+                        id="phone"
+                        name="phone"
+                        className="form-input" 
+                        type="tel" 
+                        inputmode="tel"
+                        placeholder="+91 XXXXX XXXXX" 
+                        required 
+                        autocomplete="tel"
+                        value={form.phone} 
+                        onChange={e => setForm({...form, phone: e.target.value})} 
+                      />
                     </div>
                   </div>
                   <div className="form-group">
-                    <label className="form-label">Email</label>
-                    <input className="form-input" type="email" placeholder="your@email.com" value={form.email} onChange={e => setForm({...form, email: e.target.value})} />
+                    <label className="form-label" htmlFor="email">Email</label>
+                    <input 
+                      id="email"
+                      name="email"
+                      className="form-input" 
+                      type="email" 
+                      placeholder="your@email.com" 
+                      autocomplete="email"
+                      spellCheck={false}
+                      value={form.email} 
+                      onChange={e => setForm({...form, email: e.target.value})} 
+                    />
                   </div>
                   <div className="form-group">
                     <label className="form-label">Previous School Name</label>
                     <input className="form-input" type="text" placeholder="Name of last attended school" value={form.previousSchool} onChange={e => setForm({...form, previousSchool: e.target.value})} />
                   </div>
                   <div className="form-group">
-                    <label className="form-label">Address</label>
-                    <textarea className="form-textarea" placeholder="Your complete address..." style={{ minHeight: '80px' }} value={form.address} onChange={e => setForm({...form, address: e.target.value})}></textarea>
+                    <label className="form-label" htmlFor="address">Address</label>
+                    <textarea 
+                      id="address"
+                      name="address"
+                      className="form-textarea" 
+                      placeholder="Your complete address…" 
+                      style={{ minHeight: '80px' }} 
+                      value={form.address} 
+                      onChange={e => setForm({...form, address: e.target.value})}
+                    ></textarea>
                   </div>
                   <div className="form-group">
-                    <label className="form-label">Any Message / Special Requirements</label>
-                    <textarea className="form-textarea" placeholder="Anything you'd like us to know..." style={{ minHeight: '80px' }} value={form.message} onChange={e => setForm({...form, message: e.target.value})}></textarea>
+                    <label className="form-label" htmlFor="message">Any Message / Special Requirements</label>
+                    <textarea 
+                      id="message"
+                      name="message"
+                      className="form-textarea" 
+                      placeholder="Anything you&apos;d like us to know…" 
+                      style={{ minHeight: '80px' }} 
+                      value={form.message} 
+                      onChange={e => setForm({...form, message: e.target.value})}
+                    ></textarea>
                   </div>
                   <button type="submit" className="btn btn-primary btn-lg" style={{ width: '100%' }} disabled={loading}>
                     {loading ? <><i className="fas fa-spinner fa-spin"></i> Submitting...</> : <><i className="fas fa-paper-plane"></i> Submit Application</>}

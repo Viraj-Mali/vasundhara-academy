@@ -2,7 +2,6 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import DarkModeToggle from '@/components/ui/DarkModeToggle';
 import '@/styles/navbar.css';
 
 const navItems = [
@@ -59,6 +58,14 @@ const navItems = [
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [mobileExpanded, setMobileExpanded] = useState({});
+
+  const toggleMobileSub = (label) => {
+    setMobileExpanded(prev => ({
+      ...prev,
+      [label]: !prev[label]
+    }));
+  };
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
@@ -76,7 +83,7 @@ export default function Navbar() {
       <nav className={`navbar ${scrolled ? 'scrolled' : 'transparent'}`}>
         <div className="navbar-inner">
           <Link href="/" className="nav-logo">
-            <img src="/images/logo.png" alt="Vasundhara Academy" className="nav-logo-img" />
+            <img src="/images/logo.png" alt="Vasundhara Academy" width="45" height="45" className="nav-logo-img" />
             <div className="nav-logo-text">
               <span className="nav-logo-name">Vasundhara Academy</span>
               <span className="nav-logo-sub">CBSE • Akole</span>
@@ -106,42 +113,102 @@ export default function Navbar() {
             )}
           </div>
 
-          <DarkModeToggle />
           <Link href="/admissions/apply" className="nav-cta nav-cta-desktop">
             Apply Now
           </Link>
 
-          <div
+          <button
             className={`nav-toggle ${mobileOpen ? 'open' : ''}`}
             onClick={() => setMobileOpen(!mobileOpen)}
+            aria-label="Toggle navigation menu"
+            aria-expanded={mobileOpen}
           >
             <span></span>
             <span></span>
             <span></span>
-          </div>
+          </button>
         </div>
       </nav>
 
       {/* Mobile Menu Overlay */}
       <div className={`nav-mobile-overlay ${mobileOpen ? 'open' : ''}`}>
-        {navItems.map((item) => (
-          <div key={item.label}>
-            <Link
-              href={item.href}
-              className="nav-link"
-              onClick={() => setMobileOpen(false)}
-            >
-              {item.label}
+        <div className="nav-mobile-header">
+          <Link href="/" className="nav-logo" onClick={() => setMobileOpen(false)}>
+            <img src="/images/logo.png" alt="Logo" width="40" height="40" className="nav-logo-img" />
+            <div className="nav-logo-text">
+              <span className="nav-logo-name">Vasundhara Academy</span>
+              <span className="nav-logo-sub">CBSE • Akole</span>
+            </div>
+          </Link>
+          <button 
+            className="nav-mobile-close" 
+            onClick={() => setMobileOpen(false)}
+            aria-label="Close menu"
+          >
+            <i className="fas fa-times"></i>
+          </button>
+        </div>
+
+        <div className="nav-mobile-title-bar">
+          <span>MENU</span>
+        </div>
+
+        <div className="nav-mobile-scroll">
+          {navItems.map((item) => (
+            <div key={item.label} className={`nav-mobile-item ${mobileExpanded[item.label] ? 'expanded' : ''}`}>
+              <div className="nav-mobile-link-wrapper">
+                <Link
+                  href={item.href}
+                  className="nav-mobile-link"
+                  onClick={() => !item.children && setMobileOpen(false)}
+                >
+                  {item.label}
+                </Link>
+                {item.children && (
+                  <button 
+                    className="nav-mobile-expand-toggle"
+                    onClick={() => toggleMobileSub(item.label)}
+                    aria-label={`Toggle ${item.label} sub-menu`}
+                    aria-expanded={mobileExpanded[item.label]}
+                  >
+                    <i className={`fas fa-chevron-right`}></i>
+                  </button>
+                )}
+              </div>
+              
+              {item.children && (
+                <div className="nav-mobile-sub">
+                  {item.children.map((child) => (
+                    <Link
+                      key={child.href}
+                      href={child.href}
+                      className="nav-mobile-sub-link"
+                      onClick={() => setMobileOpen(false)}
+                    >
+                      {child.label}
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
+          ))}
+          
+          <div className="nav-mobile-actions">
+            <Link href="/admissions/apply" className="nav-cta" onClick={() => setMobileOpen(false)}>
+              Apply Now
             </Link>
           </div>
-        ))}
-        <Link
-          href="/admissions/apply"
-          className="nav-cta"
-          onClick={() => setMobileOpen(false)}
-        >
-          Apply Now
-        </Link>
+        </div>
+
+        <div className="nav-mobile-footer">
+          <div className="nav-mobile-socials">
+            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i className="fab fa-facebook-f"></i></a>
+            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i className="fab fa-instagram"></i></a>
+            <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" aria-label="Youtube"><i className="fab fa-youtube"></i></a>
+            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" aria-label="Twitter"><i className="fab fa-twitter"></i></a>
+          </div>
+          <p className="nav-mobile-copy">© 2026 Vasundhara Academy</p>
+        </div>
       </div>
     </>
   );

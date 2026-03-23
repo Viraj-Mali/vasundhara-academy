@@ -38,7 +38,6 @@ export default function AdminLayout({ children }) {
   const { data: session, status } = useSession();
   const router = useRouter();
   const pathname = usePathname();
-  const [darkMode, setDarkMode] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [badges, setBadges] = useState({});
 
@@ -47,11 +46,7 @@ export default function AdminLayout({ children }) {
   }, [status, router]);
 
   useEffect(() => {
-    const saved = localStorage.getItem('admin-dark-mode');
-    if (saved === 'true') {
-      setDarkMode(true);
-      document.documentElement.setAttribute('data-theme', 'dark');
-    }
+    document.documentElement.setAttribute('data-theme', 'light');
   }, []);
 
   // Fetch badge counts
@@ -70,12 +65,6 @@ export default function AdminLayout({ children }) {
   // Close mobile sidebar on route change
   useEffect(() => { setMobileOpen(false); }, [pathname]);
 
-  const toggleDarkMode = () => {
-    const next = !darkMode;
-    setDarkMode(next);
-    document.documentElement.setAttribute('data-theme', next ? 'dark' : 'light');
-    localStorage.setItem('admin-dark-mode', String(next));
-  };
 
   if (status === 'loading') {
     return (
@@ -136,10 +125,6 @@ export default function AdminLayout({ children }) {
         </nav>
 
         <div className="admin-sidebar-footer">
-          <button onClick={toggleDarkMode} className="admin-mode-toggle">
-            <i className={`fas fa-${darkMode ? 'sun' : 'moon'}`}></i>
-            {darkMode ? 'Light Mode' : 'Dark Mode'}
-          </button>
           <div style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.75rem', marginBottom: '0.5rem' }}>
             <i className="fas fa-user" style={{ marginRight: '0.3rem' }}></i> {session.user?.name || session.user?.email}
           </div>

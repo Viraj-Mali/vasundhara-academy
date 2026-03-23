@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import '@/styles/homepage.css';
+import StatCounter from '@/components/ui/StatCounter';
 
 export const metadata = {
   title: 'Vasundhara Academy, Akole — CBSE School | Grades 1-10',
@@ -45,22 +46,22 @@ export default function HomePage() {
       <section className="stats-bar">
         <div className="stats-inner">
           <div className="stat-item">
-            <span className="stat-number">500</span><span className="stat-suffix">+</span>
+            <span className="stat-number"><StatCounter target={500} /></span><span className="stat-suffix">+</span>
             <span className="stat-label">Happy Students</span>
           </div>
           <div className="stat-divider"></div>
           <div className="stat-item">
-            <span className="stat-number">50</span><span className="stat-suffix">+</span>
+            <span className="stat-number"><StatCounter target={50} /></span><span className="stat-suffix">+</span>
             <span className="stat-label">Expert Faculty</span>
           </div>
           <div className="stat-divider"></div>
           <div className="stat-item">
-            <span className="stat-number">15</span><span className="stat-suffix">+</span>
+            <span className="stat-number"><StatCounter target={15} /></span><span className="stat-suffix">+</span>
             <span className="stat-label">Years of Excellence</span>
           </div>
           <div className="stat-divider"></div>
           <div className="stat-item">
-            <span className="stat-number">100</span><span className="stat-suffix">%</span>
+            <span className="stat-number"><StatCounter target={100} /></span><span className="stat-suffix">%</span>
             <span className="stat-label">Board Results</span>
           </div>
         </div>
@@ -71,10 +72,10 @@ export default function HomePage() {
         <div className="about-inner">
           <div className="about-images">
             <div className="about-img-main">
-              <img src="/images/school-photo-3.jpg" alt="Vasundhara Academy students" />
+              <img src="/images/school-photo-3.jpg" alt="Vasundhara Academy students" width="800" height="600" loading="lazy" />
             </div>
             <div className="about-img-accent">
-              <img src="/images/school-photo-1.jpg" alt="Student achievements" />
+              <img src="/images/school-photo-1.jpg" alt="Student achievements" width="400" height="300" loading="lazy" />
             </div>
             <div className="about-badge">
               <i className="fas fa-trophy"></i>
@@ -147,21 +148,21 @@ export default function HomePage() {
           <h2 className="section-title light">Our Pride &amp; Glory</h2>
           <div className="achievements-grid">
             <div className="achievement-card">
-              <img src="/images/school-photo-1.jpg" alt="Expert Abacus Achievement" />
+              <img src="/images/school-photo-1.jpg" alt="Expert Abacus Achievement" width="400" height="320" loading="lazy" />
               <div className="achievement-overlay">
                 <h3>Expert Abacus Competition</h3>
                 <p>State Level Winners 2026</p>
               </div>
             </div>
             <div className="achievement-card">
-              <img src="/images/school-photo-2.jpg" alt="SOF Olympiad Achievement" />
+              <img src="/images/school-photo-2.jpg" alt="SOF Olympiad Achievement" width="400" height="320" loading="lazy" />
               <div className="achievement-overlay">
                 <h3>SOF Olympiad</h3>
                 <p>Multiple Award Winners</p>
               </div>
             </div>
             <div className="achievement-card">
-              <img src="/images/school-photo-3.jpg" alt="Academic Excellence" />
+              <img src="/images/school-photo-3.jpg" alt="Academic Excellence" width="400" height="320" loading="lazy" />
               <div className="achievement-overlay">
                 <h3>Academic Excellence</h3>
                 <p>Outstanding Board Results</p>
@@ -176,37 +177,63 @@ export default function HomePage() {
         <div className="container text-center">
           <span className="section-tag"><i className="fas fa-minus"></i> Testimonials</span>
           <h2 className="section-title">What Parents Say</h2>
-          <div className="testimonials-grid">
-            <div className="testimonial-card">
-              <div className="testimonial-quote"><i className="fas fa-quote-left"></i></div>
-              <p>&quot;Vasundhara Academy has been a blessing for our child. The teachers are incredibly dedicated and the CBSE curriculum is delivered with excellence.&quot;</p>
-              <div className="testimonial-author">
-                <div className="testimonial-avatar">RS</div>
-                <div>
-                  <strong>Rajesh Sharma</strong>
-                  <span>Parent of Class 7 Student</span>
+          <div className="testimonials-wrapper">
+            <div className="testimonials-track">
+              {/* Original Set */}
+              <div className="testimonial-card">
+                <div className="testimonial-quote"><i className="fas fa-quote-left"></i></div>
+                <p>“Vasundhara Academy has been a blessing for our child. The teachers are incredibly dedicated and the CBSE curriculum is delivered with excellence.”</p>
+                <div className="testimonial-author">
+                  <div className="testimonial-avatar">RS</div>
+                  <div>
+                    <strong>Rajesh Sharma</strong>
+                    <span>Parent of Class 7 Student</span>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className="testimonial-card">
-              <div className="testimonial-quote"><i className="fas fa-quote-left"></i></div>
-              <p>&quot;My daughter won at the state-level Abacus competition. The school&apos;s focus on co-curricular activities alongside academics is remarkable.&quot;</p>
-              <div className="testimonial-author">
-                <div className="testimonial-avatar">PD</div>
-                <div>
-                  <strong>Priya Deshmukh</strong>
-                  <span>Parent of Class 5 Student</span>
+              <div className="testimonial-card">
+                <div className="testimonial-quote"><i className="fas fa-quote-left"></i></div>
+                <p>“My daughter won at the state-level Abacus competition. The school&apos;s focus on co-curricular activities alongside academics is remarkable.”</p>
+                <div className="testimonial-author">
+                  <div className="testimonial-avatar">PD</div>
+                  <div>
+                    <strong>Priya Deshmukh</strong>
+                    <span>Parent of Class 5 Student</span>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className="testimonial-card">
-              <div className="testimonial-quote"><i className="fas fa-quote-left"></i></div>
-              <p>&quot;The infrastructure and teaching methodology at Vasundhara Academy are at par with the best schools in the district.&quot;</p>
-              <div className="testimonial-author">
-                <div className="testimonial-avatar">AK</div>
-                <div>
-                  <strong>Amit Kulkarni</strong>
-                  <span>Parent of Class 3 Student</span>
+              <div className="testimonial-card">
+                <div className="testimonial-quote"><i className="fas fa-quote-left"></i></div>
+                <p>“The infrastructure and teaching methodology at Vasundhara Academy are at par with the best schools in the district.”</p>
+                <div className="testimonial-author">
+                  <div className="testimonial-avatar">AK</div>
+                  <div>
+                    <strong>Amit Kulkarni</strong>
+                    <span>Parent of Class 3 Student</span>
+                  </div>
+                </div>
+              </div>
+              {/* Duplicate Set for Loop */}
+              <div className="testimonial-card">
+                <div className="testimonial-quote"><i className="fas fa-quote-left"></i></div>
+                <p>“Vasundhara Academy has been a blessing for our child. The teachers are incredibly dedicated and the CBSE curriculum is delivered with excellence.”</p>
+                <div className="testimonial-author">
+                  <div className="testimonial-avatar">RS</div>
+                  <div>
+                    <strong>Rajesh Sharma</strong>
+                    <span>Parent of Class 7 Student</span>
+                  </div>
+                </div>
+              </div>
+              <div className="testimonial-card">
+                <div className="testimonial-quote"><i className="fas fa-quote-left"></i></div>
+                <p>“My daughter won at the state-level Abacus competition. The school&apos;s focus on co-curricular activities alongside academics is remarkable.”</p>
+                <div className="testimonial-author">
+                  <div className="testimonial-avatar">PD</div>
+                  <div>
+                    <strong>Priya Deshmukh</strong>
+                    <span>Parent of Class 5 Student</span>
+                  </div>
                 </div>
               </div>
             </div>

@@ -146,7 +146,7 @@
   padding: 1.5rem;
   border-radius: var(--radius-md);
   text-align: center;
-  transition: all 0.3s;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
   border: 1px solid rgba(0,0,0,0.04);
 }
 .enquire-quick-card:hover {

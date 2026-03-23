@@ -97,28 +97,75 @@ export default function ContactPage() {
             ) : (
               <form onSubmit={handleSubmit}>
                 <div className="form-group">
-                  <label className="form-label">Full Name *</label>
-                  <input className="form-input" type="text" placeholder="Your full name" required value={form.name} onChange={e => setForm({...form, name: e.target.value})} />
+                  <label className="form-label" htmlFor="name">Full Name *</label>
+                  <input 
+                    id="name"
+                    name="name"
+                    className="form-input" 
+                    type="text" 
+                    placeholder="Your full name" 
+                    autocomplete="name"
+                    required 
+                    value={form.name} 
+                    onChange={e => setForm({...form, name: e.target.value})} 
+                  />
                 </div>
                 <div className="form-group">
-                  <label className="form-label">Phone Number *</label>
-                  <input className="form-input" type="tel" placeholder="+91 XXXXX XXXXX" required value={form.phone} onChange={e => setForm({...form, phone: e.target.value})} />
+                  <label className="form-label" htmlFor="phone">Phone Number *</label>
+                  <input 
+                    id="phone"
+                    name="phone"
+                    className="form-input" 
+                    type="tel" 
+                    inputmode="tel"
+                    placeholder="+91 XXXXX XXXXX" 
+                    autocomplete="tel"
+                    required 
+                    value={form.phone} 
+                    onChange={e => setForm({...form, phone: e.target.value})} 
+                  />
                 </div>
                 <div className="form-group">
-                  <label className="form-label">Email</label>
-                  <input className="form-input" type="email" placeholder="your@email.com" value={form.email} onChange={e => setForm({...form, email: e.target.value})} />
+                  <label className="form-label" htmlFor="email">Email</label>
+                  <input 
+                    id="email"
+                    name="email"
+                    className="form-input" 
+                    type="email" 
+                    placeholder="your@email.com" 
+                    autocomplete="email"
+                    spellCheck={false}
+                    value={form.email} 
+                    onChange={e => setForm({...form, email: e.target.value})} 
+                  />
                 </div>
                 <div className="form-group">
-                  <label className="form-label">Subject</label>
-                  <input className="form-input" type="text" placeholder="What is this about?" value={form.subject} onChange={e => setForm({...form, subject: e.target.value})} />
+                  <label className="form-label" htmlFor="subject">Subject</label>
+                  <input 
+                    id="subject"
+                    name="subject"
+                    className="form-input" 
+                    type="text" 
+                    placeholder="What is this about?" 
+                    value={form.subject} 
+                    onChange={e => setForm({...form, subject: e.target.value})} 
+                  />
                 </div>
                 <div className="form-group">
-                  <label className="form-label">Message *</label>
-                  <textarea className="form-textarea" placeholder="Your message..." required value={form.message} onChange={e => setForm({...form, message: e.target.value})}></textarea>
+                  <label className="form-label" htmlFor="message">Message *</label>
+                  <textarea 
+                    id="message"
+                    name="message"
+                    className="form-textarea" 
+                    placeholder="Your message…" 
+                    required 
+                    value={form.message} 
+                    onChange={e => setForm({...form, message: e.target.value})}
+                  ></textarea>
                 </div>
                 {error && <p style={{ color: '#dc2626', fontSize: '0.85rem', marginBottom: '0.5rem' }}><i className="fas fa-exclamation-circle"></i> {error}</p>}
                 <button type="submit" className="btn btn-primary" style={{ width: '100%' }} disabled={sending}>
-                  {sending ? <><i className="fas fa-spinner fa-spin"></i> Sending...</> : <><i className="fas fa-paper-plane"></i> Send Message</>}
+                  {sending ? <><i className="fas fa-spinner fa-spin"></i> Sending…</> : <><i className="fas fa-paper-plane"></i> Send Message</>}
                 </button>
               </form>
             )}
