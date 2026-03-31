@@ -34,18 +34,10 @@ export default function NotificationBanner() {
 
   return (
     <div className="notification-banner">
-      <div className="notification-track">
+      <div className="notification-track" key={notifications.length}>
         <div className="notification-content">
-          {/* First set */}
           {notifications.map((n, i) => (
-            <span key={`a-${n.id}`}>
-              <i className={`fas ${icons[i % icons.length]}`}></i> {n.title}
-              <span className="notification-dot">•</span>
-            </span>
-          ))}
-          {/* Duplicate for seamless scroll */}
-          {notifications.map((n, i) => (
-            <span key={`b-${n.id}`}>
+            <span key={n.id}>
               <i className={`fas ${icons[i % icons.length]}`}></i> {n.title}
               <span className="notification-dot">•</span>
             </span>

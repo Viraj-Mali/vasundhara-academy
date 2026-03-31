@@ -4,6 +4,7 @@ import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import NotificationBanner from '@/components/layout/NotificationBanner';
 import WhatsAppButton from '@/components/ui/WhatsAppButton';
+import ScrollToTop from '@/components/ui/ScrollToTop';
 import ScrollReveal from '@/components/ui/ScrollReveal';
 import '@/styles/animations.css';
 
@@ -17,11 +18,14 @@ export default function LayoutWrapper({ children }) {
 
   return (
     <>
-      <NotificationBanner />
-      <Navbar />
+      <header className="header-wrapper">
+        <NotificationBanner />
+        <Navbar />
+      </header>
       <main>{children}</main>
       <Footer />
       <WhatsAppButton />
+      <ScrollToTop />
       <ScrollReveal />
     </>
   );

@@ -1,12 +1,19 @@
 /* ============================================
    NAVBAR STYLES
    ============================================ */
-.navbar {
+/* Wrapper for both NotificationBanner and Navbar */
+.header-wrapper {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   z-index: 1000;
+  transition: transform 0.3s ease;
+}
+
+.navbar {
+  position: relative;
+  width: 100%;
   transition: background 0.3s ease, padding 0.3s ease;
   padding: 0.8rem 0;
   touch-action: manipulation;
@@ -340,6 +347,6 @@
   opacity: 0.4;
 }
 @keyframes marqueeScroll {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+  0% { transform: translateX(100vw); }
+  100% { transform: translateX(-100%); }
 }
