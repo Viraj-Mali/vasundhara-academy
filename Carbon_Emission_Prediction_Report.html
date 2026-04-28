@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Carbon Emission Prediction Report</title>
+<style>
+body { font-family: 'Times New Roman', Times, serif; font-size: 13pt; margin: 1in; line-height: 1.5; }
+.center { text-align: center; }
+.page-break { page-break-before: always; }
+table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+th, td { border: 1px solid black; padding: 8px; text-align: left; }
+th { background-color: #f2f2f2; }
+h1, h2, h3 { font-family: 'Arial', sans-serif; }
+</style>
+</head>
+<body>
+
+<div class="center" style="margin-top: 50px;">
+    <h1>PROJECT REPORT ON</h1>
+    <h2>“Carbon Emission Prediction”</h2>
+    <br><br><br>
+    <b>Submitted By</b><br>
+    Mayur Ravidas Sonawane
+    <br><br><br>
+    <b>Under the Guidance of</b><br>
+    Miss. Panchariya<br>
+    Miss. Hase
+    <br><br><br>
+    <b>MASTER OF COMPUTER APPLICATION</b>
+    <br><br><br>
+    <b>S.N. ARTS, D.J.M. COMMERCE & B.N.S. SCIENCE COLLEGE SANGAMNER</b><br>
+    (AUTONOMOUS) COLLEGE<br>
+    AFFILIATED WITH<br>
+    SAVITRIBAI PHULE PUNE UNIVERSITY<br>
+    DURING ACADEMIC YEAR<br>
+    2025-2026
+</div>
+
+<div class="page-break"></div>
+
+<div class="center" style="margin-top: 100px;">
+    <b>SHIKSHAN PRASARAK SANSTHA’S</b><br>
+    <b>SANGAMNER NAGARPALIKA ARTS, D.J. MALPANI COMMERCE & B.N. SARDA SCIENCE COLLEGE SANGAMNER (AUTONOMOUS) COLLEGE</b><br>
+    -422605 Dist. –AHMEDNAGAR<br>
+    (Id No. PU/AN/ASC/03/1961)<br>
+    <i>“Spread knowledge unto the last”</i>
+</div>
+
+<hr style="margin-top: 50px; margin-bottom: 50px;">
+
+<div class="center">
+    <h2>CERTIFICATE</h2>
+</div>
+
+<p style="text-align: justify; line-height: 2;">This certificate is to certify the Project Entitled <b>“Carbon Emission Prediction”</b> is the bonafide work carried out by <b>Mayur Ravidas Sonawane</b> student of MASTER OF COMPUTER APPLICATION during year 2025-2026 in partial fulfilment of the requirement for the award of Master of Computer Application.</p>
+
+<p>Date: ___ / ___ / 2026</p>
+<br><br><br>
+<table style="border: none; width: 100%;">
+    <tr style="border: none;">
+        <td style="border: none; text-align: left;"><b>Project Guide</b></td>
+        <td style="border: none; text-align: right;"><b>Head Of Department</b></td>
+    </tr>
+    <tr style="border: none;">
+        <td style="border: none;"><br><br><br><br></td>
+        <td style="border: none;"></td>
+    </tr>
+    <tr style="border: none;">
+        <td style="border: none; text-align: left;"><b>Internal Examiner</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>IT Expert</b></td>
+        <td style="border: none; text-align: right;"><b>External Examiner</b></td>
+    </tr>
+</table>
+
+<div class="page-break"></div>
+
+<div class="center"><h2>ACKNOWLEDGEMENT</h2></div>
+<p style="text-align: justify;">I am using this opportunity to express my gratitude to everyone who supported me throughout the course of this MCA project. I am thankful for their aspiring guidance, invaluably constructive criticism and friendly advice during the project work. I am sincerely grateful to them for sharing their truthful and illuminating views on a number of issues related to the project.</p>
+<p style="text-align: justify;">Today I am very pleased as I am presenting the project report on the ML-Based website of "Carbon Emission Prediction". I express my warm thanks to Miss. Panchariya and Miss. Hase for their support and guidance. Firstly we would to like to thank S. N. Arts, D. J. Malpani Commerce & B. N. Sarda Science College (Autonomous), Sangamner and Department of Computer Science for giving us an opportunity.</p>
+<p style="text-align: justify;">I hereby take opportunity to regard my sincere thanks to my internal guides for their kind co-operation during the project. Their efforts have been monumental in the completion of this project. They have been very generous with their advice, views, ideas and always ensured that I was on the right track. Taking this opportunity, I would also like to thank our Principal Dr. A.H. Gaikwad, Head of Department, and Department of Computer Science Staff for their valuable guidance during development of my project and encouraging me.</p>
+<p style="text-align: justify;">Last but not least, I most thanks to all my friends, colleagues who helped me a lot throughout the project it is their support, cheerfulness, encouragement and helping nature with which our project might not have been completed.</p>
+<p>Any omission in this brief acknowledgement does not meet lack of gratitude.</p>
+<p>Thank You…!</p>
+<p align="right" style="margin-top: 50px;"><b>Mayur Ravidas Sonawane</b><br>MASTER OF COMPUTER APPLICATION</p>
+
+<div class="page-break"></div>
+
+<h2>Chapter 1: Introduction</h2>
+
+<h3>1.1 Company Profile</h3>
+<p style="text-align: justify;">TechnoHacks Solutions Pvt. Ltd. is a cutting-edge software development company based in Nashik, Maharashtra. Established in 2022, our company has quickly gained recognition for our innovative solutions and commitment to excellence in the field of technology with a team of 40-50 dedicated professionals, we specialize in providing a wide range of services including Data Science, application development, corporate training, and digital marketing solutions.</p>
+
+<h3>1.2 Abstract</h3>
+<p style="text-align: justify;">The ML-Based Carbon Emission Prediction System has been developed to overcome the limitations of traditional methods used for analyzing and predicting carbon emissions. This software is designed to provide an efficient and intelligent solution for studying emission patterns and supporting environmental decision-making. The system uses machine learning techniques to analyze historical carbon emission data and predict future emission levels accurately.</p>
+<p style="text-align: justify;">The application reduces manual effort and minimizes errors through proper data preprocessing and model-based prediction. It is user-friendly, reliable, and designed to generate accurate results using advanced algorithms such as Linear Regression and Random Forest Regression.</p>
+
+<h3>1.3 Problem Definition</h3>
+<p style="text-align: justify;">The existing methods for carbon emission prediction heavily rely on manual calculations and statistical models. These approaches depend on fixed assumptions and formulas, which leads to low accuracy when dealing with complex and dynamic datasets. Furthermore, it is difficult to handle large volumes of real-time environmental data.</p>
+
+<h3>1.4 Existing System & Need for System</h3>
+<ul>
+<li>Traditional carbon emission prediction uses manual calculations and statistical models.</li>
+<li>Existing systems have low accuracy for complex and dynamic datasets.</li>
+<li>Machine Learning can handle large datasets and complex patterns.</li>
+<li>Automated prediction saves time and effort.</li>
+<li>Helps in early decision-making and environmental planning.</li>
+</ul>
+
+<h3>1.5 Scope of System</h3>
+<ul>
+<li>Predicting future carbon emission levels.</li>
+<li>Analyzing emission trends using historical data.</li>
+<li>Supporting government and industrial decision-making.</li>
+<li>Providing graphical representation of emission patterns.</li>
+</ul>
+
+<div class="page-break"></div>
+
+<h2>Chapter 2: Proposed System</h2>
+
+<h3>2.1 Feasibility Study</h3>
+<p><b>A. Economical Feasibility:</b> Uses free and open-source software (Python, Django). No licensing or subscription costs. Suitable for academic and research purposes.</p>
+<p><b>B. Technical Feasibility:</b> The system uses Python, Machine Learning, and Django, which are widely used and well-supported technologies.</p>
+<p><b>C. Operational Feasibility:</b> User-friendly web interface requiring minimal training. Easy to maintain and update.</p>
+
+<h3>2.2 Objective of System</h3>
+<ul>
+<li>To predict future carbon emission levels using machine learning algorithms.</li>
+<li>To analyze historical emission data and identify trends.</li>
+<li>To provide graphical visualization of emission data.</li>
+<li>To contribute toward climate change mitigation.</li>
+</ul>
+
+<h3>2.3 User Requirement</h3>
+<p><b>Hardware Requirements:</b> Processor: Intel Pentium(R) or equivalent, RAM: 4GB, Hard Disk: 500 GB</p>
+<p><b>Software Requirements:</b> Windows 10/11, Python, Django, HTML/CSS/JS, MySQL/SQLite.</p>
+
+<div class="page-break"></div>
+
+<h2>Chapter 3: System Analysis & Design</h2>
+
+<h3>3.1 UML Diagrams</h3>
+<p><i>[Please Insert your Use Case Diagram Here]</i></p>
+<br><br><br>
+<p><i>[Please Insert your Class Diagram Here]</i></p>
+<br><br><br>
+<p><i>[Please Insert your Sequence Diagram Here]</i></p>
+
+<div class="page-break"></div>
+
+<h2>Chapter 4: Database Design</h2>
+
+<p><b>Table 1: User Table</b></p>
+<table>
+<tr><th>Field Name</th><th>Data Type</th><th>Description</th></tr>
+<tr><td>user_id</td><td>Integer (PK)</td><td>Unique user ID</td></tr>
+<tr><td>username</td><td>Varchar</td><td>User name</td></tr>
+<tr><td>email</td><td>Varchar</td><td>User email</td></tr>
+<tr><td>password</td><td>Varchar</td><td>Encrypted password</td></tr>
+</table>
+
+<p><b>Table 2: Emission_Data Table</b></p>
+<table>
+<tr><th>Field Name</th><th>Data Type</th><th>Description</th></tr>
+<tr><td>record_id</td><td>Integer (PK)</td><td>Record ID</td></tr>
+<tr><td>year</td><td>Integer</td><td>Year</td></tr>
+<tr><td>energy_consumption</td><td>Float</td><td>Energy used</td></tr>
+<tr><td>transport_emission</td><td>Float</td><td>Transport CO₂</td></tr>
+<tr><td>industrial_emission</td><td>Float</td><td>Industrial CO₂</td></tr>
+<tr><td>total_emission</td><td>Float</td><td>Total CO₂</td></tr>
+</table>
+
+<p><b>Table 3: Prediction Table</b></p>
+<table>
+<tr><th>Field Name</th><th>Data Type</th><th>Description</th></tr>
+<tr><td>prediction_id</td><td>Integer (PK)</td><td>Prediction ID</td></tr>
+<tr><td>year</td><td>Integer</td><td>Predicted year</td></tr>
+<tr><td>predicted_emission</td><td>Float</td><td>CO₂ value</td></tr>
+<tr><td>model_used</td><td>Varchar</td><td>ML model name</td></tr>
+</table>
+
+<div class="page-break"></div>
+
+<h2>Chapter 5: Testing</h2>
+
+<h3>5.1 Unit Test Plan</h3>
+<table>
+<tr><th>Module</th><th>Test Description</th><th>Expected Result</th></tr>
+<tr><td>Data Loading</td><td>Load CSV dataset</td><td>Dataset loaded successfully</td></tr>
+<tr><td>Preprocessing</td><td>Handle missing values</td><td>No null values</td></tr>
+<tr><td>ML Model</td><td>Train model</td><td>Model trained</td></tr>
+<tr><td>Prediction</td><td>Generate output</td><td>Accurate prediction</td></tr>
+</table>
+
+<h3>5.2 Acceptance Test Plan</h3>
+<table>
+<tr><th>Feature</th><th>Input</th><th>Expected Output</th></tr>
+<tr><td>Emission Prediction</td><td>Valid emission values</td><td>Correct CO₂ prediction</td></tr>
+<tr><td>Graph Display</td><td>Historical data</td><td>Proper graph shown</td></tr>
+<tr><td>Report Generation</td><td>5+ records</td><td>Report generated</td></tr>
+</table>
+
+<div class="page-break"></div>
+
+<h2>Chapter 6: Advantages, Limitations and Proposed enhancements</h2>
+
+<h3>Advantages</h3>
+<ul>
+<li>Automated & Fast</li>
+<li>High Accuracy via ML</li>
+<li>Data Visualization</li>
+<li>Strategic Planning</li>
+</ul>
+
+<h3>Limitations</h3>
+<ul>
+<li>Dependence on Historical Data Accuracy</li>
+<li>Limited Real-Time Data Support</li>
+<li>Inability to Predict Sudden Changes</li>
+</ul>
+
+<h3>Proposed Enhancements</h3>
+<ul>
+<li>Real-Time Data Integration Using APIs</li>
+<li>Use of Deep Learning Models (LSTM)</li>
+<li>Cloud Deployment</li>
+<li>Mobile Application Support</li>
+</ul>
+
+<div class="page-break"></div>
+
+<h2>Chapter 7: Conclusion</h2>
+<p style="text-align: justify;">The ML-Based Carbon Emission Prediction System effectively predicts future carbon emission levels by analyzing historical data using machine learning techniques. The system addresses the limitations of traditional manual and statistical methods by offering improved accuracy, automation, and scalability. Overall, the system contributes toward sustainable development, environmental protection, and climate change mitigation, making it a valuable tool for future environmental planning and decision-making.</p>
+
+<br><br>
+
+<h2>Chapter 8: Bibliography</h2>
+<ul>
+<li>Hands-On Machine Learning with Scikit-Learn, Keras, and TensorFlow – Aurélien Géron</li>
+<li>Django for Beginners: Build websites with Python and Django – William S. Vincent</li>
+<li>Python Data Science Handbook – Jake VanderPlas</li>
+<li>Software Engineering with UML – Mohammad Ali Shaikh</li>
+<li>HTML & CSS: Design and Build Web Sites – Jon Duckett</li>
+<li>https://www.python.org/</li>
+<li>https://scikit-learn.org/</li>
+<li>https://docs.djangoproject.com/</li>
+</ul>
+
+</body>
+</html>

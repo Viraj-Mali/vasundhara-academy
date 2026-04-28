@@ -3,7 +3,7 @@ import { usePathname } from 'next/navigation';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import NotificationBanner from '@/components/layout/NotificationBanner';
-import WhatsAppButton from '@/components/ui/WhatsAppButton';
+import WhatsAppWidget from '@/components/ui/WhatsAppWidget';
 import ScrollToTop from '@/components/ui/ScrollToTop';
 import ScrollReveal from '@/components/ui/ScrollReveal';
 import '@/styles/animations.css';
@@ -24,7 +24,7 @@ export default function LayoutWrapper({ children }) {
       </header>
       <main>{children}</main>
       <Footer />
-      <WhatsAppButton />
+      <WhatsAppWidget />
       <ScrollToTop />
       <ScrollReveal />
     </>

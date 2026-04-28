@@ -293,39 +293,11 @@ input, textarea, select {
   transform: translateY(0);
 }
 
-/* ── WhatsApp Floating Button ── */
-.whatsapp-float {
-  position: fixed;
-  bottom: 2rem;
-  right: 2rem;
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  background: #25d366;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #fff;
-  font-size: 1.8rem;
-  box-shadow: 0 4px 20px rgba(37,211,102,0.4);
-  z-index: 1000;
-  transition: all var(--transition-base);
-  animation: whatsappPulse 2s infinite;
-}
-.whatsapp-float:hover {
-  transform: scale(1.1);
-  box-shadow: 0 8px 30px rgba(37,211,102,0.5);
-}
-@keyframes whatsappPulse {
-  0%, 100% { box-shadow: 0 4px 20px rgba(37,211,102,0.4); }
-  50% { box-shadow: 0 4px 30px rgba(37,211,102,0.6); }
-}
-
 /* ── Scroll to Top Button ── */
 .scroll-to-top {
   position: fixed;
-  bottom: 6.8rem; /* Directly above whatsapp-float (2rem + 60px + 0.8rem gap) */
-  right: 2rem;
+  bottom: 100px; /* Adjusted to sit above the new WhatsApp Widget */
+  right: 25px;
   width: 60px;
   height: 60px;
   border-radius: 50%;
@@ -355,8 +327,7 @@ input, textarea, select {
   box-shadow: 0 8px 30px rgba(212,168,83,0.3);
 }
 @media (max-width: 768px) {
-  .whatsapp-float { bottom: 1.5rem; right: 1.5rem; width: 50px; height: 50px; font-size: 1.5rem; }
-  .scroll-to-top { bottom: 5.5rem; right: 1.5rem; width: 50px; height: 50px; font-size: 1rem; }
+  .scroll-to-top { bottom: 85px; right: 20px; width: 50px; height: 50px; font-size: 1rem; }
 }
 
 /* ── Responsive Grid ── */

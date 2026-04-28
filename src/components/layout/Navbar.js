@@ -35,6 +35,7 @@ const navItems = [
       { label: 'Admission Process', href: '/admissions/process' },
       { label: 'Fee Structure', href: '/admissions/fee-structure' },
       { label: 'Apply Online', href: '/admissions/apply' },
+      { label: 'Track Application', href: '/admissions/track' },
     ],
   },
   {

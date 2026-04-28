@@ -1,0 +1,121 @@
+Slide 1: Title Slide
+Title: Carbon Emission Prediction
+Subtitle: ML-Based System
+Presented by: Mayur Ravidas Sonawane
+Guided by: Miss. Panchariya & Miss. Hase
+College: S.N. ARTS, D.J.M. COMMERCE & B.N.S. SCIENCE COLLEGE SANGAMNER
+
+---
+
+Slide 2: Introduction / Problem Definition
+- Traditional emission prediction uses manual calculations and statistical models.
+- Existing systems have low accuracy for complex and dynamic datasets.
+- Increasing carbon emissions demand accurate prediction models.
+- Need for automation, real-time handling, and proper visualization.
+
+---
+
+Slide 3: Abstract
+- System uses ML to analyze historical data and predict future emissions.
+- Evaluates factors like energy consumption, industrial activity, and transport.
+- Uses algorithms like Linear Regression and Random Forest Regression.
+- Aids policymakers and organizations in sustainable development.
+
+---
+
+Slide 4: Objectives
+- Predict future carbon emission levels accurately.
+- Analyze historical trends.
+- Automate carbon emission analysis.
+- Provide graphical visualization for better decision making.
+- Contribute toward climate change mitigation.
+
+---
+
+Slide 5: Scope & Target Users
+Scope:
+- Predicting and analyzing emission patterns.
+- Supporting government and industrial planning.
+- Scalable to smart cities and environmental agencies.
+
+Users:
+- Government Authorities (formulate policies)
+- Industries (optimize energy usage & compliance)
+
+---
+
+Slide 6: Technologies Used
+- Backend: Python, Django
+- Machine Learning: Scikit-learn, Pandas, NumPy
+- Frontend: HTML, CSS, JavaScript
+- Database: SQLite / MySQL
+- IDE: VS Code / PyCharm
+
+---
+
+Slide 7: Proposed System & Feasibility
+- Economic: Open-source, no licensing costs.
+- Technical: Widely supported Python libraries.
+- Operational: User-friendly web interface requiring minimal training.
+
+---
+
+Slide 8: System Architecture
+[Placeholder: Insert your Use Case or System Architecture Diagram here]
+Workflow:
+1. User inputs data
+2. Data Preprocessing
+3. ML Model Training
+4. Prediction Generation
+5. Graph & Report Visualization
+
+---
+
+Slide 9: Database Design
+- User Table: Manages access (user_id, username, password).
+- Emission Data Table: Stores historical records (year, energy used, industrial & transport emissions).
+- Prediction Table: Stores forecasted results and the ML models used.
+
+---
+
+Slide 10: Testing Strategies
+- Manual testing for UI Validation.
+- Unit Testing for individual modules (Data loading, Preprocessing, ML training).
+- Integration Testing for backend-frontend link.
+- Acceptance Testing for accuracy verification and report generation.
+
+---
+
+Slide 11: Advantages
+- Automated and Fast.
+- High Accuracy via Machine Learning.
+- Visual Data Comparison (Charts/Graphs).
+- Aids Strategic Planning.
+
+---
+
+Slide 12: Limitations
+- Dependent heavily on historical data accuracy.
+- Lacks real-time data continuous integration.
+- Cannot predict sudden events (natural disasters, pandemics).
+
+---
+
+Slide 13: Proposed Enhancements
+- Real-Time Data Integration via APIs.
+- Use of Deep Learning (LSTM) for time-series forecasting.
+- Cloud Deployment for scalability.
+- Mobile App support for better accessibility.
+
+---
+
+Slide 14: Conclusion
+- Effectively predicts carbon emissions based on history.
+- Overcomes traditional statistical limitations.
+- Contributes significantly to climate change mitigation and sustainable development.
+- A highly valuable tool for environmental planning.
+
+---
+
+Slide 15: Thank You!
+- Any Questions?

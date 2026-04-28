@@ -7,6 +7,7 @@ import '@/styles/phase5.css';
 export default function ApplyPage() {
   const [form, setForm] = useState({ studentName: '', grade: '', parentName: '', phone: '', email: '', previousSchool: '', address: '', message: '' });
   const [submitted, setSubmitted] = useState(false);
+  const [applicationId, setApplicationId] = useState('');
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
@@ -18,6 +19,8 @@ export default function ApplyPage() {
       body: JSON.stringify(form),
     });
     if (res.ok) {
+      const data = await res.json();
+      setApplicationId(data.id);
       setSubmitted(true);
       setForm({ studentName: '', grade: '', parentName: '', phone: '', email: '', previousSchool: '', address: '', message: '' });
     }
@@ -40,10 +43,29 @@ export default function ApplyPage() {
               <div style={{ textAlign: 'center', padding: '2rem 0' }}>
                 <i className="fas fa-check-circle" style={{ fontSize: '3rem', color: '#16a34a', marginBottom: '1rem', display: 'block' }}></i>
                 <h3 style={{ fontFamily: 'var(--font-heading)', color: 'var(--navy)', marginBottom: '0.5rem' }}>Application Submitted!</h3>
-                <p style={{ color: 'var(--gray-400)', fontSize: '0.85rem' }}>Thank you! Our admission team will contact you within 48 hours.</p>
-                <button onClick={() => setSubmitted(false)} className="btn btn-outline" style={{ marginTop: '1rem' }}>
-                  Submit Another Application
-                </button>
+                <p style={{ color: 'var(--gray-400)', fontSize: '0.85rem' }}>Thank you! Your Application ID is:</p>
+                <div style={{ 
+                  background: 'var(--gray-100)', 
+                  padding: '1rem', 
+                  borderRadius: '8px', 
+                  margin: '1rem 0', 
+                  fontFamily: 'monospace', 
+                  fontSize: '1.2rem', 
+                  color: 'var(--navy)',
+                  border: '1px dashed var(--gold)',
+                  fontWeight: 'bold'
+                }}>
+                  {applicationId}
+                </div>
+                <p style={{ color: 'var(--gray-400)', fontSize: '0.8rem', fontStyle: 'italic' }}>Please save this ID to track your application status.</p>
+                <div style={{ marginTop: '2rem', display: 'flex', gap: '1rem', justifyContent: 'center' }}>
+                  <Link href="/admissions/track" className="btn btn-primary">
+                    Track Status Now
+                  </Link>
+                  <button onClick={() => setSubmitted(false)} className="btn btn-outline">
+                    Submit Another
+                  </button>
+                </div>
               </div>
             ) : (
               <>

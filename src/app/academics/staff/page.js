@@ -50,6 +50,11 @@ export default function StaffPage() {
           ) : (
             staff.map((t) => (
               <div key={t.id} className="staff-card">
+                {t.subject && (
+                  <div className="staff-subject-badge">
+                    {t.subject}
+                  </div>
+                )}
                 {t.photo ? (
                   <img
                     src={t.photo}
@@ -60,9 +65,11 @@ export default function StaffPage() {
                 ) : (
                   <div className="staff-photo-placeholder">{t.name?.charAt(0) || '?'}</div>
                 )}
-                <h3>{t.name}</h3>
-                <p className="staff-desg">{t.designation}</p>
-                {t.qualification && <p className="staff-qual">{t.qualification}</p>}
+                <div className="staff-info">
+                  <h3>{t.name}</h3>
+                  <p className="staff-desg">{t.designation}</p>
+                  {t.qualification && <p className="staff-qual">{t.qualification}</p>}
+                </div>
               </div>
             ))
           )}

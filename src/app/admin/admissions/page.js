@@ -122,7 +122,19 @@ export default function AdminAdmissions() {
                       </td>
                       <td style={{ fontSize: '0.78rem', color: 'var(--gray-400)' }}>{new Date(a.createdAt).toLocaleDateString('en-IN')}</td>
                       <td>
-                        <button className="admin-btn admin-btn-danger admin-btn-sm" onClick={() => handleDelete(a.id)}><i className="fas fa-trash"></i></button>
+                        <div style={{ display: 'flex', gap: '0.3rem' }}>
+                          <button className="admin-btn admin-btn-danger admin-btn-sm" onClick={() => handleDelete(a.id)} title="Delete"><i className="fas fa-trash"></i></button>
+                          <a 
+                            href={`https://wa.me/${a.phone.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(`Hello ${a.parentName}, the application status for ${a.studentName} at Vasundhara Academy has been updated to: ${a.status.toUpperCase()}. \n\nYou can track the live progress here: ${typeof window !== 'undefined' ? window.location.origin : ''}/admissions/track?id=${a.id}`)}`}
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            className="admin-btn admin-btn-outline admin-btn-sm"
+                            style={{ color: '#25D366', borderColor: '#25D366' }}
+                            title="Notify via WhatsApp"
+                          >
+                            <i className="fab fa-whatsapp"></i>
+                          </a>
+                        </div>
                       </td>
                     </tr>
                   ))}
