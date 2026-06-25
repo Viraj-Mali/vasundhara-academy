@@ -30,7 +30,7 @@ export default function MissionVisionPage() {
               </p>
             </div>
             <div className="message-quote">
-              &quot;|| विद्याधनं सर्वधनं प्रधानम् ||&quot;<br/>
+              &quot;|| सत्यमेव मृगेन्द्रता  ||&quot;<br/>
               <small style={{ fontStyle: 'normal', color: 'var(--gray-500)' }}>
                 — The wealth of knowledge is the greatest of all wealth.
               </small>
