@@ -7,6 +7,7 @@ export const EXCLUDED_FROM_PUBLIC_GALLERY = [
   'classroom', 'science-lab', 'computer-lab', 'library',
   'hostel', 'counseling', 'healthcare',
   'sports-ground', 'sports-grounds', 'indoor-games', 'outings', 'assembly', 'transport',
+  'music', 'dance', 'drama', 'yoga',
   'mandatory-disclosure',
 ];
 

@@ -24,6 +24,10 @@ const categoryOptions = [
   { value: 'outings', label: '🏔️ Outings & Trips (Facility)' },
   { value: 'assembly', label: '📢 Assembly Ground (Facility)' },
   { value: 'transport', label: '🚌 Transport (Facility)' },
+  { value: 'music', label: '🎵 Music (Facility)' },
+  { value: 'dance', label: '💃 Dance (Facility)' },
+  { value: 'drama', label: '🎭 Drama (Facility)' },
+  { value: 'yoga', label: '🧘 Yoga (Facility)' },
 ];
 
 const generalCategoryOptions = categoryOptions.filter(c => !c.label.includes('Facility'));
