@@ -4,6 +4,18 @@ import { isLocalDevWithoutDatabase } from '@/lib/localDev';
 import { listLocalGalleryImages } from '@/lib/localGalleryStore';
 import { EXCLUDED_FROM_PUBLIC_GALLERY, filterGalleryImages, getStaticGalleryImages, mergeGalleryImages } from '@/lib/staticGallery';
 
+function mapDisclosureDocument(document) {
+  return {
+    id: document.id,
+    title: document.title || '',
+    url: document.fileUrl,
+    category: 'mandatory-disclosure',
+    order: document.order || 0,
+    createdAt: document.createdAt,
+    source: 'document',
+  };
+}
+
 export async function GET(req) {
   const { searchParams } = new URL(req.url);
   const category = searchParams.get('category');
@@ -28,6 +40,17 @@ export async function GET(req) {
     where,
     orderBy: { createdAt: 'desc' },
   });
+
+  if (category === 'mandatory-disclosure') {
+    const documents = await prisma.document.findMany({
+      orderBy: [{ order: 'asc' }, { createdAt: 'desc' }],
+    });
+    const disclosureItems = [
+      ...data,
+      ...documents.filter((document) => document.fileUrl).map(mapDisclosureDocument),
+    ];
+    return NextResponse.json(filterGalleryImages(mergeGalleryImages(disclosureItems, staticImages), { category, includeAll }));
+  }
 
   return NextResponse.json(filterGalleryImages(mergeGalleryImages(data, staticImages), { category, includeAll }));
 }

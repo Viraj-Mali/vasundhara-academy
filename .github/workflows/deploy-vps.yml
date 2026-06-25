@@ -1,0 +1,172 @@
+name: Deploy Vasundhara Academy To VPS
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: vasundhara-vps-main
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Check VPS deployment secrets
+        id: vps_secrets
+        env:
+          SERVER_IP: ${{ secrets.SERVER_IP }}
+          SERVER_USER: ${{ secrets.SERVER_USER }}
+          SERVER_SSH_KEY: ${{ secrets.SERVER_SSH_KEY }}
+        run: |
+          missing=0
+          for name in SERVER_IP SERVER_USER SERVER_SSH_KEY; do
+            if [ -z "${!name}" ]; then
+              echo "::notice::VPS deploy skipped because repository secret $name is not configured."
+              missing=1
+            fi
+          done
+
+          if [ "$missing" -eq 1 ]; then
+            echo "ready=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          echo "ready=true" >> "$GITHUB_OUTPUT"
+
+      - name: Deploy exact commit to VPS
+        if: steps.vps_secrets.outputs.ready == 'true'
+        uses: appleboy/ssh-action@v1.2.5
+        with:
+          host: ${{ secrets.SERVER_IP }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          command_timeout: 30m
+          script: |
+            set -euo pipefail
+
+            APP_NAME="vasundhara"
+            APP_PORT="3005"
+            REPO_URL="https://github.com/Viraj-Mali/vasundhara-academy.git"
+            EXPECTED_COMMIT="${{ github.sha }}"
+            RELEASES_DIR="/root/vasundhara-releases"
+            SHARED_DIR="/root/vasundhara-shared"
+            BACKUP_DIR="/root/vasundhara-backups"
+            LEGACY_DIR="/root/vasundhara-academy"
+            RELEASE_DIR="$RELEASES_DIR/$EXPECTED_COMMIT"
+            BUILD_DIR="$RELEASE_DIR.tmp"
+            CURRENT_LINK="/root/vasundhara-academy-current"
+            TS="$(date +%Y%m%d-%H%M%S)"
+
+            get_pm2_cwd() {
+              pm2 jlist 2>/dev/null | node -e "
+                const fs = require('fs');
+                const input = fs.readFileSync(0, 'utf8') || '[]';
+                const app = JSON.parse(input).find((item) => item.name === '$APP_NAME');
+                process.stdout.write(app?.pm2_env?.pm_cwd || '');
+              " 2>/dev/null || true
+            }
+
+            PREVIOUS_CWD="$(get_pm2_cwd)"
+            if [ -z "$PREVIOUS_CWD" ] && [ -d "$LEGACY_DIR" ]; then
+              PREVIOUS_CWD="$LEGACY_DIR"
+            fi
+
+            rollback() {
+              echo "Deployment failed."
+              if [ -n "${PREVIOUS_CWD:-}" ] && [ -d "$PREVIOUS_CWD" ]; then
+                echo "Rolling back PM2 to $PREVIOUS_CWD"
+                pm2 delete "$APP_NAME" >/dev/null 2>&1 || true
+                cd "$PREVIOUS_CWD"
+                pm2 start npm --name "$APP_NAME" -- run start -- -p "$APP_PORT" || true
+                pm2 save || true
+              fi
+              pm2 logs "$APP_NAME" --lines 80 --nostream || true
+            }
+            trap rollback ERR
+
+            mkdir -p "$RELEASES_DIR" "$SHARED_DIR" "$SHARED_DIR/uploads" "$BACKUP_DIR"
+
+            echo "Seeding shared runtime files..."
+            for candidate in "$PREVIOUS_CWD" "$LEGACY_DIR" "$LEGACY_DIR/vasundhara-academy"; do
+              if [ -n "$candidate" ] && [ -d "$candidate" ]; then
+                if [ ! -f "$SHARED_DIR/.env" ] && [ -f "$candidate/.env" ]; then
+                  cp "$candidate/.env" "$SHARED_DIR/.env"
+                fi
+                if [ -d "$candidate/public/uploads" ]; then
+                  cp -an "$candidate/public/uploads/." "$SHARED_DIR/uploads/" || true
+                fi
+              fi
+            done
+
+            if [ ! -f "$SHARED_DIR/.env" ]; then
+              echo "Missing runtime env file: $SHARED_DIR/.env"
+              echo "Create it from the current production .env before deploying."
+              exit 1
+            fi
+
+            echo "Creating runtime backup..."
+            tar -czf "$BACKUP_DIR/vasundhara-runtime-before-deploy-$TS.tgz" -C "$SHARED_DIR" .
+
+            echo "Preparing release $EXPECTED_COMMIT..."
+            rm -rf "$BUILD_DIR" "$RELEASE_DIR"
+            git clone "$REPO_URL" "$BUILD_DIR"
+            cd "$BUILD_DIR"
+            git checkout --detach "$EXPECTED_COMMIT"
+
+            ACTUAL_COMMIT="$(git rev-parse HEAD)"
+            if [ "$ACTUAL_COMMIT" != "$EXPECTED_COMMIT" ]; then
+              echo "Commit mismatch: expected $EXPECTED_COMMIT got $ACTUAL_COMMIT"
+              exit 1
+            fi
+
+            cp "$SHARED_DIR/.env" .env
+            mkdir -p public
+            rm -rf public/uploads
+            ln -s "$SHARED_DIR/uploads" public/uploads
+
+            echo "Installing dependencies..."
+            npm ci
+
+            echo "Building Next.js release..."
+            npm run build
+
+            mv "$BUILD_DIR" "$RELEASE_DIR"
+
+            echo "Switching PM2 to release $RELEASE_DIR..."
+            pm2 delete "$APP_NAME" >/dev/null 2>&1 || true
+            cd "$RELEASE_DIR"
+            pm2 start npm --name "$APP_NAME" -- run start -- -p "$APP_PORT"
+
+            echo "Waiting for health check..."
+            HEALTHY=0
+            for _ in $(seq 1 30); do
+              if curl -fsS "http://127.0.0.1:$APP_PORT" >/dev/null; then
+                HEALTHY=1
+                break
+              fi
+              sleep 2
+            done
+
+            if [ "$HEALTHY" != "1" ]; then
+              echo "Health check failed on http://127.0.0.1:$APP_PORT"
+              exit 1
+            fi
+
+            ln -sfn "$RELEASE_DIR" "$CURRENT_LINK"
+            pm2 save
+
+            echo "Cleaning old releases and backups..."
+            ls -1dt "$RELEASES_DIR"/* 2>/dev/null | tail -n +6 | xargs -r rm -rf
+            ls -1t "$BACKUP_DIR"/vasundhara-runtime-before-deploy-*.tgz 2>/dev/null | tail -n +11 | xargs -r rm -f
+
+            pm2 list
+            curl -fsSI "http://127.0.0.1:$APP_PORT"
+            echo "Vasundhara deployed successfully at commit $EXPECTED_COMMIT"
