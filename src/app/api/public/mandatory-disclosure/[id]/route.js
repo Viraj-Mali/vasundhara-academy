@@ -37,9 +37,22 @@ async function findDocument(id) {
 
   if (!process.env.DATABASE_URL) return null;
 
-  return prisma.galleryImage.findFirst({
+  const galleryDocument = await prisma.galleryImage.findFirst({
     where: { id, category: 'mandatory-disclosure' },
   });
+  if (galleryDocument) return galleryDocument;
+
+  const publicDocument = await prisma.document.findUnique({
+    where: { id },
+  });
+
+  if (!publicDocument?.fileUrl) return null;
+
+  return {
+    id: publicDocument.id,
+    title: publicDocument.title,
+    url: publicDocument.fileUrl,
+  };
 }
 
 export async function GET(_req, { params }) {
@@ -65,7 +78,11 @@ export async function GET(_req, { params }) {
     try {
       const response = await fetch(url, { cache: 'no-store' });
       const contentType = response.headers.get('content-type') || '';
-      if (response.ok && contentType.toLowerCase().includes('pdf')) {
+      const isPdfLike =
+        contentType.toLowerCase().includes('pdf') ||
+        url.toLowerCase().includes('/raw/upload/') ||
+        url.toLowerCase().endsWith('.pdf');
+      if (response.ok && isPdfLike) {
         const buffer = Buffer.from(await response.arrayBuffer());
         const filename = `${(doc.title || 'mandatory-disclosure').replace(/[^a-z0-9-]+/gi, '-')}.pdf`;
         return pdfResponse(buffer, filename);
