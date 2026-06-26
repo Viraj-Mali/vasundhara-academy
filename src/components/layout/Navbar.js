@@ -37,6 +37,7 @@ const navItems = [
       { label: 'Fee Structure', href: '/admissions/fee-structure' },
       { label: 'Apply Online', href: '/admissions/apply' },
       { label: 'Track Application', href: '/admissions/track' },
+      { label: 'Enquiry Now', href: '/enquire' },
     ],
   },
   {
@@ -55,6 +56,8 @@ const navItems = [
   },
    { label: 'Public Disclosures', href: '/disclosures'},
   { label: 'Why Vasundhara', href: '/why-vasundhara' },
+  { label: 'Notifications', href: '/notifications' },
+  { label: 'Social Media', href: '#' },
   { label: 'Contact', href: '/contact' },
 ];
 

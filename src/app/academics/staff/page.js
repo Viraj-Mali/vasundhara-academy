@@ -1,11 +1,12 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import '@/styles/about.css';
 import '@/styles/phase4.css';
 
 export default function StaffPage() {
   const [staff, setStaff] = useState([]);
   const [loaded, setLoaded] = useState(false);
+  const gridRef = useRef(null);
 
   useEffect(() => {
     fetch('/api/public/staff')
@@ -13,6 +14,19 @@ export default function StaffPage() {
       .then(data => { setStaff(data); setLoaded(true); })
       .catch(() => setLoaded(true));
   }, []);
+
+  // After staff data loads and cards render, trigger the reveal animation
+  const handleGridRef = useCallback((node) => {
+    gridRef.current = node;
+    if (node && loaded && staff.length > 0) {
+      // Remove any stale 'revealed' class first, then re-add after a frame
+      // so the CSS transition actually fires on the new children
+      node.classList.remove('revealed');
+      requestAnimationFrame(() => {
+        node.classList.add('revealed');
+      });
+    }
+  }, [loaded, staff]);
 
   return (
     <>
@@ -31,7 +45,7 @@ export default function StaffPage() {
             Our qualified and passionate team of teachers is the backbone of Vasundhara Academy&apos;s academic excellence.
           </p>
         </div>
-        <div className="staff-grid reveal-stagger">
+        <div className="staff-grid reveal-stagger" ref={handleGridRef}>
           {!loaded ? (
             <>
               {[1,2,3,4].map(i => (
