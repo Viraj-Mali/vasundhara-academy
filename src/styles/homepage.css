@@ -21,6 +21,18 @@
   background: url('/images/Vasundhara-building.jpeg') center/cover no-repeat;
   opacity: 1;
 }
+.hero-bg-slide {
+  position: absolute;
+  inset: 0;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+}
+.hero-bg-slide.active {
+  opacity: 1;
+}
 .hero-bg::after {
   content: '';
   position: absolute;

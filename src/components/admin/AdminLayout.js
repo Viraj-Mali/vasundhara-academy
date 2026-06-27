@@ -14,6 +14,7 @@ const sidebarItems = [
     { label: 'Notifications', href: '/admin/notifications', icon: 'fas fa-bell', badgeKey: 'notifications' },
     { label: 'Notice Board', href: '/admin/notices', icon: 'fas fa-bullhorn' },
     { label: 'Blog & News', href: '/admin/blog', icon: 'fas fa-newspaper' },
+    { label: 'Hero Background Slider', href: '/admin/hero-background-slider', icon: 'fas fa-images' },
     { label: 'Events', href: '/admin/events', icon: 'fas fa-calendar-alt', badgeKey: 'events' },
     { label: 'Messages', href: '/admin/messages', icon: 'fas fa-envelope' },
     { label: 'Gallery', href: '/admin/gallery', icon: 'fas fa-images', badgeKey: 'gallery' },

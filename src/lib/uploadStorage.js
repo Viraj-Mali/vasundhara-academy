@@ -1,4 +1,4 @@
-import { mkdir, readFile, writeFile } from 'fs/promises';
+import { mkdir, readFile, unlink, writeFile } from 'fs/promises';
 import { tmpdir } from 'os';
 import { basename, extname, join } from 'path';
 
@@ -68,6 +68,25 @@ export async function readUploadFile(filename = fallbackUploadName) {
   }
 
   throw new Error(`Upload file not found. ${errors.join(' | ')}`);
+}
+
+export async function deleteUploadFileByUrl(url) {
+  const filename = filenameFromUploadUrl(url);
+  if (!filename) return false;
+
+  let deleted = false;
+  await Promise.all(getUploadDirectories().map(async (dir) => {
+    try {
+      await unlink(join(dir, filename));
+      deleted = true;
+    } catch (error) {
+      if (error.code !== 'ENOENT') {
+        console.warn(`Unable to delete upload file ${filename} from ${dir}:`, error.message);
+      }
+    }
+  }));
+
+  return deleted;
 }
 
 export function contentTypeForUpload(filename) {

@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import '@/styles/homepage.css';
 import StatCounter from '@/components/ui/StatCounter';
+import HeroBackgroundSlider from '@/components/home/HeroBackgroundSlider';
 
 export const metadata = {
   title: 'Vasundhara Academy Akole | CBSE School in Akole, Maharashtra',
@@ -12,7 +13,7 @@ export default function HomePage() {
     <>
       {/* ── HERO ── */}
       <section className="hero">
-        <div className="hero-bg"></div>
+        <HeroBackgroundSlider />
         <div className="hero-particles" id="hero-particles"></div>
         <div className="hero-content">
           <div className="hero-badge">

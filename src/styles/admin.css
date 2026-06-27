@@ -407,6 +407,17 @@
   object-fit: cover;
   border: 2px solid #e2e8f0;
 }
+.hero-slider-preview {
+  width: 150px;
+  height: 84px;
+}
+.hero-slider-edit-preview {
+  width: 100%;
+  max-height: 260px;
+  border-radius: var(--radius-md);
+  object-fit: cover;
+  border: 2px solid #e2e8f0;
+}
 
 /* ── Mobile Hamburger ── */
 .admin-mobile-toggle {
