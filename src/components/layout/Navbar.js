@@ -30,6 +30,7 @@ const navItems = [
       { label: 'Mandatory Disclosure', href: '/academics/mandatory-disclosure' },
     ],
   },
+  { label: 'Question Bank', href: '#' },
   {
     label: 'Admissions', href: '/admissions',
     children: [
@@ -56,6 +57,7 @@ const navItems = [
   },
    { label: 'Public Disclosures', href: '/disclosures'},
   { label: 'Why Vasundhara', href: '/why-vasundhara' },
+  { label: 'School News', href: '#' },
   { label: 'Notifications', href: '/notifications' },
   { label: 'Social Media', href: '#' },
   { label: 'Contact', href: '/contact' },
