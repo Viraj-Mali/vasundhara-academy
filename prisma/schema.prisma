@@ -159,6 +159,18 @@ model HeroBackgroundSlider {
   updatedAt    DateTime @updatedAt
 }
 
+// =============== SCHOOL NEWS ===============
+model SchoolNews {
+  id          String   @id @default(cuid())
+  title       String
+  description String
+  newsDate    DateTime
+  image       String
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
 // =============== NOTIFICATIONS/ANNOUNCEMENTS ===============
 model Notification {
   id        String    @id @default(cuid())

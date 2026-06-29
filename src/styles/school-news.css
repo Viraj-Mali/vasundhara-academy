@@ -1,0 +1,130 @@
+.school-news-section {
+  padding: 5rem 0;
+  background: var(--white);
+}
+
+.school-news-grid {
+  max-width: 1200px;
+  margin: 2rem auto 0;
+  padding: 0 2rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+.school-news-card {
+  background: var(--white);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  border: 1px solid rgba(0,0,0,0.06);
+  transition: all 0.4s;
+}
+
+.school-news-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-lg);
+}
+
+.school-news-image {
+  position: relative;
+  height: 220px;
+  overflow: hidden;
+  background: var(--off-white);
+}
+
+.school-news-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s;
+}
+
+.school-news-card:hover .school-news-image img {
+  transform: scale(1.06);
+}
+
+.school-news-date {
+  position: absolute;
+  left: 1rem;
+  bottom: 1rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.45rem 0.8rem;
+  border-radius: var(--radius-full);
+  background: rgba(10,22,40,0.78);
+  color: var(--white);
+  font-size: 0.74rem;
+  font-weight: 600;
+  backdrop-filter: blur(10px);
+}
+
+.school-news-date i {
+  color: var(--gold);
+}
+
+.school-news-body {
+  padding: 1.5rem;
+}
+
+.school-news-body h3 {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  color: var(--navy);
+  margin-bottom: 0.6rem;
+  line-height: 1.4;
+}
+
+.school-news-body p {
+  color: var(--gray-500);
+  font-size: 0.86rem;
+  line-height: 1.75;
+}
+
+.school-news-empty {
+  max-width: 560px;
+  margin: 2rem auto 0;
+  padding: 3rem 2rem;
+  text-align: center;
+  background: var(--off-white);
+  border: 1px solid rgba(0,0,0,0.04);
+  border-radius: var(--radius-xl);
+}
+
+.school-news-empty-icon {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 1rem;
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(212,168,83,0.1);
+  color: var(--gold);
+  font-size: 1.5rem;
+}
+
+.school-news-empty h3 {
+  font-family: var(--font-heading);
+  color: var(--navy);
+  font-size: 1.15rem;
+  margin-bottom: 0.5rem;
+}
+
+.school-news-empty p {
+  color: var(--gray-500);
+  font-size: 0.9rem;
+  line-height: 1.7;
+}
+
+@media (max-width: 1024px) {
+  .school-news-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .school-news-grid {
+    grid-template-columns: 1fr;
+  }
+}

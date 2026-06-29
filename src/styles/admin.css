@@ -418,6 +418,21 @@
   object-fit: cover;
   border: 2px solid #e2e8f0;
 }
+.school-news-admin-thumb {
+  width: 120px;
+  height: 76px;
+  border-radius: var(--radius-md);
+  object-fit: cover;
+  border: 2px solid #e2e8f0;
+}
+.school-news-admin-current {
+  width: 100%;
+  max-width: 420px;
+  height: 220px;
+  border-radius: var(--radius-md);
+  object-fit: cover;
+  border: 2px solid #e2e8f0;
+}
 
 /* ── Mobile Hamburger ── */
 .admin-mobile-toggle {
