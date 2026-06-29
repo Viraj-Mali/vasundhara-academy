@@ -33,6 +33,7 @@ const sidebarItems = [
   ]},
   { label: 'Documents', items: [
     { label: 'Public Disclosures', href: '/admin/documents', icon: 'fas fa-file-contract' },
+    { label: 'Question Bank', href: '/admin/question-bank', icon: 'fas fa-file-pdf' },
   ]},
 ];
 

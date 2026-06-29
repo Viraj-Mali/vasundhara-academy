@@ -30,7 +30,7 @@ const navItems = [
       { label: 'Mandatory Disclosure', href: '/academics/mandatory-disclosure' },
     ],
   },
-  { label: 'Question Bank', href: '#' },
+  { label: 'Question Bank', href: '/question-bank' },
   {
     label: 'Admissions', href: '/admissions',
     children: [

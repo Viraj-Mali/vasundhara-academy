@@ -171,6 +171,17 @@ model SchoolNews {
   updatedAt   DateTime @updatedAt
 }
 
+// =============== QUESTION BANK ===============
+model QuestionBank {
+  id        String   @id @default(cuid())
+  title     String
+  className String
+  pdfUrl    String
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
 // =============== NOTIFICATIONS/ANNOUNCEMENTS ===============
 model Notification {
   id        String    @id @default(cuid())
