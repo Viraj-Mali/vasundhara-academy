@@ -37,6 +37,23 @@ export async function createLocalDocument(data) {
   return item;
 }
 
+export async function updateLocalDocument(id, data) {
+  const items = await readDocuments();
+  let updated = null;
+  const nextItems = items.map((item) => {
+    if (item.id !== id) return item;
+    updated = {
+      ...item,
+      ...data,
+      id: item.id,
+      createdAt: item.createdAt,
+    };
+    return updated;
+  });
+  await writeDocuments(nextItems);
+  return updated;
+}
+
 export async function deleteLocalDocument(id) {
   const items = await readDocuments();
   await writeDocuments(items.filter((item) => item.id !== id));

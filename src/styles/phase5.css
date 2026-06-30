@@ -80,6 +80,109 @@
   color: var(--navy);
 }
 
+/* Appendix IX Public Disclosures */
+.appendix-disclosures-section {
+  padding: 4.5rem 0 5rem;
+  background: var(--white);
+}
+.appendix-card-stack {
+  max-width: 1120px;
+  margin: 2rem auto 0;
+  padding: 0 2rem;
+}
+.appendix-card {
+  background: var(--white);
+  border: 1px solid rgba(10,22,40,0.08);
+  border-radius: 8px;
+  box-shadow: 0 10px 28px rgba(10,22,40,0.08);
+  margin-bottom: 1.5rem;
+  overflow: hidden;
+}
+.appendix-card h2 {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  color: var(--navy);
+  background: linear-gradient(90deg, rgba(212,168,83,0.18), rgba(212,168,83,0.04));
+  border-bottom: 1px solid rgba(212,168,83,0.28);
+  padding: 1rem 1.2rem;
+}
+.appendix-table-wrap {
+  width: 100%;
+  overflow-x: auto;
+}
+.appendix-table {
+  width: 100%;
+  min-width: 720px;
+  border-collapse: collapse;
+}
+.appendix-table th {
+  background: var(--navy);
+  color: var(--gold);
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  padding: 0.85rem 1rem;
+  text-align: left;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.appendix-table td {
+  border-bottom: 1px solid rgba(10,22,40,0.07);
+  color: var(--gray-600);
+  font-size: 0.88rem;
+  line-height: 1.55;
+  padding: 0.9rem 1rem;
+  vertical-align: top;
+}
+.appendix-table tbody tr:nth-child(even) {
+  background: var(--off-white);
+}
+.appendix-table tbody tr:hover {
+  background: rgba(212,168,83,0.06);
+}
+.appendix-table td:first-child,
+.appendix-table th:first-child {
+  width: 88px;
+  text-align: center;
+}
+.appendix-table td:nth-child(2) {
+  color: var(--navy);
+  font-weight: 600;
+}
+.appendix-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 34px;
+  padding: 0.42rem 0.9rem;
+  border: 1px solid var(--gold);
+  border-radius: 6px;
+  color: var(--navy);
+  background: rgba(212,168,83,0.14);
+  font-size: 0.78rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.appendix-action:hover {
+  background: var(--gold);
+  color: var(--navy);
+}
+.appendix-loading {
+  margin-bottom: 1rem;
+  padding: 0.9rem 1rem;
+  border-radius: 8px;
+  background: var(--off-white);
+  color: var(--gray-500);
+  font-size: 0.88rem;
+  text-align: center;
+}
+.appendix-result-title {
+  padding: 1rem 1rem 0.5rem;
+  color: var(--navy);
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+}
+
 /* ── Staff Statement Table ── */
 .table-section { padding: 5rem 0; background: var(--white); }
 .table-wrap {
@@ -334,4 +437,10 @@
   .student-content-grid { grid-template-columns: 1fr; }
   .doc-item { flex-direction: column; align-items: flex-start; gap: 0.8rem; }
   .admission-step { grid-template-columns: 45px 1fr; gap: 1rem; }
+  .appendix-disclosures-section { padding: 3rem 0 4rem; }
+  .appendix-card-stack { padding: 0 1rem; }
+  .appendix-card h2 { font-size: 0.92rem; }
+  .appendix-table { min-width: 640px; }
+  .appendix-table th,
+  .appendix-table td { padding: 0.75rem 0.8rem; }
 }

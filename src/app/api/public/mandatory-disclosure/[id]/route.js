@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
 import { isLocalDevWithoutDatabase } from '@/lib/localDev';
+import { listLocalDocuments } from '@/lib/localDocumentStore';
 import { listLocalGalleryImages } from '@/lib/localGalleryStore';
 import { filenameFromUploadUrl, readUploadFile } from '@/lib/uploadStorage';
 
@@ -13,7 +14,7 @@ function pdfResponse(buffer, filename = FALLBACK_PDF) {
   return new NextResponse(buffer, {
     headers: {
       'Content-Type': 'application/pdf',
-      'Content-Disposition': `attachment; filename="${filename.replace(/"/g, '')}"`,
+      'Content-Disposition': `inline; filename="${filename.replace(/"/g, '')}"`,
       'Cache-Control': 'public, max-age=300',
     },
   });
@@ -31,8 +32,19 @@ function normalizeCloudinaryPdfUrl(url) {
 
 async function findDocument(id) {
   if (isLocalDevWithoutDatabase()) {
-    const docs = await listLocalGalleryImages({ category: 'mandatory-disclosure', includeAll: true });
-    return docs.find((doc) => doc.id === id);
+    const [galleryDocs, publicDocs] = await Promise.all([
+      listLocalGalleryImages({ category: 'mandatory-disclosure', includeAll: true }),
+      listLocalDocuments(),
+    ]);
+    const galleryDocument = galleryDocs.find((doc) => doc.id === id);
+    if (galleryDocument) return galleryDocument;
+    const publicDocument = publicDocs.find((doc) => doc.id === id);
+    if (!publicDocument?.fileUrl) return null;
+    return {
+      id: publicDocument.id,
+      title: publicDocument.title,
+      url: publicDocument.fileUrl,
+    };
   }
 
   if (!process.env.DATABASE_URL) return null;
