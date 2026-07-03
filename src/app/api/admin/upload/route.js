@@ -2,6 +2,21 @@ import { NextResponse } from 'next/server';
 import { v2 as cloudinary } from 'cloudinary';
 import { createUploadFileName, writeUploadFile } from '@/lib/uploadStorage';
 
+const pdfMimeTypes = new Set(['application/pdf', 'application/x-pdf']);
+
+function isPdfFileName(name = '') {
+  return name.toLowerCase().endsWith('.pdf');
+}
+
+function hasPdfSignature(buffer) {
+  return buffer.subarray(0, 4).toString('utf8') === '%PDF';
+}
+
+function contentTypeForResponse(file, isPdf, isPublicDisclosurePdf = false) {
+  if (isPublicDisclosurePdf) return 'application/pdf';
+  return file.type || (isPdf ? 'application/pdf' : 'application/octet-stream');
+}
+
 // Configure Cloudinary if env vars are present
 if (process.env.CLOUDINARY_URL || process.env.CLOUDINARY_API_KEY) {
   cloudinary.config({
@@ -22,7 +37,17 @@ export async function POST(req) {
 
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
-    const isPdf = file.type === 'application/pdf' || file.name.toLowerCase().endsWith('.pdf');
+    const uploadContext = formData.get('uploadContext');
+    const isPublicDisclosurePdf = uploadContext === 'public-disclosure-pdf';
+    const hasPdfExtension = isPdfFileName(file.name || '');
+    const isPdf = hasPdfExtension || pdfMimeTypes.has((file.type || '').toLowerCase());
+
+    if (isPublicDisclosurePdf) {
+      const isValidPdf = hasPdfExtension && hasPdfSignature(buffer);
+      if (!isValidPdf) {
+        return NextResponse.json({ error: 'Only PDF files are allowed for Public Disclosures' }, { status: 400 });
+      }
+    }
 
     // 1. CLOUDINARY UPLOAD (Production)
     if (process.env.CLOUDINARY_URL || process.env.CLOUDINARY_API_KEY) {
@@ -45,6 +70,8 @@ export async function POST(req) {
                 size: result.bytes,
                 format: result.format,
                 resourceType: result.resource_type,
+                originalName: file.name,
+                contentType: contentTypeForResponse(file, isPdf, isPublicDisclosurePdf),
               }));
             }
           }
@@ -61,6 +88,8 @@ export async function POST(req) {
       url: upload.url,
       name: upload.filename,
       size: file.size,
+      originalName: file.name,
+      contentType: contentTypeForResponse(file, isPdf, isPublicDisclosurePdf),
     });
   } catch (error) {
     console.error('Upload API Error:', error);

@@ -8,9 +8,20 @@ import { deleteUploadFileByUrl } from '@/lib/uploadStorage';
 export const dynamic = 'force-dynamic';
 
 const noStoreHeaders = { 'Cache-Control': 'no-store, max-age=0' };
+const pdfMimeTypes = new Set(['application/pdf', 'application/x-pdf']);
 
 function isPdfUrl(fileUrl) {
   return typeof fileUrl === 'string' && fileUrl.trim().toLowerCase().split('?')[0].endsWith('.pdf');
+}
+
+function hasPdfExtension(fileName = '') {
+  return fileName.toLowerCase().endsWith('.pdf');
+}
+
+function isValidPdfMetadata(fileName = '', mimeType = '') {
+  const normalizedMimeType = mimeType.toLowerCase();
+  if (!hasPdfExtension(fileName)) return false;
+  return !normalizedMimeType || pdfMimeTypes.has(normalizedMimeType) || normalizedMimeType === 'application/octet-stream';
 }
 
 export async function GET() {
@@ -35,6 +46,8 @@ export async function POST(req) {
   const title = body.title?.trim();
   const category = body.category || 'affiliation';
   const fileUrl = body.fileUrl?.trim();
+  const fileName = body.fileName?.trim();
+  const mimeType = body.mimeType?.trim();
 
   if (!title) {
     return NextResponse.json({ error: 'Document title is required' }, { status: 400 });
@@ -42,7 +55,7 @@ export async function POST(req) {
   if (!fileUrl) {
     return NextResponse.json({ error: 'Please upload a document file first' }, { status: 400 });
   }
-  if (!isPdfUrl(fileUrl)) {
+  if (!isPdfUrl(fileUrl) && !isValidPdfMetadata(fileName, mimeType)) {
     return NextResponse.json({ error: 'Only PDF files are allowed for Public Disclosures' }, { status: 400 });
   }
 
@@ -66,6 +79,8 @@ export async function PUT(req) {
   const title = body.title?.trim();
   const category = body.category || 'affiliation';
   const fileUrl = body.fileUrl?.trim();
+  const fileName = body.fileName?.trim();
+  const mimeType = body.mimeType?.trim();
 
   if (!id) {
     return NextResponse.json({ error: 'Document id is required' }, { status: 400 });
@@ -76,7 +91,7 @@ export async function PUT(req) {
   if (!fileUrl) {
     return NextResponse.json({ error: 'Please upload a document file first' }, { status: 400 });
   }
-  if (!isPdfUrl(fileUrl)) {
+  if (!isPdfUrl(fileUrl) && !isValidPdfMetadata(fileName, mimeType)) {
     return NextResponse.json({ error: 'Only PDF files are allowed for Public Disclosures' }, { status: 400 });
   }
 

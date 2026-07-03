@@ -31,6 +31,20 @@ const disclosureSectionOptions = [
   { value: 'infrastructure', label: 'E: School Infrastructure' },
 ];
 
+const pdfMimeTypes = new Set(['application/pdf', 'application/x-pdf']);
+
+async function isValidPublicDisclosurePdf(file) {
+  if (!file?.name?.toLowerCase().endsWith('.pdf')) return false;
+
+  try {
+    const signature = await file.slice(0, 4).text();
+    return signature === '%PDF';
+  } catch {
+    const mimeType = (file.type || '').toLowerCase();
+    return !mimeType || pdfMimeTypes.has(mimeType) || mimeType === 'application/octet-stream';
+  }
+}
+
 function FieldGrid({ rows, form, onChange }) {
   return (
     <div className="public-disclosure-admin-grid">
@@ -209,7 +223,7 @@ export default function AdminDocuments() {
 
   const uploadPdf = async (row, file) => {
     if (!file) return;
-    if (file.type !== 'application/pdf' && !file.name.toLowerCase().endsWith('.pdf')) {
+    if (!(await isValidPublicDisclosurePdf(file))) {
       showToast('Only PDF files are allowed for Public Disclosures.', 'error');
       return;
     }
@@ -218,6 +232,7 @@ export default function AdminDocuments() {
     try {
       const fd = new FormData();
       fd.append('file', file);
+      fd.append('uploadContext', 'public-disclosure-pdf');
 
       const uploadRes = await fetch('/api/admin/upload', { method: 'POST', body: fd });
       const uploadData = await uploadRes.json().catch(() => ({}));
@@ -234,6 +249,8 @@ export default function AdminDocuments() {
           title: row.label,
           category: row.category,
           fileUrl: uploadData.url,
+          fileName: uploadData.originalName || file.name,
+          mimeType: uploadData.contentType || file.type,
         }),
       });
       const saved = await saveRes.json().catch(() => ({}));
@@ -351,7 +368,7 @@ export default function AdminDocuments() {
                                   {isUploading ? 'Uploading...' : doc ? 'Replace PDF' : 'Upload PDF'}
                                   <input
                                     type="file"
-                                    accept="application/pdf,.pdf"
+                                    accept=".pdf,application/pdf"
                                     style={{ display: 'none' }}
                                     disabled={isUploading}
                                     onChange={(event) => {
