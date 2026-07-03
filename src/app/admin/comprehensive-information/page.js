@@ -3,6 +3,20 @@ import { useEffect, useState } from 'react';
 import AdminLayout from '@/components/admin/AdminLayout';
 import '@/styles/admin.css';
 
+const pdfMimeTypes = new Set(['application/pdf', 'application/x-pdf']);
+
+async function isValidComprehensiveInformationPdf(file) {
+  if (!file?.name?.toLowerCase().endsWith('.pdf')) return false;
+
+  try {
+    const signature = await file.slice(0, 4).text();
+    return signature === '%PDF';
+  } catch {
+    const mimeType = (file.type || '').toLowerCase();
+    return !mimeType || pdfMimeTypes.has(mimeType) || mimeType === 'application/octet-stream';
+  }
+}
+
 export default function AdminComprehensiveInformationPage() {
   const [rows, setRows] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -28,7 +42,7 @@ export default function AdminComprehensiveInformationPage() {
 
   const uploadPdf = async (row, file) => {
     if (!file) return;
-    if (file.type !== 'application/pdf' && !file.name.toLowerCase().endsWith('.pdf')) {
+    if (!(await isValidComprehensiveInformationPdf(file))) {
       showToast('Only PDF files are allowed.', 'error');
       return;
     }
@@ -37,6 +51,7 @@ export default function AdminComprehensiveInformationPage() {
     try {
       const fd = new FormData();
       fd.append('file', file);
+      fd.append('uploadContext', 'comprehensive-information-pdf');
 
       const uploadRes = await fetch('/api/admin/upload', { method: 'POST', body: fd });
       const uploadData = await uploadRes.json().catch(() => ({}));
@@ -47,7 +62,12 @@ export default function AdminComprehensiveInformationPage() {
       const saveRes = await fetch('/api/admin/comprehensive-information', {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ rowKey: row.rowKey, fileUrl: uploadData.url }),
+        body: JSON.stringify({
+          rowKey: row.rowKey,
+          fileUrl: uploadData.url,
+          fileName: uploadData.originalName || file.name,
+          mimeType: uploadData.contentType || file.type,
+        }),
       });
       const saveData = await saveRes.json().catch(() => ({}));
       if (!saveRes.ok) throw new Error(saveData.error || 'PDF could not be saved.');
@@ -135,7 +155,7 @@ export default function AdminComprehensiveInformationPage() {
                           {isUploading ? 'Uploading...' : row.pdfUrl ? 'Replace PDF' : 'Upload PDF'}
                           <input
                             type="file"
-                            accept="application/pdf,.pdf"
+                            accept=".pdf,application/pdf"
                             style={{ display: 'none' }}
                             disabled={isUploading}
                             onChange={(event) => {

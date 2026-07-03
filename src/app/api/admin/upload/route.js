@@ -12,8 +12,8 @@ function hasPdfSignature(buffer) {
   return buffer.subarray(0, 4).toString('utf8') === '%PDF';
 }
 
-function contentTypeForResponse(file, isPdf, isPublicDisclosurePdf = false) {
-  if (isPublicDisclosurePdf) return 'application/pdf';
+function contentTypeForResponse(file, isPdf, isValidatedPdfUpload = false) {
+  if (isValidatedPdfUpload) return 'application/pdf';
   return file.type || (isPdf ? 'application/pdf' : 'application/octet-stream');
 }
 
@@ -39,13 +39,18 @@ export async function POST(req) {
     const buffer = Buffer.from(bytes);
     const uploadContext = formData.get('uploadContext');
     const isPublicDisclosurePdf = uploadContext === 'public-disclosure-pdf';
+    const isComprehensiveInformationPdf = uploadContext === 'comprehensive-information-pdf';
+    const isValidatedPdfUpload = isPublicDisclosurePdf || isComprehensiveInformationPdf;
     const hasPdfExtension = isPdfFileName(file.name || '');
     const isPdf = hasPdfExtension || pdfMimeTypes.has((file.type || '').toLowerCase());
 
-    if (isPublicDisclosurePdf) {
+    if (isValidatedPdfUpload) {
       const isValidPdf = hasPdfExtension && hasPdfSignature(buffer);
       if (!isValidPdf) {
-        return NextResponse.json({ error: 'Only PDF files are allowed for Public Disclosures' }, { status: 400 });
+        const error = isPublicDisclosurePdf
+          ? 'Only PDF files are allowed for Public Disclosures'
+          : 'Only PDF files are allowed';
+        return NextResponse.json({ error }, { status: 400 });
       }
     }
 
@@ -71,7 +76,7 @@ export async function POST(req) {
                 format: result.format,
                 resourceType: result.resource_type,
                 originalName: file.name,
-                contentType: contentTypeForResponse(file, isPdf, isPublicDisclosurePdf),
+                contentType: contentTypeForResponse(file, isPdf, isValidatedPdfUpload),
               }));
             }
           }
@@ -89,7 +94,7 @@ export async function POST(req) {
       name: upload.filename,
       size: file.size,
       originalName: file.name,
-      contentType: contentTypeForResponse(file, isPdf, isPublicDisclosurePdf),
+      contentType: contentTypeForResponse(file, isPdf, isValidatedPdfUpload),
     });
   } catch (error) {
     console.error('Upload API Error:', error);

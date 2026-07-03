@@ -14,6 +14,17 @@ import {
 export const dynamic = 'force-dynamic';
 
 const noStoreHeaders = { 'Cache-Control': 'no-store, max-age=0' };
+const pdfMimeTypes = new Set(['application/pdf', 'application/x-pdf']);
+
+function hasPdfExtension(fileName = '') {
+  return fileName.toLowerCase().endsWith('.pdf');
+}
+
+function isValidPdfMetadata(fileName = '', mimeType = '') {
+  const normalizedMimeType = mimeType.toLowerCase();
+  if (!hasPdfExtension(fileName)) return false;
+  return !normalizedMimeType || pdfMimeTypes.has(normalizedMimeType) || normalizedMimeType === 'application/octet-stream';
+}
 
 async function listDocuments() {
   if (isLocalDevWithoutDatabase()) {
@@ -50,6 +61,8 @@ export async function PUT(req) {
   const body = await req.json().catch(() => ({}));
   const rowKey = body.rowKey;
   const fileUrl = body.fileUrl?.trim();
+  const fileName = body.fileName?.trim();
+  const mimeType = body.mimeType?.trim();
   const row = rowForComprehensiveKey(rowKey);
 
   if (!row) {
@@ -58,7 +71,7 @@ export async function PUT(req) {
   if (!fileUrl) {
     return NextResponse.json({ error: 'Please upload a PDF file first' }, { status: 400 });
   }
-  if (!isPdfUrl(fileUrl)) {
+  if (!isPdfUrl(fileUrl) && !isValidPdfMetadata(fileName, mimeType)) {
     return NextResponse.json({ error: 'Only PDF files are allowed' }, { status: 400 });
   }
 
