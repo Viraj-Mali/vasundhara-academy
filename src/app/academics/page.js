@@ -10,7 +10,7 @@ export const metadata = {
 export default function AcademicsPage() {
   return (
     <>
-      <section className="page-hero">
+      <section className="page-hero page-hero-building">
         <div className="page-hero-content">
           <h1 className="page-hero-title">Academics</h1>
           <p className="page-hero-desc">

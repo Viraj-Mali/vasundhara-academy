@@ -43,7 +43,7 @@ export default function WhyVasundharaPage() {
 
   return (
     <>
-      <section className="page-hero">
+      <section className="page-hero page-hero-building">
         <div className="page-hero-content">
 <h1 className="page-hero-title">Why Vasundhara Academy?</h1>
           <p className="page-hero-desc">Five reasons why families trust us with their children&apos;s future.</p>

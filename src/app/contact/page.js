@@ -36,7 +36,7 @@ export default function ContactPage() {
 
   return (
     <>
-      <section className="page-hero">
+      <section className="page-hero page-hero-building">
         <div className="page-hero-content">
           <h1 className="page-hero-title">Contact Us</h1>
           <p className="page-hero-desc">We&apos;d love to hear from you. Reach out to us anytime.</p>

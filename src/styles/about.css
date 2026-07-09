@@ -21,6 +21,9 @@
   background: url('/images/hero-premium.png') center/cover;
   opacity: 0.08;
 }
+.page-hero.page-hero-building::before {
+  background: url('/images/page-banners/vasundhara-building.jpeg') center/cover;
+}
 .page-hero::after {
   content: '';
   position: absolute;

@@ -10,7 +10,7 @@ export default function AboutPage() {
   return (
     <>
       {/* Page Hero */}
-      <section className="page-hero">
+      <section className="page-hero page-hero-building">
         <div className="page-hero-content">
           <h1 className="page-hero-title">About Vasundhara Academy</h1>
           <p className="page-hero-desc">

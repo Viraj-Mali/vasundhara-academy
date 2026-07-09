@@ -29,7 +29,7 @@ export default function SchoolNewsPage() {
 
   return (
     <>
-      <section className="page-hero">
+      <section className="page-hero page-hero-building">
         <div className="page-hero-content">
           <h1 className="page-hero-title">School News</h1>
           <p className="page-hero-desc">

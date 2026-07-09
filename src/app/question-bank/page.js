@@ -29,7 +29,7 @@ export default function QuestionBankPage() {
 
   return (
     <>
-      <section className="page-hero">
+      <section className="page-hero page-hero-building">
         <div className="page-hero-content">
           <h1 className="page-hero-title">Question Bank</h1>
           <p className="page-hero-desc">Class-wise PDF resources for focused practice and revision.</p>

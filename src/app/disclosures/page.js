@@ -168,7 +168,7 @@ export default function DisclosuresPage() {
 
   return (
     <>
-      <section className="page-hero">
+      <section className="page-hero page-hero-building">
         <div className="page-hero-content">
           <h1 className="page-hero-title">Mandatory Public Disclosures</h1>
           <p className="page-hero-desc">CBSE Appendix IX information and documents for Vasundhara Academy.</p>

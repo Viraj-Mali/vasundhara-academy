@@ -10,7 +10,7 @@ export const metadata = {
 export default function AdmissionsPage() {
   return (
     <>
-      <section className="page-hero">
+      <section className="page-hero page-hero-building">
         <div className="page-hero-content">
           <h1 className="page-hero-title">Admissions 2026-27</h1>
           <p className="page-hero-desc">Join the Vasundhara family. Admissions open for Grade 1 to 10 in Akole.</p>

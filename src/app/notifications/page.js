@@ -45,7 +45,7 @@ export default function NotificationsPage() {
 
   return (
     <>
-      <section className="page-hero">
+      <section className="page-hero page-hero-building">
         <div className="page-hero-content">
           <h1 className="page-hero-title">Notifications</h1>
           <p className="page-hero-desc">
