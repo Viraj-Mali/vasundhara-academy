@@ -10,6 +10,10 @@ if (process.env.CLOUDINARY_URL || process.env.CLOUDINARY_API_KEY) {
 }
 
 export const QUESTION_BANK_CLASSES = [
+  'Class 1',
+  'Class 2',
+  'Class 3',
+  'Class 4',
   'Class 5',
   'Class 6',
   'Class 7',

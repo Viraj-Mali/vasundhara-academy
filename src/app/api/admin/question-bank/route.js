@@ -16,7 +16,7 @@ function parseBoolean(value, fallback = true) {
 
 function validateFields({ title, className }) {
   if (!title?.trim()) return 'Title is required';
-  if (!isValidQuestionBankClass(className)) return 'Class must be between Class 5 and Class 10';
+  if (!isValidQuestionBankClass(className)) return 'Class must be between Class 1 and Class 10';
   return null;
 }
 

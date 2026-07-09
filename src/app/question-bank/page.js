@@ -5,6 +5,10 @@ import '@/styles/about.css';
 import '@/styles/phase4.css';
 
 const classes = [
+  { name: 'Class 1', color: '#2563eb', icon: 'fas fa-book-open' },
+  { name: 'Class 2', color: '#7c3aed', icon: 'fas fa-book-open' },
+  { name: 'Class 3', color: '#0891b2', icon: 'fas fa-book-open' },
+  { name: 'Class 4', color: '#059669', icon: 'fas fa-book-open' },
   { name: 'Class 5', color: '#2563eb', icon: 'fas fa-book-open' },
   { name: 'Class 6', color: '#7c3aed', icon: 'fas fa-book-open' },
   { name: 'Class 7', color: '#0891b2', icon: 'fas fa-book-open' },
@@ -39,7 +43,7 @@ export default function QuestionBankPage() {
       <section className="facilities-section">
         <div className="container text-center">
           <span className="section-tag"><i className="fas fa-minus"></i> Practice Resources</span>
-          <h2 className="section-title">Class 5 to Class 10 Question Bank</h2>
+          <h2 className="section-title">Class 1 to Class 10 Question Bank</h2>
           <p className="section-desc" style={{ margin: '0 auto' }}>
             Download active Question Bank PDFs uploaded by the school for each class.
           </p>

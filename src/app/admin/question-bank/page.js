@@ -3,11 +3,11 @@
 import { useEffect, useState } from 'react';
 import AdminLayout from '@/components/admin/AdminLayout';
 
-const classes = ['Class 5', 'Class 6', 'Class 7', 'Class 8', 'Class 9', 'Class 10'];
+const classes = ['Class 1', 'Class 2', 'Class 3', 'Class 4', 'Class 5', 'Class 6', 'Class 7', 'Class 8', 'Class 9', 'Class 10'];
 
 const emptyForm = {
   title: '',
-  className: 'Class 5',
+  className: 'Class 1',
   isActive: true,
 };
 
@@ -61,7 +61,7 @@ export default function AdminQuestionBankPage() {
     setEditing(item);
     setForm({
       title: item.title || '',
-      className: classes.includes(item.className) ? item.className : 'Class 5',
+      className: classes.includes(item.className) ? item.className : 'Class 1',
       isActive: Boolean(item.isActive),
     });
     setPdfFile(null);
@@ -157,7 +157,7 @@ export default function AdminQuestionBankPage() {
         <div>
           <h1>Question Bank</h1>
           <p style={{ color: 'var(--gray-400)', fontSize: '0.85rem', marginTop: '0.2rem' }}>
-            Add and manage Class 5 to Class 10 Question Bank PDFs.
+            Add and manage Class 1 to Class 10 Question Bank PDFs.
           </p>
         </div>
         <button className="admin-btn admin-btn-primary" onClick={showForm ? resetForm : openCreateForm}>
