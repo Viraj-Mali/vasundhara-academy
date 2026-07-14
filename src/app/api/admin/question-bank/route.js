@@ -1,23 +1,32 @@
 import { NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
 import { checkAdminAuth } from '@/lib/auth';
-import { deleteUploadFileByUrl } from '@/lib/uploadStorage';
-import {
-  isValidQuestionBankClass,
-  storeQuestionBankPdf,
-  validateQuestionBankPdf,
-} from '@/lib/questionBankUpload';
 
-function parseBoolean(value, fallback = true) {
-  if (value === true || value === 'true') return true;
-  if (value === false || value === 'false') return false;
-  return fallback;
+export const dynamic = 'force-dynamic';
+
+const PAGE_SLUG = 'question-bank-drive-links';
+
+function emptyGradeLinks() {
+  return Object.fromEntries(
+    Array.from({ length: 10 }, (_, index) => [`grade${index + 1}`, ''])
+  );
 }
 
-function validateFields({ title, className }) {
-  if (!title?.trim()) return 'Title is required';
-  if (!isValidQuestionBankClass(className)) return 'Class must be between Class 1 and Class 10';
-  return null;
+function normalizeLinks(links = {}) {
+  return Object.fromEntries(
+    Array.from({ length: 10 }, (_, index) => {
+      const key = `grade${index + 1}`;
+      return [key, typeof links[key] === 'string' ? links[key].trim() : ''];
+    })
+  );
+}
+
+function parseLinks(content) {
+  try {
+    return normalizeLinks(JSON.parse(content || '{}'));
+  } catch {
+    return emptyGradeLinks();
+  }
 }
 
 export async function GET() {
@@ -25,125 +34,49 @@ export async function GET() {
   if (auth) return auth;
 
   if (!process.env.DATABASE_URL) {
-    return NextResponse.json([]);
-  }
-
-  const data = await prisma.questionBank.findMany({
-    orderBy: [{ className: 'asc' }, { createdAt: 'desc' }],
-  });
-  return NextResponse.json(data);
-}
-
-export async function POST(req) {
-  const auth = await checkAdminAuth();
-  if (auth) return auth;
-  if (!process.env.DATABASE_URL) {
-    return NextResponse.json({ error: 'Database is not configured' }, { status: 503 });
-  }
-
-  try {
-    const formData = await req.formData();
-    const title = formData.get('title')?.trim();
-    const className = formData.get('className');
-    const pdfFile = formData.get('pdfFile');
-
-    const validationError = validateFields({ title, className }) || validateQuestionBankPdf(pdfFile);
-    if (validationError) {
-      return NextResponse.json({ error: validationError }, { status: 400 });
-    }
-
-    const upload = await storeQuestionBankPdf(pdfFile);
-    const item = await prisma.questionBank.create({
-      data: {
-        title,
-        className,
-        pdfUrl: upload.url,
-        isActive: parseBoolean(formData.get('isActive'), true),
-      },
+    return NextResponse.json(emptyGradeLinks(), {
+      headers: { 'Cache-Control': 'no-store, max-age=0' },
     });
-
-    return NextResponse.json(item);
-  } catch (error) {
-    console.error('Question Bank create error:', error);
-    return NextResponse.json({ error: error.message || 'Unable to create Question Bank PDF' }, { status: 400 });
   }
+
+  const page = await prisma.pageContent.findUnique({
+    where: { pageSlug: PAGE_SLUG },
+  });
+
+  return NextResponse.json(parseLinks(page?.content), {
+    headers: { 'Cache-Control': 'no-store, max-age=0' },
+  });
 }
 
 export async function PATCH(req) {
   const auth = await checkAdminAuth();
   if (auth) return auth;
+
   if (!process.env.DATABASE_URL) {
     return NextResponse.json({ error: 'Database is not configured' }, { status: 503 });
   }
 
-  try {
-    const formData = await req.formData();
-    const id = formData.get('id');
-    if (!id) {
-      return NextResponse.json({ error: 'Question Bank id is required' }, { status: 400 });
-    }
+  const body = await req.json().catch(() => ({}));
+  const links = normalizeLinks(body.links || body);
 
-    const existing = await prisma.questionBank.findUnique({ where: { id } });
-    if (!existing) {
-      return NextResponse.json({ error: 'Question Bank PDF not found' }, { status: 404 });
-    }
+  const page = await prisma.pageContent.upsert({
+    where: { pageSlug: PAGE_SLUG },
+    update: {
+      title: 'Question Bank Drive Links',
+      content: JSON.stringify(links),
+    },
+    create: {
+      pageSlug: PAGE_SLUG,
+      title: 'Question Bank Drive Links',
+      content: JSON.stringify(links),
+    },
+  });
 
-    const title = formData.get('title')?.trim();
-    const className = formData.get('className');
-    const pdfFile = formData.get('pdfFile');
-
-    const validationError = validateFields({ title, className }) || validateQuestionBankPdf(pdfFile, false);
-    if (validationError) {
-      return NextResponse.json({ error: validationError }, { status: 400 });
-    }
-
-    const data = {
-      title,
-      className,
-      isActive: parseBoolean(formData.get('isActive'), existing.isActive),
-    };
-
-    if (pdfFile && typeof pdfFile !== 'string' && pdfFile.size > 0) {
-      const upload = await storeQuestionBankPdf(pdfFile);
-      data.pdfUrl = upload.url;
-    }
-
-    const updated = await prisma.questionBank.update({ where: { id }, data });
-    if (data.pdfUrl && data.pdfUrl !== existing.pdfUrl) {
-      await deleteUploadFileByUrl(existing.pdfUrl);
-    }
-
-    return NextResponse.json(updated);
-  } catch (error) {
-    console.error('Question Bank update error:', error);
-    return NextResponse.json({ error: error.message || 'Unable to update Question Bank PDF' }, { status: 400 });
-  }
+  return NextResponse.json(parseLinks(page.content), {
+    headers: { 'Cache-Control': 'no-store, max-age=0' },
+  });
 }
 
 export async function PUT(req) {
   return PATCH(req);
-}
-
-export async function DELETE(req) {
-  const auth = await checkAdminAuth();
-  if (auth) return auth;
-  if (!process.env.DATABASE_URL) {
-    return NextResponse.json({ error: 'Database is not configured' }, { status: 503 });
-  }
-
-  const { searchParams } = new URL(req.url);
-  const id = searchParams.get('id');
-  if (!id) {
-    return NextResponse.json({ error: 'Question Bank id is required' }, { status: 400 });
-  }
-
-  const existing = await prisma.questionBank.findUnique({ where: { id } });
-  if (!existing) {
-    return NextResponse.json({ ok: true });
-  }
-
-  await prisma.questionBank.delete({ where: { id } });
-  await deleteUploadFileByUrl(existing.pdfUrl);
-
-  return NextResponse.json({ ok: true });
 }
