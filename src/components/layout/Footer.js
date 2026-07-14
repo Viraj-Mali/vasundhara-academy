@@ -44,7 +44,7 @@ export default function Footer() {
           <p>
             <i className="fas fa-map-marker-alt"></i>
             Dhamangaon Awari Road, Akole,<br />
-            Tal. Akole, Dist. Ahmednagar,<br />
+            Tal. Akole, Dist. Ahilyanagar,<br />
             PIN–422601, Maharashtra
           </p>
           <p><i className="fas fa-phone"></i> +91 98819 45960</p>

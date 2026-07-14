@@ -89,7 +89,7 @@ export default function HomePage() {
             <h2 className="section-title">Building Tomorrow&apos;s Leaders Today</h2>
             <p className="about-desc">
               Vasundhara Academy, under the aegis of Abhinav Education Society, is a premier
-              CBSE-affiliated institution in Akole, Ahmednagar. We believe in nurturing every
+              CBSE-affiliated institution in Akole, Ahilyanagar. We believe in nurturing every
               child&apos;s potential through a balanced blend of academics, sports, and co-curricular activities.
             </p>
             <p className="about-desc">
@@ -275,7 +275,7 @@ export default function HomePage() {
             </div>
             <div className="feature-card">
               <h3>Where is the school located?</h3>
-              <p>The school is located on Dhamangaon Awari Road, Akole, Tal. Akole, Dist. Ahmednagar, Maharashtra - 422601.</p>
+              <p>The school is located on Dhamangaon Awari Road, Akole, Tal. Akole, Dist. Ahilyanagar, Maharashtra - 422601.</p>
             </div>
             <div className="feature-card">
               <h3>How can I apply for admission?</h3>

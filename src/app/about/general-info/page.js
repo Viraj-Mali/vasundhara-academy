@@ -46,7 +46,7 @@ export default function GeneralInfoPage() {
             </div>
             <p>
               Dhamangaon Awari Road, Akole,<br />
-              Tal. Akole, Dist. Ahmednagar,<br />
+              Tal. Akole, Dist. Ahilyanagar,<br />
               PIN–422601, Maharashtra, India
             </p>
           </div>
@@ -86,7 +86,7 @@ export default function GeneralInfoPage() {
               <div className="info-card-icon"><i className="fas fa-users"></i></div>
               <h3>Managing Body</h3>
             </div>
-            <p>Abhinav Shikshan Sanstha, Akole<br />Dist. Ahmednagar, Maharashtra</p>
+            <p>Abhinav Shikshan Sanstha, Akole<br />Dist. Ahilyanagar, Maharashtra</p>
           </div>
         </div>
       </section>

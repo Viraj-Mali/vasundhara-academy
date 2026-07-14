@@ -76,7 +76,7 @@ export default function MissionVisionPage() {
             <div className="message-text">
               <p>
                 Vasundhara Academy is an initiative of <strong>Abhinav Shikshan Sanstha (Abhinav Education Society), Akole</strong>,
-                dedicated to providing quality CBSE education in the hilly and tribal region of Akole, Ahmednagar district, Maharashtra.
+                dedicated to providing quality CBSE education in the hilly and tribal region of Akole, Ahilyanagar district, Maharashtra.
               </p>
             </div>
           </div>

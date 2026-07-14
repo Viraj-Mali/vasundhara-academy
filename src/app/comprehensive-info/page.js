@@ -257,7 +257,7 @@ export default function ComprehensiveInfoPage() {
           <span className="section-tag"><i className="fas fa-minus"></i> Location</span>
           <h2 className="section-title">Find Us on Google Maps</h2>
           <p className="section-desc" style={{ margin: '0 auto 2rem' }}>
-            Vasundhara Academy is located in Akole, Ahmednagar district, Maharashtra.
+            Vasundhara Academy is located in Akole, Ahilyanagar district, Maharashtra.
           </p>
         </div>
         <div style={{ maxWidth: '1000px', margin: '0 auto', padding: '0 2rem' }}>
@@ -276,7 +276,7 @@ export default function ComprehensiveInfoPage() {
           <div style={{ display: 'flex', justifyContent: 'center', gap: '2rem', marginTop: '1.5rem', flexWrap: 'wrap' }}>
             <div style={{ textAlign: 'center' }}>
               <i className="fas fa-map-marker-alt" style={{ color: 'var(--gold)', fontSize: '1.2rem' }}></i>
-              <p style={{ fontSize: '0.85rem', color: 'var(--navy)', fontWeight: 600, marginTop: '0.3rem' }}>Akole, Ahmednagar</p>
+              <p style={{ fontSize: '0.85rem', color: 'var(--navy)', fontWeight: 600, marginTop: '0.3rem' }}>Akole, Ahilyanagar</p>
               <p style={{ fontSize: '0.78rem', color: 'var(--gray-400)' }}>Maharashtra, India</p>
             </div>
             <div style={{ textAlign: 'center' }}>

@@ -56,7 +56,7 @@ export default function ContactPage() {
                   <h4>Our Address</h4>
                   <p>
                     Dhamangaon Awari Road, Akole,<br />
-                    Tal. Akole, Dist. Ahmednagar,<br />
+                    Tal. Akole, Dist. Ahilyanagar,<br />
                     PIN–422601, Maharashtra, India
                   </p>
                 </div>
