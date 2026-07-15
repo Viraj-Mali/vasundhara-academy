@@ -75,13 +75,16 @@ export default function ContactPage() {
                   </p>
                 </div>
               </div>
-              <a href="tel:+919881945960" className="contact-info-item" style={{ textDecoration: 'none', color: 'inherit' }}>
+              <div className="contact-info-item">
                 <div className="contact-info-icon"><i className="fas fa-phone-alt"></i></div>
                 <div>
                   <h4>Office Phone</h4>
-                  <p>+91 98819 45960</p>
+                  <p>
+                    Principal: +91 94220 51190<br />
+                    Vice Principal: +91 88052 54793
+                  </p>
                 </div>
-              </a>
+              </div>
               <a href="mailto:vasundhara.academy2016@gmail.com" className="contact-info-item" style={{ textDecoration: 'none', color: 'inherit' }}>
                 <div className="contact-info-icon"><i className="fas fa-envelope"></i></div>
                 <div>
@@ -89,11 +92,14 @@ export default function ContactPage() {
                   <p>vasundhara.academy2016@gmail.com</p>
                 </div>
               </a>
-              <a href="https://wa.me/919881945960?text=Hello!%20I%20would%20like%20to%20know%20more%20about%20Vasundhara%20Academy." target="_blank" rel="noopener noreferrer" className="contact-info-item" style={{ textDecoration: 'none', color: 'inherit' }}>
+              <a href="https://wa.me/919422051190" target="_blank" rel="noopener noreferrer" className="contact-info-item" style={{ textDecoration: 'none', color: 'inherit' }}>
                 <div className="contact-info-icon" style={{ color: '#25d366' }}><i className="fab fa-whatsapp"></i></div>
                 <div>
                   <h4>WhatsApp</h4>
-                  <p>+91 98819 45960</p>
+                  <p>
+                    Principal: +91 94220 51190<br />
+                    Vice Principal: +91 88052 54793
+                  </p>
                 </div>
               </a>
             </div>
