@@ -4,6 +4,23 @@ import Link from 'next/link';
 import '@/styles/about.css';
 import '@/styles/pages.css';
 
+const enquiryContacts = [
+  {
+    designation: 'Principal',
+    name: 'Prin. Jayashri Deshmukh',
+    phone: '+91 94220 51190',
+    tel: 'tel:+919422051190',
+    whatsapp: 'https://wa.me/919422051190',
+  },
+  {
+    designation: 'Vice Principal',
+    name: 'Radhika Nawale',
+    phone: '+91 88052 54793',
+    tel: 'tel:+918805254793',
+    whatsapp: 'https://wa.me/918805254793',
+  },
+];
+
 export default function EnquirePage() {
   const [form, setForm] = useState({ name: '', phone: '', email: '', subject: '', message: '' });
   const [submitted, setSubmitted] = useState(false);
@@ -36,16 +53,32 @@ export default function EnquirePage() {
       <section className="enquire-section">
         <div className="enquire-inner">
           <div className="enquire-quick">
-            <a href="tel:+919881945960" className="enquire-quick-card">
+            <div className="enquire-quick-card">
               <i className="fas fa-phone-alt"></i>
               <h4>Call Us</h4>
-              <p>+91 98819 45960</p>
-            </a>
-            <a href="https://wa.me/919881945960?text=Hello!%20I%20would%20like%20to%20know%20more%20about%20Vasundhara%20Academy." target="_blank" rel="noopener noreferrer" className="enquire-quick-card">
+              <div className="enquire-contact-list">
+                {enquiryContacts.map((contact) => (
+                  <a key={contact.designation} href={contact.tel} className="enquire-contact-row">
+                    <span>{contact.designation}</span>
+                    <strong>{contact.name}</strong>
+                    <p>{contact.phone}</p>
+                  </a>
+                ))}
+              </div>
+            </div>
+            <div className="enquire-quick-card">
               <i className="fab fa-whatsapp" style={{ color: '#25d366' }}></i>
               <h4>WhatsApp</h4>
-              <p>+91 98819 45960</p>
-            </a>
+              <div className="enquire-contact-list">
+                {enquiryContacts.map((contact) => (
+                  <a key={contact.designation} href={contact.whatsapp} target="_blank" rel="noopener noreferrer" className="enquire-contact-row whatsapp">
+                    <span>{contact.designation}</span>
+                    <strong>{contact.name}</strong>
+                    <p>{contact.phone}</p>
+                  </a>
+                ))}
+              </div>
+            </div>
           </div>
 
           <div className="enquire-card">

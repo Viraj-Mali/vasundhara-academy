@@ -167,6 +167,47 @@
   color: var(--gray-500);
   font-size: 0.82rem;
 }
+.enquire-contact-list {
+  display: grid;
+  gap: 0.55rem;
+  margin-top: 0.9rem;
+  text-align: left;
+}
+.enquire-contact-row {
+  display: block;
+  padding: 0.7rem;
+  border-radius: var(--radius-md);
+  background: var(--off-white);
+  border: 1px solid rgba(0,0,0,0.04);
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+.enquire-contact-row:hover {
+  border-color: rgba(212,168,83,0.3);
+  box-shadow: var(--shadow-sm);
+}
+.enquire-contact-row.whatsapp:hover {
+  border-color: rgba(37,211,102,0.35);
+}
+.enquire-contact-row span {
+  display: block;
+  color: var(--gray-400);
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.enquire-contact-row strong {
+  display: block;
+  color: var(--navy);
+  font-size: 0.84rem;
+  margin-top: 0.12rem;
+}
+.enquire-contact-row p {
+  color: var(--gray-500);
+  font-size: 0.8rem;
+  margin-top: 0.12rem;
+}
 
 /* Responsive */
 @media (max-width: 768px) {
