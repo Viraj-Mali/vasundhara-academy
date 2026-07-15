@@ -60,7 +60,7 @@ const navItems = [
   { label: 'Why Vasundhara', href: '/why-vasundhara' },
   { label: 'School News', href: '/school-news' },
   { label: 'Notifications', href: '/notifications' },
-  { label: 'Social Media', href: '#' },
+  { label: 'Social Media', href: '/social-media' },
   { label: 'Contact', href: '/contact' },
 ];
 
