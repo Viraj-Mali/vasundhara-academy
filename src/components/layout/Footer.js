@@ -47,7 +47,13 @@ export default function Footer() {
             Tal. Akole, Dist. Ahilyanagar,<br />
             PIN–422601, Maharashtra
           </p>
-          <p><i className="fas fa-phone"></i> +91 98819 45960</p>
+          <p>
+            <i className="fas fa-phone"></i>
+            Principal: Prin. Jayashri Deshmukh<br />
+            <span style={{ marginLeft: '1.45rem' }}>+91 94220 51190</span><br />
+            <span style={{ marginLeft: '1.45rem' }}>Vice Principal: Radhika Nawale</span><br />
+            <span style={{ marginLeft: '1.45rem' }}>+91 88052 54793</span>
+          </p>
           <p><i className="fas fa-envelope"></i> vasundhara.academy2016@gmail.com</p>
         </div>
 
