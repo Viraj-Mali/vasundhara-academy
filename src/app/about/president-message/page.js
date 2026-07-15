@@ -47,11 +47,11 @@ export default function PresidentMessagePage() {
       <section className="message-section">
         <div className="message-inner">
           <div className="message-photo-card">
-            {msg.photo ? (
-              <img src={msg.photo} alt={msg.name} style={{ width: '150px', height: '150px', borderRadius: '50%', objectFit: 'cover', border: '4px solid var(--gold)' }} />
-            ) : (
-              <div className="message-photo-placeholder">P</div>
-            )}
+            <img
+              src="/images/leadership/president.jpg"
+              alt="Mr. Madhukarrao Nawale - President"
+              className="message-photo"
+            />
             <h3 className="message-name">{msg.name}</h3>
             <p className="message-designation">{msg.title || 'President, Abhinav Education Society'}</p>
           </div>
