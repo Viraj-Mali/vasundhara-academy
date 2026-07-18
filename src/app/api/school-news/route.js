@@ -14,6 +14,12 @@ export async function GET() {
     const news = await prisma.schoolNews.findMany({
       where: { isActive: true },
       orderBy: [{ newsDate: 'desc' }, { createdAt: 'desc' }],
+      select: {
+        id: true,
+        title: true,
+        description: true,
+        image: true,
+      },
     });
 
     return NextResponse.json(news, {

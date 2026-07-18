@@ -15,10 +15,9 @@ function parseNewsDate(value) {
   return date && !Number.isNaN(date.getTime()) ? date : null;
 }
 
-function validateFields({ title, description, newsDate }) {
+function validateFields({ title, description }) {
   if (!title?.trim()) return 'Title is required';
   if (!description?.trim()) return 'Description is required';
-  if (!newsDate) return 'Valid news date is required';
   return null;
 }
 
@@ -47,8 +46,8 @@ export async function POST(req) {
     const formData = await req.formData();
     const title = formData.get('title')?.trim();
     const description = formData.get('description')?.trim();
-    const newsDate = parseNewsDate(formData.get('newsDate'));
-    const validationError = validateFields({ title, description, newsDate });
+    const newsDate = parseNewsDate(formData.get('newsDate')) || new Date();
+    const validationError = validateFields({ title, description });
     if (validationError) {
       return NextResponse.json({ error: validationError }, { status: 400 });
     }
@@ -92,8 +91,8 @@ export async function PATCH(req) {
 
     const title = formData.get('title')?.trim();
     const description = formData.get('description')?.trim();
-    const newsDate = parseNewsDate(formData.get('newsDate'));
-    const validationError = validateFields({ title, description, newsDate });
+    const newsDate = parseNewsDate(formData.get('newsDate')) || existing.newsDate;
+    const validationError = validateFields({ title, description });
     if (validationError) {
       return NextResponse.json({ error: validationError }, { status: 400 });
     }

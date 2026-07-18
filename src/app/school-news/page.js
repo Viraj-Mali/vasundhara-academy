@@ -4,15 +4,6 @@ import { useEffect, useState } from 'react';
 import '@/styles/about.css';
 import '@/styles/school-news.css';
 
-function formatDate(value) {
-  if (!value) return '';
-  return new Date(value).toLocaleDateString('en-IN', {
-    day: 'numeric',
-    month: 'long',
-    year: 'numeric',
-  });
-}
-
 export default function SchoolNewsPage() {
   const [news, setNews] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -62,10 +53,6 @@ export default function SchoolNewsPage() {
               <article key={item.id} className="school-news-card">
                 <div className="school-news-image">
                   <img src={item.image} alt={item.title} />
-                  <span className="school-news-date">
-                    <i className="far fa-calendar-alt"></i>
-                    {formatDate(item.newsDate)}
-                  </span>
                 </div>
                 <div className="school-news-body">
                   <h3>{item.title}</h3>

@@ -6,14 +6,8 @@ import AdminLayout from '@/components/admin/AdminLayout';
 const emptyForm = {
   title: '',
   description: '',
-  newsDate: new Date().toISOString().slice(0, 10),
   isActive: true,
 };
-
-function toDateInput(value) {
-  if (!value) return new Date().toISOString().slice(0, 10);
-  return new Date(value).toISOString().slice(0, 10);
-}
 
 export default function AdminSchoolNewsPage() {
   const [news, setNews] = useState([]);
@@ -66,7 +60,6 @@ export default function AdminSchoolNewsPage() {
     setForm({
       title: item.title || '',
       description: item.description || '',
-      newsDate: toDateInput(item.newsDate),
       isActive: Boolean(item.isActive),
     });
     setImageFile(null);
@@ -76,7 +69,6 @@ export default function AdminSchoolNewsPage() {
   const appendFields = (fd) => {
     fd.append('title', form.title);
     fd.append('description', form.description);
-    fd.append('newsDate', form.newsDate);
     fd.append('isActive', String(form.isActive));
     if (imageFile) fd.append('image', imageFile);
   };
@@ -118,7 +110,6 @@ export default function AdminSchoolNewsPage() {
       fd.append('id', item.id);
       fd.append('title', item.title);
       fd.append('description', item.description);
-      fd.append('newsDate', toDateInput(item.newsDate));
       fd.append('isActive', String(!item.isActive));
 
       const res = await fetch('/api/admin/school-news', { method: 'PATCH', body: fd });
@@ -193,16 +184,6 @@ export default function AdminSchoolNewsPage() {
 
               <div className="admin-form-row">
                 <div className="form-group">
-                  <label className="form-label">News Date</label>
-                  <input
-                    className="form-input"
-                    type="date"
-                    required
-                    value={form.newsDate}
-                    onChange={(event) => setForm({ ...form, newsDate: event.target.value })}
-                  />
-                </div>
-                <div className="form-group">
                   <label className="form-label">Status</label>
                   <select
                     className="form-select"
@@ -263,17 +244,15 @@ export default function AdminSchoolNewsPage() {
               <tr>
                 <th>Image</th>
                 <th>Title</th>
-                <th>News Date</th>
                 <th>Status</th>
-                <th>Created Date</th>
                 <th>Actions</th>
               </tr>
             </thead>
             <tbody>
               {loading ? (
-                <tr><td colSpan="6">Loading school news...</td></tr>
+                <tr><td colSpan="4">Loading school news...</td></tr>
               ) : news.length === 0 ? (
-                <tr><td colSpan="6">No school news added yet.</td></tr>
+                <tr><td colSpan="4">No school news added yet.</td></tr>
               ) : news.map((item) => (
                 <tr key={item.id}>
                   <td><img src={item.image} alt={item.title} className="school-news-admin-thumb" /></td>
@@ -283,9 +262,7 @@ export default function AdminSchoolNewsPage() {
                       {item.description}
                     </p>
                   </td>
-                  <td>{new Date(item.newsDate).toLocaleDateString('en-IN')}</td>
                   <td><span className={`status-badge ${item.isActive ? 'active' : 'read'}`}>{item.isActive ? 'Active' : 'Inactive'}</span></td>
-                  <td>{new Date(item.createdAt).toLocaleDateString('en-IN')}</td>
                   <td>
                     <div className="admin-action-btns">
                       <button className="admin-btn admin-btn-outline admin-btn-sm" onClick={() => openEditForm(item)}>
