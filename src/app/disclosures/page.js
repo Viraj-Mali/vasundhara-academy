@@ -12,6 +12,8 @@ import {
 import '@/styles/about.css';
 import '@/styles/phase5.css';
 
+const ADDITIONAL_B_CATEGORY = 'public-disclosure-b-additional';
+
 function valueOrNA(value) {
   return value && String(value).trim() ? value : 'NA';
 }
@@ -49,7 +51,7 @@ function InfoTable({ rows, info }) {
   );
 }
 
-function DocumentTable({ rows, documents }) {
+function DocumentTable({ rows, documents, additionalDocuments = [] }) {
   return (
     <div className="appendix-table-wrap">
       <table className="appendix-table">
@@ -84,6 +86,22 @@ function DocumentTable({ rows, documents }) {
               </tr>
             );
           })}
+          {additionalDocuments.map((doc, index) => (
+            <tr key={doc.id}>
+              <td>{rows.length + index + 1}</td>
+              <td>{doc.title}</td>
+              <td>
+                <a
+                  href={`/api/public/mandatory-disclosure/${encodeURIComponent(doc.id)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="appendix-action"
+                >
+                  View PDF
+                </a>
+              </td>
+            </tr>
+          ))}
         </tbody>
       </table>
     </div>
@@ -166,6 +184,12 @@ export default function DisclosuresPage() {
       .finally(() => setLoaded(true));
   }, []);
 
+  const additionalBDocuments = documents
+    .filter((doc) => doc.category === ADDITIONAL_B_CATEGORY)
+    .sort((a, b) => (a.order || 0) - (b.order || 0));
+
+  const mainDocuments = documents.filter((doc) => doc.category !== ADDITIONAL_B_CATEGORY);
+
   return (
     <>
       <section className="page-hero page-hero-building">
@@ -194,7 +218,11 @@ export default function DisclosuresPage() {
 
           {appendixDocumentSections.map((section) => (
             <AppendixCard key={section.key} title={section.title}>
-              <DocumentTable rows={section.rows} documents={documents} />
+              <DocumentTable
+                rows={section.rows}
+                documents={mainDocuments}
+                additionalDocuments={section.key === 'documents' ? additionalBDocuments : []}
+              />
               {section.key === 'academics' && (
                 <>
                   <ResultClassTable title="RESULT CLASS: X" rows={resultRowsForClass(info.resultRows, 'Class X')} />

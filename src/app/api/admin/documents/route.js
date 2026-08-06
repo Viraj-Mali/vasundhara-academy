@@ -59,7 +59,8 @@ export async function POST(req) {
     return NextResponse.json({ error: 'Only PDF files are allowed for Public Disclosures' }, { status: 400 });
   }
 
-  const data = { title, category, fileUrl };
+  const order = typeof body.order === 'number' ? body.order : parseInt(body.order) || 0;
+  const data = { title, category, fileUrl, order };
 
   if (isLocalDevWithoutDatabase()) {
     const document = await createLocalDocument(data);
@@ -95,10 +96,12 @@ export async function PUT(req) {
     return NextResponse.json({ error: 'Only PDF files are allowed for Public Disclosures' }, { status: 400 });
   }
 
+  const order = typeof body.order === 'number' ? body.order : parseInt(body.order) || 0;
+
   if (isLocalDevWithoutDatabase()) {
     const docs = await listLocalDocuments();
     const oldDocument = docs.find((doc) => doc.id === id);
-    const document = await updateLocalDocument(id, { title, category, fileUrl });
+    const document = await updateLocalDocument(id, { title, category, fileUrl, order });
     if (!document) {
       return NextResponse.json({ error: 'Document not found' }, { status: 404 });
     }
@@ -109,13 +112,13 @@ export async function PUT(req) {
   }
 
   if (!process.env.DATABASE_URL) {
-    return NextResponse.json({ id, title, category, fileUrl }, { headers: noStoreHeaders });
+    return NextResponse.json({ id, title, category, fileUrl, order }, { headers: noStoreHeaders });
   }
 
   const oldDocument = await prisma.document.findUnique({ where: { id } });
   const document = await prisma.document.update({
     where: { id },
-    data: { title, category, fileUrl },
+    data: { title, category, fileUrl, order },
   });
   if (oldDocument?.fileUrl && oldDocument.fileUrl !== fileUrl) {
     await deleteUploadFileByUrl(oldDocument.fileUrl);
