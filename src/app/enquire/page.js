@@ -7,7 +7,7 @@ import '@/styles/pages.css';
 const enquiryContacts = [
   {
     designation: 'Principal',
-    name: 'Prin. Jayashri Deshmukh',
+    name: 'Prin.Dr.Jayashri Deshmukh',
     phone: '+91 94220 51190',
     tel: 'tel:+919422051190',
     whatsapp: 'https://wa.me/919422051190',
