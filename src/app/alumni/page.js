@@ -4,10 +4,18 @@ import Link from 'next/link';
 import '@/styles/about.css';
 import '@/styles/phase5.css';
 
-
-
 export default function AlumniPage() {
-  const [form, setForm] = useState({ name: '', graduateYear: '', phone: '', email: '', occupation: '', message: '' });
+  const [form, setForm] = useState({
+    name: '',
+    graduateYear: '',
+    education: '',
+    employmentStatus: '',
+    companyName: '',
+    businessDetails: '',
+    phone: '',
+    email: '',
+    message: ''
+  });
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -21,7 +29,17 @@ export default function AlumniPage() {
     });
     if (res.ok) {
       setSubmitted(true);
-      setForm({ name: '', graduateYear: '', phone: '', email: '', occupation: '', message: '' });
+      setForm({
+        name: '',
+        graduateYear: '',
+        education: '',
+        employmentStatus: '',
+        companyName: '',
+        businessDetails: '',
+        phone: '',
+        email: '',
+        message: ''
+      });
     }
     setLoading(false);
   };
@@ -30,7 +48,7 @@ export default function AlumniPage() {
     <>
       <section className="page-hero">
         <div className="page-hero-content">
-<h1 className="page-hero-title">Alumni Registration</h1>
+          <h1 className="page-hero-title">Alumni Registration</h1>
           <p className="page-hero-desc">Once a Vasundharian, always a Vasundharian! Stay connected.</p>
         </div>
       </section>
@@ -61,28 +79,57 @@ export default function AlumniPage() {
                     <label className="form-label">Full Name *</label>
                     <input className="form-input" type="text" placeholder="Your full name" required aria-required="true" value={form.name} onChange={e => setForm({...form, name: e.target.value})} />
                   </div>
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+
+                  <div className="form-grid">
                     <div className="form-group">
-                      <label className="form-label">Year of Graduation *</label>
-                      <input className="form-input" type="text" placeholder="e.g., 2020" required aria-required="true" value={form.graduateYear} onChange={e => setForm({...form, graduateYear: e.target.value})} />
+                      <label className="form-label">Year of X / XII Passed *</label>
+                      <input className="form-input" type="text" placeholder="Enter passing year" required aria-required="true" value={form.graduateYear} onChange={e => setForm({...form, graduateYear: e.target.value})} />
                     </div>
                     <div className="form-group">
-                      <label className="form-label">Phone Number</label>
-                      <input className="form-input" type="tel" placeholder="+91 XXXXX XXXXX" value={form.phone} onChange={e => setForm({...form, phone: e.target.value})} />
+                      <label className="form-label">Educational Qualification</label>
+                      <input className="form-input" type="text" placeholder="Enter educational qualification" value={form.education} onChange={e => setForm({...form, education: e.target.value})} />
                     </div>
                   </div>
-                  <div className="form-group">
-                    <label className="form-label">Email</label>
-                    <input className="form-input" type="email" placeholder="your@email.com" value={form.email} onChange={e => setForm({...form, email: e.target.value})} />
+
+                  <div className="form-grid">
+                    <div className="form-group">
+                      <label className="form-label">Current Employment Status</label>
+                      <select className="form-input" value={form.employmentStatus} onChange={e => setForm({...form, employmentStatus: e.target.value})}>
+                        <option value="">Select Status</option>
+                        <option value="Student">Student</option>
+                        <option value="Employed">Employed</option>
+                        <option value="Self Employed">Self Employed</option>
+                        <option value="Business">Business</option>
+                        <option value="Other">Other</option>
+                      </select>
+                    </div>
+                    <div className="form-group">
+                      <label className="form-label">Company Name</label>
+                      <input className="form-input" type="text" placeholder="Enter company name" value={form.companyName} onChange={e => setForm({...form, companyName: e.target.value})} />
+                    </div>
                   </div>
+
                   <div className="form-group">
-                    <label className="form-label">Current Occupation</label>
-                    <input className="form-input" type="text" placeholder="What do you do now?" value={form.occupation} onChange={e => setForm({...form, occupation: e.target.value})} />
+                    <label className="form-label">If Business, Business Details</label>
+                    <textarea className="form-textarea" style={{ height: '80px' }} placeholder="Provide brief details about your business..." value={form.businessDetails} onChange={e => setForm({...form, businessDetails: e.target.value})}></textarea>
                   </div>
+
+                  <div className="form-grid">
+                    <div className="form-group">
+                      <label className="form-label">Phone Number *</label>
+                      <input className="form-input" type="tel" placeholder="+91 XXXXX XXXXX" required aria-required="true" value={form.phone} onChange={e => setForm({...form, phone: e.target.value})} />
+                    </div>
+                    <div className="form-group">
+                      <label className="form-label">Email</label>
+                      <input className="form-input" type="email" placeholder="your@email.com" value={form.email} onChange={e => setForm({...form, email: e.target.value})} />
+                    </div>
+                  </div>
+
                   <div className="form-group">
                     <label className="form-label">Message / Memory to Share</label>
                     <textarea className="form-textarea" placeholder="Share your fondest memory of Vasundhara Academy..." value={form.message} onChange={e => setForm({...form, message: e.target.value})}></textarea>
                   </div>
+
                   <button type="submit" className="btn btn-primary btn-lg" style={{ width: '100%' }} disabled={loading} aria-label={loading ? "Registering as alumni" : "Register as alumni"}>
                     {loading ? <><i className="fas fa-spinner fa-spin"></i> Registering...</> : <><i className="fas fa-user-plus"></i> Register as Alumni</>}
                   </button>

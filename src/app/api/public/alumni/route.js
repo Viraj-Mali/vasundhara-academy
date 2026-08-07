@@ -12,6 +12,10 @@ export async function POST(req) {
         email: body.email || '',
         occupation: body.occupation || '',
         message: body.message || '',
+        education: body.education || '',
+        employmentStatus: body.employmentStatus || '',
+        companyName: body.companyName || '',
+        businessDetails: body.businessDetails || '',
       }
     });
     return NextResponse.json({ success: true, id: data.id });

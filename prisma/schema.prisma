@@ -129,14 +129,18 @@ model Enquiry {
 
 // =============== ALUMNI ===============
 model Alumni {
-  id           String   @id @default(cuid())
-  name         String
-  graduateYear String
-  phone        String?
-  email        String?
-  occupation   String?
-  message      String?
-  createdAt    DateTime @default(now())
+  id               String   @id @default(cuid())
+  name             String
+  graduateYear     String
+  phone            String?
+  email            String?
+  occupation       String?
+  message          String?
+  education        String?
+  employmentStatus String?
+  companyName      String?
+  businessDetails  String?
+  createdAt        DateTime @default(now())
 }
 
 // =============== GALLERY ===============
