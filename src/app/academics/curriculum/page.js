@@ -96,7 +96,7 @@ export default function CurriculumPage() {
             <ul style={{ paddingLeft: '1.5rem', marginTop: '1rem' }}>
               <li><strong>Periodic Tests (PT)</strong> for regular assessment.</li>
               <li><strong>Portfolio & Notebook Submission</strong> to track consistency.</li>
-              <li><strong>Subject Enrichment Activities</strong> (Projects, Practicals).</li>
+              <li><strong>Subject Enrichment Activities</strong> (Projects, Practicals, Experimentations, Argumentation, Inquiry, Exploration etc).</li>
               <li><strong>Half-Yearly and Annual Exams</strong> as per CBSE norms.</li>
             </ul>
           </div>
