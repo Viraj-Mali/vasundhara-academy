@@ -44,7 +44,7 @@ export default function CurriculumPage() {
             </div>
             <p>Focuses on strong foundational literacy and numeracy through experiential learning. Introduction of smart boards and visual aids to make learning immersive.</p>
             <div className="curriculum-subjects">
-              <span>English</span><span>Maths</span><span>EVS</span><span>Hindi/Regional</span><span>Computer</span><span>Art & Craft</span><span>PE & Yoga</span>
+              <span>English</span><span>Maths</span><span>EVS</span><span>Hindi/Regional</span><span>Computer</span><span>Art & Craft</span><span>PE & Yoga</span><span>Marathi</span>
             </div>
           </div>
           <div className="curriculum-card">
@@ -54,7 +54,7 @@ export default function CurriculumPage() {
             </div>
             <p>Focuses on conceptual clarity and analytical thinking via inquiry-based learning. Introduction of Skill-Based subjects like AI and Coding.</p>
             <div className="curriculum-subjects">
-              <span>Eng/Hin/Mar</span><span>Maths</span><span>Science</span><span>Social Science</span><span>IT/AI/Coding</span><span>Lab Work</span>
+              <span>English</span><span>Hindi</span><span>Marathi</span><span>Maths</span><span>Science</span><span>Social Science</span><span>IT</span><span>AI</span><span>Coding</span><span>Lab Work</span>
             </div>
           </div>
           <div className="curriculum-card">
@@ -64,7 +64,7 @@ export default function CurriculumPage() {
             </div>
             <p>Rigorous preparation for CBSE Board Examinations with competency-based learning. Regular mock tests, career guidance, and counseling sessions.</p>
             <div className="curriculum-subjects">
-              <span>English</span><span>Maths</span><span>Science</span><span>Social Science</span><span>Hindi</span><span>IT/AI</span>
+              <span>English</span><span>Maths</span><span>Science</span><span>Social Science</span><span>Hindi</span><span>IT</span><span>Marathi</span>
             </div>
           </div>
         </div>
