@@ -45,7 +45,7 @@ export default function AboutPage() {
       <section className="about-highlights">
         <div className="container text-center">
           <span className="section-tag"><i className="fas fa-minus"></i> What Defines Us</span>
-          <h2 className="section-title">The Pillars of Our Academy</h2>
+          <h2 className="section-title">The Pillars of Vasundhara Academy</h2>
         </div>
         <div className="highlights-grid">
           <div className="highlight-card">
