@@ -41,6 +41,20 @@ export default function GeneralInfoPage() {
           </div>
           <div className="info-card">
             <div className="info-card-header">
+              <div className="info-card-icon"><i className="fas fa-hashtag"></i></div>
+              <h3>School Code</h3>
+            </div>
+            <p><strong>30623</strong></p>
+          </div>
+          <div className="info-card">
+            <div className="info-card-header">
+              <div className="info-card-icon"><i className="fas fa-fingerprint"></i></div>
+              <h3>UDISE Number</h3>
+            </div>
+            <p><strong>27260100120</strong></p>
+          </div>
+          <div className="info-card">
+            <div className="info-card-header">
               <div className="info-card-icon"><i className="fas fa-map-marker-alt"></i></div>
               <h3>Address</h3>
             </div>
@@ -70,6 +84,13 @@ export default function GeneralInfoPage() {
               <h3>School Timings</h3>
             </div>
             <p>Monday to Saturday<br />9:00 AM to 3:30 PM</p>
+          </div>
+          <div className="info-card">
+            <div className="info-card-header">
+              <div className="info-card-icon"><i className="fas fa-briefcase"></i></div>
+              <h3>Administrative Office Time</h3>
+            </div>
+            <p>9:00 AM to 5:00 PM</p>
           </div>
           <div className="info-card">
             <div className="info-card-header">
