@@ -62,17 +62,17 @@ export default function PresidentMessagePage() {
               {msg.message.split('\n').filter(p => p.trim()).map((para, i) => (
                 <p key={i}>{para}</p>
               ))}
+              <p style={{ marginTop: '1.5rem' }}>
+                <strong>With warm regards,</strong><br />
+                <strong style={{ color: 'var(--navy)' }}>{msg.name}</strong><br />
+                <span style={{ color: 'var(--gold)' }}>Abhinav Education Society</span>
+              </p>
               <div className="message-quote">
                 &quot;|| विद्याधनं सर्वधनं प्रधानम् ||&quot;<br />
                 <small style={{ fontStyle: 'normal', color: 'var(--gray-500)' }}>
                   The wealth of knowledge is the greatest of all wealth.
                 </small>
               </div>
-              <p style={{ marginTop: '1.5rem' }}>
-                <strong>With warm regards,</strong><br />
-                <strong style={{ color: 'var(--navy)' }}>{msg.name}</strong><br />
-                <span style={{ color: 'var(--gold)' }}>Abhinav Education Society</span>
-              </p>
             </div>
           </div>
         </div>
