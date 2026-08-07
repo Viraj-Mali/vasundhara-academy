@@ -54,15 +54,15 @@ export default function PrincipalMessagePage() {
               {msg.message.split('\n').filter(p => p.trim()).map((para, i) => (
                 <p key={i}>{para}</p>
               ))}
-              <div className="message-quote">
-                &quot;Education is the most powerful weapon which you can use to change the world.&quot;
-                <br /><small style={{ fontStyle: 'normal', color: 'var(--gray-500)' }}>— Nelson Mandela</small>
-              </div>
               <p style={{ marginTop: '1.5rem' }}>
                 <strong>Warm regards,</strong><br />
                 <strong style={{ color: 'var(--navy)' }}>{msg.name}</strong><br />
                 <span style={{ color: 'var(--gold)' }}>Principal, Vasundhara Academy</span>
               </p>
+              <div className="message-quote">
+                &quot;Education is the most powerful weapon which you can use to change the world.&quot;
+                <br /><small style={{ fontStyle: 'normal', color: 'var(--gray-500)' }}>— Nelson Mandela</small>
+              </div>
             </div>
           </div>
         </div>
