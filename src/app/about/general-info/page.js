@@ -55,7 +55,7 @@ export default function GeneralInfoPage() {
               <div className="info-card-icon"><i className="fas fa-graduation-cap"></i></div>
               <h3>Grades Offered</h3>
             </div>
-            <p>Grade 1 to Grade 10 (CBSE Curriculum)</p>
+            <p>Preschool, Grade 1 to Grade 10 (CBSE Curriculum)</p>
           </div>
           <div className="info-card">
             <div className="info-card-header">
@@ -69,7 +69,7 @@ export default function GeneralInfoPage() {
               <div className="info-card-icon"><i className="fas fa-clock"></i></div>
               <h3>School Timings</h3>
             </div>
-            <p>Monday to Saturday<br />8:00 AM to 3:30 PM</p>
+            <p>Monday to Saturday<br />9:00 AM to 3:30 PM</p>
           </div>
           <div className="info-card">
             <div className="info-card-header">
