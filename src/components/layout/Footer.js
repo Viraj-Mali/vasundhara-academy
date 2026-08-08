@@ -49,7 +49,7 @@ export default function Footer() {
           </p>
           <p>
             <i className="fas fa-phone"></i>
-            Principal: Prin. Jayashri Deshmukh<br />
+            Principal: Prin.Dr. Jayashri Deshmukh<br />
             <span style={{ marginLeft: '1.45rem' }}>+91 94220 51190</span><br />
             <span style={{ marginLeft: '1.45rem' }}>Vice Principal: Radhika Nawale</span><br />
             <span style={{ marginLeft: '1.45rem' }}>+91 88052 54793</span>
