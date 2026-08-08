@@ -14,7 +14,6 @@ const categoryTabs = [
   { key: 'sports-fitness', label: 'Sports & Fitness', icon: 'fas fa-running' },
   { key: 'events-celebrations', label: 'Events & Celebrations', icon: 'fas fa-calendar-alt' },
   { key: 'achievements', label: 'Achievements', icon: 'fas fa-trophy' },
-  { key: 'vasundhara-teachers', label: 'Vasundhara Teachers', icon: 'fas fa-chalkboard-teacher' },
 ];
 
 const categoryAliases = {
@@ -36,7 +35,13 @@ export default function GalleryPage() {
   useEffect(() => {
     fetch('/api/public/gallery')
       .then(r => r.json())
-      .then(data => { setImages(data); setLoaded(true); })
+      .then(data => {
+        const filteredData = data.filter(
+          (img) => img.category?.toLowerCase() !== 'vasundhara-teachers'
+        );
+        setImages(filteredData);
+        setLoaded(true);
+      })
       .catch(() => setLoaded(true));
   }, []);
 
