@@ -460,6 +460,78 @@
   color: var(--gray-400);
 }
 
+/* Calendar Image Layout */
+.calendar-images-container {
+  max-width: 1000px;
+  margin: 3rem auto 0;
+  padding: 0 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+.calendar-page-card {
+  background: var(--white);
+  border-radius: var(--radius-xl);
+  border: 1px solid rgba(0,0,0,0.08);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+  padding: 2rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.calendar-page-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+}
+.calendar-page-title {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  color: var(--navy);
+  margin-bottom: 1.5rem;
+  font-weight: 700;
+  text-align: center;
+  width: 100%;
+  position: relative;
+  display: inline-block;
+  padding-bottom: 0.5rem;
+}
+.calendar-page-title::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 0;
+  width: 40px;
+  height: 3px;
+  background: var(--gold);
+  border-radius: 2px;
+}
+.calendar-image-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+.calendar-image {
+  max-width: 100%;
+  height: auto;
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(0,0,0,0.05);
+  display: block;
+}
+
+@media (max-width: 768px) {
+  .calendar-images-container {
+    gap: 2rem;
+    padding: 0 1rem;
+  }
+  .calendar-page-card {
+    padding: 1rem;
+  }
+  .calendar-page-title {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+  }
+}
+
 /* Responsive */
 @media (max-width: 1024px) {
   .academics-hero-cards { grid-template-columns: repeat(2, 1fr); }
