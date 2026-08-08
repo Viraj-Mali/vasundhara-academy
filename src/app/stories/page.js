@@ -20,7 +20,10 @@ export default function StoriesPage() {
       fetch('/api/public/gallery').then(r => r.json()).catch(() => []),
       fetch('/api/public/events').then(r => r.json()).catch(() => []),
     ]).then(([galleryData, eventsData]) => {
-      setGallery(galleryData);
+      const filteredGallery = galleryData.filter(
+        (img) => img.category?.toLowerCase() !== 'vasundhara-teachers'
+      );
+      setGallery(filteredGallery);
       setEvents(eventsData);
       setLoaded(true);
     });
