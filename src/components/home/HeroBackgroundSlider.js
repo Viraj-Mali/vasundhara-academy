@@ -9,7 +9,7 @@ export default function HeroBackgroundSlider() {
   useEffect(() => {
     let mounted = true;
 
-    fetch('/api/hero-background-slider')
+    fetch('/api/hero-background-slider', { cache: 'no-store' })
       .then((res) => res.json())
       .then((data) => {
         if (!mounted || !Array.isArray(data)) return;

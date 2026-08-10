@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
 
+export const dynamic = 'force-dynamic';
+
 export async function GET() {
   try {
     if (!process.env.DATABASE_URL) {
@@ -12,7 +14,11 @@ export async function GET() {
       orderBy: [{ displayOrder: 'asc' }, { createdAt: 'asc' }],
     });
 
-    return NextResponse.json(images);
+    return NextResponse.json(images, {
+      headers: {
+        'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0',
+      },
+    });
   } catch (error) {
     console.error('Hero slider public API error:', error);
     return NextResponse.json([]);

@@ -64,7 +64,17 @@ function DocumentTable({ rows, documents, additionalDocuments = [] }) {
         </thead>
         <tbody>
           {rows.map((row, index) => {
-            const doc = getDocumentForAppendixRow(documents, row);
+            let doc = getDocumentForAppendixRow(documents, row);
+            
+            // Fallback for Row 2 and Row 4 if not uploaded in database
+            if (!doc?.fileUrl) {
+              if (row.category === 'appendix-b-registration-certificate') {
+                doc = { fileUrl: '/disclosures/b-2-society-registration-renewal.pdf', isStatic: true };
+              } else if (row.category === 'appendix-b-rte-recognition') {
+                doc = { fileUrl: '/disclosures/b-4-rte-recognition-certificate.pdf', isStatic: true };
+              }
+            }
+
             return (
               <tr key={row.category}>
                 <td>{index + 1}</td>
@@ -72,7 +82,7 @@ function DocumentTable({ rows, documents, additionalDocuments = [] }) {
                 <td>
                   {doc?.fileUrl ? (
                     <a
-                      href={`/api/public/mandatory-disclosure/${encodeURIComponent(doc.id)}`}
+                      href={doc.isStatic ? doc.fileUrl : `/api/public/mandatory-disclosure/${encodeURIComponent(doc.id)}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="appendix-action"
