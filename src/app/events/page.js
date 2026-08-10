@@ -43,9 +43,30 @@ export default function EventsPage() {
           {/* Database events */}
           {dbEvents.map((e) => {
             const d = new Date(e.date);
+            
+            // Extract cover image
+            let imageUrl = '';
+            try {
+              if (e.photos) {
+                if (e.photos.trim().startsWith('[')) {
+                  const arr = JSON.parse(e.photos);
+                  if (Array.isArray(arr) && arr.length > 0) {
+                    imageUrl = arr[0];
+                  }
+                } else {
+                  imageUrl = e.photos;
+                }
+              }
+            } catch (err) {
+              imageUrl = e.photos;
+            }
+
             return (
               <div key={e.id} className="event-card">
-                <div className="event-img-wrap" style={{ background: 'linear-gradient(135deg, var(--navy), var(--navy-light))', minHeight: '200px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <div className="event-img-wrap" style={!imageUrl ? { background: 'linear-gradient(135deg, var(--navy), var(--navy-light))', minHeight: '200px', display: 'flex', alignItems: 'center', justifyContent: 'center' } : {}}>
+                  {imageUrl ? (
+                    <img src={imageUrl} alt={e.title} />
+                  ) : null}
                   <div className="event-date-badge">
                     <span className="event-date-day">{d.getDate()}</span>
                     <span className="event-date-month">{months[d.getMonth()]}</span>
@@ -55,6 +76,9 @@ export default function EventsPage() {
                 <div className="event-body">
                   <h3>{e.title}</h3>
                   <p>{e.description}</p>
+                </div>
+                <div className="event-footer" style={{ justifyContent: 'flex-end' }}>
+                  <span className="event-read-more">Read More <i className="fas fa-arrow-right"></i></span>
                 </div>
               </div>
             );

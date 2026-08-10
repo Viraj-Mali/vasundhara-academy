@@ -14,7 +14,15 @@ export async function POST(req) {
   if (auth) return auth;
   const body = await req.json();
   const data = await prisma.event.create({
-    data: { title: body.title, slug: body.slug, description: body.description, date: new Date(body.date), category: body.category || 'event', featured: body.featured || false }
+    data: { 
+      title: body.title, 
+      slug: body.slug, 
+      description: body.description, 
+      date: body.date ? new Date(body.date) : new Date(), 
+      category: body.category || 'event', 
+      featured: body.featured || false,
+      photos: body.photos || null
+    }
   });
   return NextResponse.json(data);
 }
@@ -25,7 +33,13 @@ export async function PUT(req) {
   const body = await req.json();
   const data = await prisma.event.update({
     where: { id: body.id },
-    data: { title: body.title, description: body.description, date: new Date(body.date), category: body.category }
+    data: { 
+      title: body.title, 
+      description: body.description, 
+      date: body.date ? new Date(body.date) : new Date(), 
+      category: body.category,
+      photos: body.photos
+    }
   });
   return NextResponse.json(data);
 }
