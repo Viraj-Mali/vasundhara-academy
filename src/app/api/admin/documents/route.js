@@ -45,17 +45,18 @@ export async function POST(req) {
   const body = await req.json();
   const title = body.title?.trim();
   const category = body.category || 'affiliation';
-  const fileUrl = body.fileUrl?.trim();
+  const fileUrl = body.fileUrl?.trim() || '';
   const fileName = body.fileName?.trim();
   const mimeType = body.mimeType?.trim();
 
   if (!title) {
     return NextResponse.json({ error: 'Document title is required' }, { status: 400 });
   }
-  if (!fileUrl) {
+  const isFixedB = category.startsWith('appendix-b-');
+  if (!fileUrl && !isFixedB) {
     return NextResponse.json({ error: 'Please upload a document file first' }, { status: 400 });
   }
-  if (!isPdfUrl(fileUrl) && !isValidPdfMetadata(fileName, mimeType)) {
+  if (fileUrl && !isPdfUrl(fileUrl) && !isValidPdfMetadata(fileName, mimeType)) {
     return NextResponse.json({ error: 'Only PDF files are allowed for Public Disclosures' }, { status: 400 });
   }
 
@@ -79,7 +80,7 @@ export async function PUT(req) {
   const id = body.id;
   const title = body.title?.trim();
   const category = body.category || 'affiliation';
-  const fileUrl = body.fileUrl?.trim();
+  const fileUrl = body.fileUrl?.trim() || '';
   const fileName = body.fileName?.trim();
   const mimeType = body.mimeType?.trim();
 
@@ -89,10 +90,11 @@ export async function PUT(req) {
   if (!title) {
     return NextResponse.json({ error: 'Document title is required' }, { status: 400 });
   }
-  if (!fileUrl) {
+  const isFixedB = category.startsWith('appendix-b-');
+  if (!fileUrl && !isFixedB) {
     return NextResponse.json({ error: 'Please upload a document file first' }, { status: 400 });
   }
-  if (!isPdfUrl(fileUrl) && !isValidPdfMetadata(fileName, mimeType)) {
+  if (fileUrl && !isPdfUrl(fileUrl) && !isValidPdfMetadata(fileName, mimeType)) {
     return NextResponse.json({ error: 'Only PDF files are allowed for Public Disclosures' }, { status: 400 });
   }
 

@@ -30,21 +30,38 @@ function InfoTable({ rows, info }) {
           </tr>
         </thead>
         <tbody>
-          {rows.map((row, index) => (
-            <tr key={row.key}>
-              <td>{index + 1}</td>
-              <td>{row.label}</td>
-              <td>
-                {row.type === 'url' && info[row.key] ? (
-                  <a href={info[row.key]} target="_blank" rel="noopener noreferrer" className="appendix-action">
-                    View Video
-                  </a>
-                ) : (
-                  valueOrNA(info[row.key])
-                )}
-              </td>
-            </tr>
-          ))}
+          {rows.map((row, index) => {
+            let cellContent = row.key === 'infrastructureVideoUrl' ? (
+              <a href="https://youtu.be/UdUi9N6daGY?si=IAFAfsj4T8qHFEhx" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--navy)', textDecoration: 'underline', wordBreak: 'break-all' }}>
+                https://youtu.be/UdUi9N6daGY?si=IAFAfsj4T8qHFEhx
+              </a>
+            ) : row.type === 'url' && info[row.key] ? (
+              <a href={info[row.key]} target="_blank" rel="noopener noreferrer" className="appendix-action">
+                View Video
+              </a>
+            ) : (
+              valueOrNA(info[row.key])
+            );
+
+            if (row.key === 'contactDetails') {
+              cellContent = (
+                <div style={{ whiteSpace: 'pre-line' }}>
+                  Principal: Prin.Dr. Jayashri Deshmukh{"\n"}
+                  +91 94220 51190{"\n\n"}
+                  Vice Principal: Ms.Radhika Nawale{"\n"}
+                  +91 88052 54793
+                </div>
+              );
+            }
+
+            return (
+              <tr key={row.key}>
+                <td>{index + 1}</td>
+                <td>{row.label}</td>
+                <td>{cellContent}</td>
+              </tr>
+            );
+          })}
         </tbody>
       </table>
     </div>
@@ -64,23 +81,16 @@ function DocumentTable({ rows, documents, additionalDocuments = [] }) {
         </thead>
         <tbody>
           {rows.map((row, index) => {
-            let doc = getDocumentForAppendixRow(documents, row);
-            
-            // Fallback for Row 2 and Row 4 if not uploaded in database
-            if (!doc?.fileUrl) {
-              if (row.category === 'appendix-b-registration-certificate') {
-                doc = { fileUrl: '/disclosures/b-2-society-registration-renewal.pdf', isStatic: true };
-              } else if (row.category === 'appendix-b-rte-recognition') {
-                doc = { fileUrl: '/disclosures/b-4-rte-recognition-certificate.pdf', isStatic: true };
-              }
-            }
+            const doc = getDocumentForAppendixRow(documents, row);
+            const hasFile = doc?.fileUrl && doc.fileUrl.trim() !== '';
+            const displayTitle = doc?.title || row.label;
 
             return (
               <tr key={row.category}>
                 <td>{index + 1}</td>
-                <td>{row.label}</td>
+                <td>{displayTitle}</td>
                 <td>
-                  {doc?.fileUrl ? (
+                  {hasFile ? (
                     <a
                       href={doc.isStatic ? doc.fileUrl : `/api/public/mandatory-disclosure/${encodeURIComponent(doc.id)}`}
                       target="_blank"
