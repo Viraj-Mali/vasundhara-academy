@@ -98,7 +98,7 @@ export default function GeneralInfoPage() {
               <h3>Contact</h3>
             </div>
             <p>
-              Mr. Mayur Wakchaure sir: 96655557795<br />
+              Mr. Mayur Wakchaure sir: 9665557795<br />
               Ms. Gaje Mam: 9075735191<br /><br />
               Email: vasundhara.academy2016@gmail.com
             </p>
