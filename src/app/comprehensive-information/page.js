@@ -51,26 +51,33 @@ export default function ComprehensiveInformationPage() {
                   </tr>
                 </thead>
                 <tbody>
-                  {rows.map((row) => (
-                    <tr key={row.rowKey}>
-                      <td>{row.slNo}</td>
-                      <td>{row.title}</td>
-                      <td>
-                        {row.pdfUrl ? (
+                  {rows.map((row) => {
+                    const isMandatoryPublicDisclosure = row.rowKey === 'mandatory-public-disclosures';
+                    const documentUrl = isMandatoryPublicDisclosure
+                      ? '/comprehensive-information/public-disclosure.pdf'
+                      : `/api/public/comprehensive-information/${encodeURIComponent(row.rowKey)}`;
+
+                    return (
+                      <tr key={row.rowKey}>
+                        <td>{row.slNo}</td>
+                        <td>{row.title}</td>
+                        <td>
+                          {isMandatoryPublicDisclosure || row.pdfUrl ? (
                           <a
-                            href={`/api/public/comprehensive-information/${encodeURIComponent(row.rowKey)}`}
+                            href={documentUrl}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="appendix-action"
                           >
                             View PDF
                           </a>
-                        ) : (
-                          'Not Uploaded'
-                        )}
-                      </td>
-                    </tr>
-                  ))}
+                          ) : (
+                            'Not Uploaded'
+                          )}
+                        </td>
+                      </tr>
+                    );
+                  })}
                 </tbody>
               </table>
             </div>
