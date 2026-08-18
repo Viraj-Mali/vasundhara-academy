@@ -6,6 +6,7 @@ import '@/styles/about.css';
 const defaultMessage = {
   name: 'Dr. Jayashri Rajiv Deshmukh',
   title: 'Principal, Vasundhara Academy, Akole',
+  photo: '/images/leadership/principal.jpg',
   message: `Welcome to Vasundhara Academy, Akole, where education is nurtured with dedication, discipline, and compassion. At our school, we believe that true education goes beyond textbooks and examinations; it develops values, skills, confidence, and a sense of responsibility towards society.
 
 Our school stands as a center of learning and opportunity for every student. We strive to create a learner-centered environment where students are encouraged to think creatively, act ethically, and grow intellectually. Along with academic excellence, equal importance is given to co-curricular activities, sports, life skills, and character building so that our students become confident and responsible citizens of tomorrow.
@@ -40,7 +41,7 @@ export default function PrincipalMessagePage() {
         <div className="message-inner">
           <div className="message-photo-card">
             {msg.photo ? (
-              <img src={msg.photo} alt={msg.name} style={{ width: '150px', height: '150px', borderRadius: '50%', objectFit: 'cover', border: '4px solid var(--gold)' }} />
+              <img src={msg.photo} alt={msg.name} className="message-photo" />
             ) : (
               <div className="message-photo-placeholder">JD</div>
             )}
