@@ -32,8 +32,13 @@ function InfoTable({ rows, info }) {
         <tbody>
           {rows.map((row, index) => {
             const cellContent = row.type === 'url' && info[row.key] ? (
-              <a href={info[row.key]} target="_blank" rel="noopener noreferrer" className="appendix-action">
-                View Video
+              <a
+                href={info[row.key]}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ color: 'var(--navy)', textDecoration: 'underline', overflowWrap: 'anywhere', wordBreak: 'break-word' }}
+              >
+                {info[row.key]}
               </a>
             ) : (
               valueOrNA(info[row.key])
