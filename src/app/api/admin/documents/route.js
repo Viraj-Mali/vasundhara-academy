@@ -4,6 +4,7 @@ import { checkAdminAuth } from '@/lib/auth';
 import { isLocalDevWithoutDatabase } from '@/lib/localDev';
 import { createLocalDocument, deleteLocalDocument, listLocalDocuments, updateLocalDocument } from '@/lib/localDocumentStore';
 import { deleteUploadFileByUrl } from '@/lib/uploadStorage';
+import { appendixDocumentCategories } from '@/lib/publicDisclosureConfig';
 
 export const dynamic = 'force-dynamic';
 
@@ -22,6 +23,41 @@ function isValidPdfMetadata(fileName = '', mimeType = '') {
   const normalizedMimeType = mimeType.toLowerCase();
   if (!hasPdfExtension(fileName)) return false;
   return !normalizedMimeType || pdfMimeTypes.has(normalizedMimeType) || normalizedMimeType === 'application/octet-stream';
+}
+
+function isFixedCategory(category = '') {
+  return appendixDocumentCategories.includes(category);
+}
+
+async function isKnownDocumentUrl(fileUrl) {
+  if (!fileUrl) return false;
+  if (isLocalDevWithoutDatabase()) {
+    const documents = await listLocalDocuments();
+    return documents.some((document) => document.fileUrl === fileUrl);
+  }
+  if (!process.env.DATABASE_URL) return false;
+  return Boolean(await prisma.document.findFirst({ where: { fileUrl }, select: { id: true } }));
+}
+
+async function validatePdfReference({ fileUrl, fileName, mimeType, unchanged = false }) {
+  if (!fileUrl || unchanged || isPdfUrl(fileUrl) || isValidPdfMetadata(fileName, mimeType)) return null;
+  if (await isKnownDocumentUrl(fileUrl)) return null;
+  return 'Only PDF files are allowed for Public Disclosures';
+}
+
+async function deleteUploadIfUnreferenced(fileUrl, excludedId) {
+  if (!fileUrl) return;
+  if (isLocalDevWithoutDatabase()) {
+    const documents = await listLocalDocuments();
+    if (documents.some((document) => document.id !== excludedId && document.fileUrl === fileUrl)) return;
+  } else if (process.env.DATABASE_URL) {
+    const reference = await prisma.document.findFirst({
+      where: { fileUrl, ...(excludedId ? { id: { not: excludedId } } : {}) },
+      select: { id: true },
+    });
+    if (reference) return;
+  }
+  await deleteUploadFileByUrl(fileUrl);
 }
 
 export async function GET() {
@@ -52,23 +88,40 @@ export async function POST(req) {
   if (!title) {
     return NextResponse.json({ error: 'Document title is required' }, { status: 400 });
   }
-  const isFixedB = category.startsWith('appendix-b-');
-  if (!fileUrl && !isFixedB) {
+  const fixedCategory = isFixedCategory(category);
+  if (!fileUrl && !fixedCategory) {
     return NextResponse.json({ error: 'Please upload a document file first' }, { status: 400 });
   }
-  if (fileUrl && !isPdfUrl(fileUrl) && !isValidPdfMetadata(fileName, mimeType)) {
-    return NextResponse.json({ error: 'Only PDF files are allowed for Public Disclosures' }, { status: 400 });
+  const pdfError = await validatePdfReference({ fileUrl, fileName, mimeType });
+  if (pdfError) {
+    return NextResponse.json({ error: pdfError }, { status: 400 });
   }
 
   const order = typeof body.order === 'number' ? body.order : parseInt(body.order) || 0;
   const data = { title, category, fileUrl, order };
 
   if (isLocalDevWithoutDatabase()) {
+    if (fixedCategory) {
+      const documents = await listLocalDocuments();
+      const existing = documents.find((document) => document.category === category);
+      if (existing) {
+        const document = await updateLocalDocument(existing.id, data);
+        return NextResponse.json(document, { headers: noStoreHeaders });
+      }
+    }
     const document = await createLocalDocument(data);
     return NextResponse.json(document, { headers: noStoreHeaders });
   }
 
-  const document = await prisma.document.create({ data });
+  const existing = fixedCategory
+    ? await prisma.document.findFirst({ where: { category }, orderBy: { createdAt: 'desc' } })
+    : null;
+  const document = existing
+    ? await prisma.document.update({ where: { id: existing.id }, data })
+    : await prisma.document.create({ data });
+  if (existing?.fileUrl && existing.fileUrl !== fileUrl) {
+    await deleteUploadIfUnreferenced(existing.fileUrl, existing.id);
+  }
   return NextResponse.json(document, { headers: noStoreHeaders });
 }
 
@@ -90,12 +143,9 @@ export async function PUT(req) {
   if (!title) {
     return NextResponse.json({ error: 'Document title is required' }, { status: 400 });
   }
-  const isFixedB = category.startsWith('appendix-b-');
-  if (!fileUrl && !isFixedB) {
+  const fixedCategory = isFixedCategory(category);
+  if (!fileUrl && !fixedCategory) {
     return NextResponse.json({ error: 'Please upload a document file first' }, { status: 400 });
-  }
-  if (fileUrl && !isPdfUrl(fileUrl) && !isValidPdfMetadata(fileName, mimeType)) {
-    return NextResponse.json({ error: 'Only PDF files are allowed for Public Disclosures' }, { status: 400 });
   }
 
   const order = typeof body.order === 'number' ? body.order : parseInt(body.order) || 0;
@@ -103,12 +153,19 @@ export async function PUT(req) {
   if (isLocalDevWithoutDatabase()) {
     const docs = await listLocalDocuments();
     const oldDocument = docs.find((doc) => doc.id === id);
+    const pdfError = await validatePdfReference({
+      fileUrl,
+      fileName,
+      mimeType,
+      unchanged: oldDocument?.fileUrl === fileUrl,
+    });
+    if (pdfError) return NextResponse.json({ error: pdfError }, { status: 400 });
     const document = await updateLocalDocument(id, { title, category, fileUrl, order });
     if (!document) {
       return NextResponse.json({ error: 'Document not found' }, { status: 404 });
     }
     if (oldDocument?.fileUrl && oldDocument.fileUrl !== fileUrl) {
-      await deleteUploadFileByUrl(oldDocument.fileUrl);
+      await deleteUploadIfUnreferenced(oldDocument.fileUrl, id);
     }
     return NextResponse.json(document, { headers: noStoreHeaders });
   }
@@ -118,12 +175,19 @@ export async function PUT(req) {
   }
 
   const oldDocument = await prisma.document.findUnique({ where: { id } });
+  const pdfError = await validatePdfReference({
+    fileUrl,
+    fileName,
+    mimeType,
+    unchanged: oldDocument?.fileUrl === fileUrl,
+  });
+  if (pdfError) return NextResponse.json({ error: pdfError }, { status: 400 });
   const document = await prisma.document.update({
     where: { id },
     data: { title, category, fileUrl, order },
   });
   if (oldDocument?.fileUrl && oldDocument.fileUrl !== fileUrl) {
-    await deleteUploadFileByUrl(oldDocument.fileUrl);
+    await deleteUploadIfUnreferenced(oldDocument.fileUrl, id);
   }
   return NextResponse.json(document, { headers: noStoreHeaders });
 }
@@ -141,7 +205,7 @@ export async function DELETE(req) {
     const oldDocument = docs.find((doc) => doc.id === id);
     await deleteLocalDocument(id);
     if (oldDocument?.fileUrl) {
-      await deleteUploadFileByUrl(oldDocument.fileUrl);
+      await deleteUploadIfUnreferenced(oldDocument.fileUrl, id);
     }
     return NextResponse.json({ ok: true }, { headers: noStoreHeaders });
   }
@@ -151,7 +215,7 @@ export async function DELETE(req) {
   const oldDocument = await prisma.document.findUnique({ where: { id } });
   await prisma.document.delete({ where: { id } });
   if (oldDocument?.fileUrl) {
-    await deleteUploadFileByUrl(oldDocument.fileUrl);
+    await deleteUploadIfUnreferenced(oldDocument.fileUrl, id);
   }
   return NextResponse.json({ ok: true }, { headers: noStoreHeaders });
 }

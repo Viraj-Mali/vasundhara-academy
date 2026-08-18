@@ -3,6 +3,8 @@ import { useEffect, useState } from 'react';
 import {
   appendixDocumentSections,
   defaultResultYears,
+  EXTRA_B_CATEGORIES,
+  EXTRA_C_CATEGORIES,
   generalInformationRows,
   getDocumentForAppendixRow,
   infrastructureRows,
@@ -11,8 +13,6 @@ import {
 } from '@/lib/publicDisclosureConfig';
 import '@/styles/about.css';
 import '@/styles/phase5.css';
-
-const ADDITIONAL_B_CATEGORY = 'public-disclosure-b-additional';
 
 function valueOrNA(value) {
   return value && String(value).trim() ? value : 'NA';
@@ -31,11 +31,7 @@ function InfoTable({ rows, info }) {
         </thead>
         <tbody>
           {rows.map((row, index) => {
-            let cellContent = row.key === 'infrastructureVideoUrl' ? (
-              <a href="https://youtu.be/UdUi9N6daGY?si=IAFAfsj4T8qHFEhx" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--navy)', textDecoration: 'underline', wordBreak: 'break-all' }}>
-                https://youtu.be/UdUi9N6daGY?si=IAFAfsj4T8qHFEhx
-              </a>
-            ) : row.type === 'url' && info[row.key] ? (
+            const cellContent = row.type === 'url' && info[row.key] ? (
               <a href={info[row.key]} target="_blank" rel="noopener noreferrer" className="appendix-action">
                 View Video
               </a>
@@ -43,22 +39,11 @@ function InfoTable({ rows, info }) {
               valueOrNA(info[row.key])
             );
 
-            if (row.key === 'contactDetails') {
-              cellContent = (
-                <div style={{ whiteSpace: 'pre-line' }}>
-                  Principal: Prin.Dr. Jayashri Deshmukh{"\n"}
-                  +91 94220 51190{"\n\n"}
-                  Vice Principal: Ms.Radhika Nawale{"\n"}
-                  +91 88052 54793
-                </div>
-              );
-            }
-
             return (
               <tr key={row.key}>
                 <td>{index + 1}</td>
                 <td>{row.label}</td>
-                <td>{cellContent}</td>
+                <td style={{ whiteSpace: 'pre-line' }}>{cellContent}</td>
               </tr>
             );
           })}
@@ -138,9 +123,9 @@ function resultRowsForClass(rows, resultClass) {
   return defaultResultYears.map((year) => ({
     id: `${resultClass}-${year}`,
     year,
-    registeredStudents: '--',
-    studentsPassed: '--',
-    passPercentage: '--',
+    registeredStudents: 'NA',
+    studentsPassed: 'NA',
+    passPercentage: 'NA',
     remarks: 'NA',
   }));
 }
@@ -166,10 +151,10 @@ function ResultClassTable({ title, rows }) {
               <tr key={row.id || `${title}-${row.year}-${index}`}>
                 <td>{index + 1}</td>
                 <td>{valueOrNA(row.year)}</td>
-                <td>{row.registeredStudents || '--'}</td>
-                <td>{row.studentsPassed || '--'}</td>
-                <td>{row.passPercentage || '--'}</td>
-                <td>{row.remarks || 'NA'}</td>
+                <td>{valueOrNA(row.registeredStudents)}</td>
+                <td>{valueOrNA(row.studentsPassed)}</td>
+                <td>{valueOrNA(row.passPercentage)}</td>
+                <td>{valueOrNA(row.remarks)}</td>
               </tr>
             ))}
           </tbody>
@@ -205,10 +190,14 @@ export default function DisclosuresPage() {
   }, []);
 
   const additionalBDocuments = documents
-    .filter((doc) => doc.category === ADDITIONAL_B_CATEGORY)
+    .filter((doc) => EXTRA_B_CATEGORIES.includes(doc.category) && doc.fileUrl)
+    .sort((a, b) => (a.order || 0) - (b.order || 0));
+  const additionalCDocuments = documents
+    .filter((doc) => EXTRA_C_CATEGORIES.includes(doc.category) && doc.fileUrl)
     .sort((a, b) => (a.order || 0) - (b.order || 0));
 
-  const mainDocuments = documents.filter((doc) => doc.category !== ADDITIONAL_B_CATEGORY);
+  const extraCategories = [...EXTRA_B_CATEGORIES, ...EXTRA_C_CATEGORIES];
+  const mainDocuments = documents.filter((doc) => !extraCategories.includes(doc.category));
 
   return (
     <>
@@ -241,7 +230,7 @@ export default function DisclosuresPage() {
               <DocumentTable
                 rows={section.rows}
                 documents={mainDocuments}
-                additionalDocuments={section.key === 'documents' ? additionalBDocuments : []}
+                additionalDocuments={section.key === 'documents' ? additionalBDocuments : additionalCDocuments}
               />
               {section.key === 'academics' && (
                 <>

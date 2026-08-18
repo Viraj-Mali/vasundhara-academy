@@ -33,6 +33,11 @@ export const publicDisclosureDefaults = {
 
 export const resultClassOptions = ['Class X', 'Class XII'];
 export const defaultResultYears = ['2024', '2025', '2026'];
+export const EXTRA_B_CATEGORIES = [
+  'public-disclosure-b-extra',
+  'public-disclosure-b-additional',
+];
+export const EXTRA_C_CATEGORIES = ['public-disclosure-c-extra'];
 
 export const generalInformationRows = [
   { key: 'schoolName', label: 'Name of the School' },
@@ -81,7 +86,7 @@ export const appendixDocumentSections = [
     rows: [
       {
         category: 'appendix-b-affiliation-letter',
-        label: 'Copies of Affiliation / Upgradation Letter and Recent Extension of Affiliation, if any',
+        label: 'Affiliation status and period of affiliation',
         legacyCategories: ['affiliation'],
         legacyTitleIncludes: ['affiliation', 'upgradation', 'extension'],
       },
@@ -129,7 +134,7 @@ export const appendixDocumentSections = [
     rows: [
       {
         category: 'appendix-c-fee-structure',
-        label: 'Fee Structure of the School',
+        label: 'Fee Structure of the School / Fee Fixation Norms & fee structure',
         legacyTitleIncludes: ['fee structure'],
       },
       {
@@ -140,12 +145,12 @@ export const appendixDocumentSections = [
       },
       {
         category: 'appendix-c-smc',
-        label: 'List of School Management Committee (SMC)',
+        label: 'School Management Committee (SMC)',
         legacyTitleIncludes: ['smc', 'school management committee'],
       },
       {
         category: 'appendix-c-pta',
-        label: 'List of Parents Teachers Association (PTA) Members',
+        label: 'Parent Teacher Association (PTA) Members',
         legacyTitleIncludes: ['pta', 'parents teachers association'],
       },
       {
@@ -153,7 +158,6 @@ export const appendixDocumentSections = [
         label: 'Last Three-Year Result of the Board Examination as per applicability',
         legacyCategories: ['result'],
         legacyTitleIncludes: ['board result', 'three-year result', 'class 10 board results'],
-        emptyText: 'NA',
       },
     ],
   },
@@ -194,7 +198,7 @@ export function normalizePublicDisclosureInfo(info = {}) {
 
 export function getDocumentForAppendixRow(documents, row) {
   const items = Array.isArray(documents) ? documents : [];
-  const exact = items.find((doc) => doc.category === row.category && doc.fileUrl);
+  const exact = items.find((doc) => doc.category === row.category);
   if (exact) return exact;
 
   return items.find((doc) => {
