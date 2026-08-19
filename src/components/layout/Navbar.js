@@ -49,8 +49,6 @@ const navItems = [
       { label: 'Stories & Achievements', href: '/stories' },
       { label: 'Student Section', href: '/student-section' },
       { label: 'Staff Details', href: '/staff-details' },
-      { label: 'Public Disclosures', href: '/disclosures' },
-      { label: 'Comprehensive Info', href: '/comprehensive-info' },
       { label: 'Alumni', href: '/alumni' },
     ],
   },
