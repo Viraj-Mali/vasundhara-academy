@@ -41,8 +41,6 @@ const staticCategoryLabels = {
   'sports-fitness': 'Sports-Fitness',
 };
 
-const isStaticGalleryImage = (img) => Boolean(img?.static) || String(img?.id || '').startsWith('static-');
-
 const getCategoryLabel = (category) => {
   const option = categoryOptions.find(c => c.value === category);
   if (option) return option.label.replace(' (Facility)', '');
@@ -120,31 +118,31 @@ export default function AdminGallery() {
   };
 
   const handleDelete = async (id) => {
-    if (String(id).startsWith('static-')) {
-      showToast('This gallery photo is part of the website gallery.', 'error');
+    if (!confirm('Delete this image?')) return;
+    const response = await fetch(`/api/admin/gallery?id=${encodeURIComponent(id)}`, { method: 'DELETE' });
+    if (!response.ok) {
+      showToast('Unable to delete this image.', 'error');
       return;
     }
-    if (!confirm('Delete this image?')) return;
-    await fetch(`/api/admin/gallery?id=${id}`, { method: 'DELETE' });
-    setImages(images.filter(i => i.id !== id));
+    setImages(prev => prev.filter(i => i.id !== id));
+    setSelected(prev => prev.filter(selectedId => selectedId !== id));
     showToast('Deleted!');
   };
 
   const handleBulkDelete = async () => {
-    const selectedUploads = selected.filter(id => !String(id).startsWith('static-'));
-    if (selectedUploads.length === 0) {
-      setSelected([]);
+    if (!confirm(`Delete ${selected.length} selected images?`)) return;
+    const response = await fetch(`/api/admin/gallery?ids=${selected.map(encodeURIComponent).join(',')}`, { method: 'DELETE' });
+    if (!response.ok) {
+      showToast('Unable to delete the selected images.', 'error');
       return;
     }
-    if (!confirm(`Delete ${selectedUploads.length} selected images?`)) return;
-    await fetch(`/api/admin/gallery?ids=${selectedUploads.join(',')}`, { method: 'DELETE' });
-    setImages(images.filter(i => !selectedUploads.includes(i.id)));
+    setImages(prev => prev.filter(i => !selected.includes(i.id)));
+    const deletedCount = selected.length;
     setSelected([]);
-    showToast(`${selectedUploads.length} images deleted!`);
+    showToast(`${deletedCount} images deleted!`);
   };
 
   const toggleSelect = (id) => {
-    if (String(id).startsWith('static-')) return;
     setSelected(prev => prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id]);
   };
 
@@ -259,21 +257,18 @@ export default function AdminGallery() {
           ) : (
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(180px, 1fr))', gap: '1rem' }}>
               {filtered.map(img => {
-                const staticImage = isStaticGalleryImage(img);
                 return (
                 <div key={img.id} style={{ position: 'relative', background: 'var(--off-white)', borderRadius: 'var(--radius-md)', overflow: 'hidden', border: selected.includes(img.id) ? '2px solid var(--gold)' : '2px solid transparent', transition: 'border 0.2s' }}>
                   {/* Select checkbox */}
-                  {!staticImage && (
-                    <div style={{ position: 'absolute', top: '0.3rem', left: '0.3rem', zIndex: 2 }}>
-                      <input type="checkbox" className="admin-checkbox" checked={selected.includes(img.id)} onChange={() => toggleSelect(img.id)} />
-                    </div>
-                  )}
+                  <div style={{ position: 'absolute', top: '0.3rem', left: '0.3rem', zIndex: 3 }}>
+                    <input type="checkbox" className="admin-checkbox" checked={selected.includes(img.id)} onChange={() => toggleSelect(img.id)} />
+                  </div>
                   {img.category === 'mandatory-disclosure' ? (
                     <a href={mandatoryDisclosureDownloadUrl(img.id)} style={{ width: '100%', height: '150px', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#fef2f2', cursor: 'pointer', textDecoration: 'none' }}>
                       <i className="fas fa-file-pdf" style={{ fontSize: '3rem', color: '#dc2626' }}></i>
                     </a>
                   ) : (
-                    <img src={img.url} alt={img.title || 'Gallery'} style={{ width: '100%', height: '150px', objectFit: 'cover', cursor: staticImage ? 'default' : 'pointer' }} onClick={() => toggleSelect(img.id)} />
+                    <img src={img.url} alt={img.title || 'Gallery'} style={{ width: '100%', height: '150px', objectFit: 'cover', cursor: 'pointer' }} onClick={() => toggleSelect(img.id)} />
                   )}
                   <div style={{ padding: '0.5rem 0.8rem' }}>
                     <p style={{ fontSize: '0.78rem', fontWeight: 600, color: 'var(--navy)', lineHeight: 1.3 }}>{img.title || 'Untitled'}</p>
@@ -281,15 +276,15 @@ export default function AdminGallery() {
                       {getCategoryLabel(img.category)}
                     </p>
                   </div>
-                  {!staticImage && (
-                    <button
-                      className="admin-btn admin-btn-danger admin-btn-sm"
-                      style={{ position: 'absolute', top: '0.3rem', right: '0.3rem' }}
-                      onClick={() => handleDelete(img.id)}
-                    >
-                      <i className="fas fa-times"></i>
-                    </button>
-                  )}
+                  <button
+                    type="button"
+                    className="admin-btn admin-btn-danger admin-btn-sm"
+                    style={{ position: 'absolute', top: '0.3rem', right: '0.3rem', zIndex: 3 }}
+                    onClick={() => handleDelete(img.id)}
+                    aria-label={`Delete ${img.title || 'gallery image'}`}
+                  >
+                    <i className="fas fa-times"></i>
+                  </button>
                 </div>
                 );
               })}

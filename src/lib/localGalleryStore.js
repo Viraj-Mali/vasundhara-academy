@@ -4,6 +4,7 @@ import { join } from 'path';
 
 const dataDir = join(process.cwd(), '.local-data');
 const dataFile = join(dataDir, 'gallery.json');
+const hiddenStaticDataFile = join(dataDir, 'gallery-static-hidden.json');
 
 async function readGallery() {
   try {
@@ -44,4 +45,20 @@ export async function deleteLocalGalleryImages({ id, ids }) {
   const items = await readGallery();
   const deleteSet = new Set(ids || (id ? [id] : []));
   await writeGallery(items.filter((item) => !deleteSet.has(item.id)));
+}
+
+export async function listLocalHiddenStaticGalleryIds() {
+  try {
+    const data = JSON.parse(await readFile(hiddenStaticDataFile, 'utf8'));
+    return Array.isArray(data) ? data.map(String) : [];
+  } catch {
+    return [];
+  }
+}
+
+export async function hideLocalStaticGalleryImages(ids) {
+  const hiddenIds = new Set(await listLocalHiddenStaticGalleryIds());
+  ids.map(String).forEach((id) => hiddenIds.add(id));
+  await mkdir(dataDir, { recursive: true });
+  await writeFile(hiddenStaticDataFile, JSON.stringify([...hiddenIds], null, 2));
 }

@@ -11,6 +11,23 @@ export const EXCLUDED_FROM_PUBLIC_GALLERY = [
   'mandatory-disclosure',
 ];
 
+export const STATIC_GALLERY_HIDDEN_SLUG = 'gallery-static-hidden';
+
+export function parseHiddenStaticGalleryIds(content) {
+  try {
+    const parsed = typeof content === 'string' ? JSON.parse(content) : content;
+    const ids = Array.isArray(parsed) ? parsed : parsed?.ids;
+    return new Set((Array.isArray(ids) ? ids : []).map(String));
+  } catch {
+    return new Set();
+  }
+}
+
+export function excludeHiddenStaticGalleryImages(images, hiddenIds) {
+  const hidden = hiddenIds instanceof Set ? hiddenIds : new Set(hiddenIds || []);
+  return images.filter((image) => !hidden.has(String(image.id)));
+}
+
 export async function getStaticGalleryImages() {
   try {
     const dataPath = join(process.cwd(), 'public', 'images', 'gallery', 'data.json');

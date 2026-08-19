@@ -2,7 +2,29 @@ import { NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
 import { isLocalDevWithoutDatabase } from '@/lib/localDev';
 import { listLocalGalleryImages } from '@/lib/localGalleryStore';
-import { EXCLUDED_FROM_PUBLIC_GALLERY, filterGalleryImages, getStaticGalleryImages, mergeGalleryImages } from '@/lib/staticGallery';
+import {
+  EXCLUDED_FROM_PUBLIC_GALLERY,
+  excludeHiddenStaticGalleryImages,
+  filterGalleryImages,
+  getStaticGalleryImages,
+  mergeGalleryImages,
+  parseHiddenStaticGalleryIds,
+  STATIC_GALLERY_HIDDEN_SLUG,
+} from '@/lib/staticGallery';
+import { listLocalHiddenStaticGalleryIds } from '@/lib/localGalleryStore';
+
+async function getVisibleStaticImages() {
+  const staticImages = await getStaticGalleryImages();
+  if (isLocalDevWithoutDatabase()) {
+    return excludeHiddenStaticGalleryImages(staticImages, await listLocalHiddenStaticGalleryIds());
+  }
+  if (!process.env.DATABASE_URL) return staticImages;
+  const record = await prisma.pageContent.findUnique({
+    where: { pageSlug: STATIC_GALLERY_HIDDEN_SLUG },
+    select: { content: true },
+  });
+  return excludeHiddenStaticGalleryImages(staticImages, parseHiddenStaticGalleryIds(record?.content));
+}
 
 function mapDisclosureDocument(document) {
   return {
@@ -21,7 +43,7 @@ export async function GET(req) {
   const category = searchParams.get('category');
   const includeAll = searchParams.get('all') === 'true';
 
-  const staticImages = await getStaticGalleryImages();
+  const staticImages = await getVisibleStaticImages();
 
   const where = {};
   if (category) where.category = category;
