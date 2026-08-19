@@ -10,6 +10,14 @@ const defaultStories = [
   { title: 'Outstanding Board Results', desc: 'Vasundhara Academy secured excellent results in the CBSE board examinations.', category: 'Academic', img: '/images/school-photo-3.jpg', date: { day: '20', month: 'May' } },
 ];
 
+const storyGalleryCategories = new Set([
+  'achievement',
+  'achievements',
+  'awards',
+  'story',
+  'stories',
+]);
+
 export default function StoriesPage() {
   const [gallery, setGallery] = useState([]);
   const [events, setEvents] = useState([]);
@@ -21,7 +29,7 @@ export default function StoriesPage() {
       fetch('/api/public/events').then(r => r.json()).catch(() => []),
     ]).then(([galleryData, eventsData]) => {
       const filteredGallery = galleryData.filter(
-        (img) => img.category?.toLowerCase() !== 'vasundhara-teachers'
+        (img) => storyGalleryCategories.has(String(img.category || '').trim().toLowerCase())
       );
       setGallery(filteredGallery);
       setEvents(eventsData);
@@ -41,25 +49,31 @@ export default function StoriesPage() {
       </section>
 
       {/* Gallery Images from Admin */}
-      {gallery.length > 0 && (
+      {loaded && (
         <section className="events-section">
           <div className="container text-center">
             <span className="section-tag"><i className="fas fa-minus"></i> Photo Gallery</span>
             <h2 className="section-title">Our Gallery</h2>
           </div>
-          <div className="events-grid">
-            {gallery.map((img) => (
-              <div key={img.id} className="event-card">
-                <div className="event-img-wrap">
-                  <img src={img.url} alt={img.title || 'Gallery'} />
-                  <span className="event-category-badge" style={{ textTransform: 'capitalize' }}>{img.category}</span>
+          {gallery.length > 0 ? (
+            <div className="events-grid">
+              {gallery.map((img) => (
+                <div key={img.id} className="event-card">
+                  <div className="event-img-wrap">
+                    <img src={img.url} alt={img.title || 'Achievement or story'} />
+                    <span className="event-category-badge" style={{ textTransform: 'capitalize' }}>{img.category}</span>
+                  </div>
+                  <div className="event-body">
+                    <h3>{img.title || 'Untitled'}</h3>
+                  </div>
                 </div>
-                <div className="event-body">
-                  <h3>{img.title || 'Untitled'}</h3>
-                </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          ) : (
+            <p style={{ textAlign: 'center', color: 'var(--gray-400)', padding: '2rem 1rem 0' }}>
+              No stories or achievements added yet.
+            </p>
+          )}
         </section>
       )}
 
