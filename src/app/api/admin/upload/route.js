@@ -3,6 +3,8 @@ import { v2 as cloudinary } from 'cloudinary';
 import { createUploadFileName, writeUploadFile } from '@/lib/uploadStorage';
 
 const pdfMimeTypes = new Set(['application/pdf', 'application/x-pdf']);
+const storyImageMimeTypes = new Set(['image/jpeg', 'image/png', 'image/webp']);
+const storyImageExtensions = ['.jpg', '.jpeg', '.png', '.webp'];
 
 function isPdfFileName(name = '') {
   return name.toLowerCase().endsWith('.pdf');
@@ -10,6 +12,16 @@ function isPdfFileName(name = '') {
 
 function hasPdfSignature(buffer) {
   return buffer.subarray(0, 4).toString('utf8') === '%PDF';
+}
+
+function isStoryImageFile(file, buffer) {
+  const name = (file.name || '').toLowerCase();
+  const hasAllowedExtension = storyImageExtensions.some((extension) => name.endsWith(extension));
+  const hasAllowedMimeType = storyImageMimeTypes.has((file.type || '').toLowerCase());
+  const isJpeg = buffer.length >= 3 && buffer[0] === 0xff && buffer[1] === 0xd8 && buffer[2] === 0xff;
+  const isPng = buffer.length >= 8 && buffer.subarray(0, 8).equals(Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]));
+  const isWebp = buffer.length >= 12 && buffer.subarray(0, 4).toString('ascii') === 'RIFF' && buffer.subarray(8, 12).toString('ascii') === 'WEBP';
+  return hasAllowedExtension && hasAllowedMimeType && (isJpeg || isPng || isWebp);
 }
 
 function contentTypeForResponse(file, isPdf, isValidatedPdfUpload = false) {
@@ -40,6 +52,7 @@ export async function POST(req) {
     const uploadContext = formData.get('uploadContext');
     const isPublicDisclosurePdf = uploadContext === 'public-disclosure-pdf';
     const isComprehensiveInformationPdf = uploadContext === 'comprehensive-information-pdf';
+    const isStoryAchievementImage = uploadContext === 'story-achievement-image';
     const isValidatedPdfUpload = isPublicDisclosurePdf || isComprehensiveInformationPdf;
     const hasPdfExtension = isPdfFileName(file.name || '');
     const isPdf = hasPdfExtension || pdfMimeTypes.has((file.type || '').toLowerCase());
@@ -52,6 +65,10 @@ export async function POST(req) {
           : 'Only PDF files are allowed';
         return NextResponse.json({ error }, { status: 400 });
       }
+    }
+
+    if (isStoryAchievementImage && !isStoryImageFile(file, buffer)) {
+      return NextResponse.json({ error: 'Only JPG, JPEG, PNG, and WEBP images are allowed' }, { status: 400 });
     }
 
     // 1. CLOUDINARY UPLOAD (Production)

@@ -175,6 +175,20 @@ model SchoolNews {
   updatedAt   DateTime @updatedAt
 }
 
+// =============== STORIES & ACHIEVEMENTS ===============
+model StoryAchievement {
+  id           String    @id @default(cuid())
+  title        String
+  description  String
+  category     String    @default("Achievement")
+  imageUrl     String
+  date         DateTime?
+  displayOrder Int       @default(0)
+  isActive     Boolean   @default(true)
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+}
+
 // =============== QUESTION BANK ===============
 model QuestionBank {
   id        String   @id @default(cuid())
