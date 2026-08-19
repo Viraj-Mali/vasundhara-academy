@@ -35,7 +35,7 @@ export default function StoriesPage() {
     <>
       <section className="page-hero">
         <div className="page-hero-content">
-<h1 className="page-hero-title">Stories & Gallery</h1>
+<h1 className="page-hero-title">Stories & Achievements</h1>
           <p className="page-hero-desc">Celebrating the milestones that define our journey of excellence.</p>
         </div>
       </section>
