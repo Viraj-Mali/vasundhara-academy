@@ -67,6 +67,46 @@ async function main() {
   }
   console.log('✅ Staff details created');
 
+  // Create default academic programs
+  const academicPrograms = [
+    {
+      id: 'academic-program-expert-abacus',
+      title: 'Expert Abacus Training',
+      category: 'Enrichment',
+      description: 'Mental arithmetic program that builds concentration, speed, and problem-solving skills. Our students regularly win at state-level competitions.',
+      imageUrl: '/images/school-photo-1.jpg',
+      displayOrder: 1,
+      isActive: true,
+    },
+    {
+      id: 'academic-program-sof-olympiad',
+      title: 'SOF Olympiad Preparation',
+      category: 'Competitive',
+      description: 'Dedicated coaching for Science Olympiad Foundation exams in Science, Mathematics, English, and Cyber/IT.',
+      imageUrl: '/images/school-photo-2.jpg',
+      displayOrder: 2,
+      isActive: true,
+    },
+    {
+      id: 'academic-program-sports',
+      title: 'Sports Program',
+      category: 'Physical',
+      description: 'Comprehensive sports coaching in cricket, football, kho-kho, kabaddi, athletics, and indoor games with professional coaches.',
+      imageUrl: '/images/school-photo-3.jpg',
+      displayOrder: 3,
+      isActive: true,
+    },
+  ];
+
+  for (const program of academicPrograms) {
+    await prisma.academicProgram.upsert({
+      where: { id: program.id },
+      update: {},
+      create: program,
+    });
+  }
+  console.log('✅ Academic programs created');
+
   console.log('🎉 Database seeded successfully!');
 }
 

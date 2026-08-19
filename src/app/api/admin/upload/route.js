@@ -52,7 +52,9 @@ export async function POST(req) {
     const uploadContext = formData.get('uploadContext');
     const isPublicDisclosurePdf = uploadContext === 'public-disclosure-pdf';
     const isComprehensiveInformationPdf = uploadContext === 'comprehensive-information-pdf';
-    const isManagedContentImage = uploadContext === 'story-achievement-image' || uploadContext === 'teacher-training-image';
+    const isManagedContentImage = uploadContext === 'story-achievement-image'
+      || uploadContext === 'teacher-training-image'
+      || uploadContext === 'academic-program-image';
     const isValidatedPdfUpload = isPublicDisclosurePdf || isComprehensiveInformationPdf;
     const hasPdfExtension = isPdfFileName(file.name || '');
     const isPdf = hasPdfExtension || pdfMimeTypes.has((file.type || '').toLowerCase());

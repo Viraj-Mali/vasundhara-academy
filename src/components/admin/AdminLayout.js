@@ -19,6 +19,7 @@ const sidebarItems = [
     { label: 'Events', href: '/admin/events', icon: 'fas fa-calendar-alt', badgeKey: 'events' },
     { label: 'Stories & Achievements', href: '/admin/stories-achievements', icon: 'fas fa-trophy' },
     { label: 'Teacher Training', href: '/admin/teacher-training', icon: 'fas fa-chalkboard-teacher' },
+    { label: 'Academic Programs', href: '/admin/academic-programs', icon: 'fas fa-book-open' },
     { label: 'Messages', href: '/admin/messages', icon: 'fas fa-envelope' },
     { label: 'Gallery', href: '/admin/gallery', icon: 'fas fa-images', badgeKey: 'gallery' },
   ]},

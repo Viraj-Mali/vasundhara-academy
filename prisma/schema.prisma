@@ -215,6 +215,19 @@ model TeacherTrainingImage {
   @@index([trainingId])
 }
 
+// =============== ACADEMIC PROGRAMS ===============
+model AcademicProgram {
+  id           String   @id @default(cuid())
+  title        String
+  category     String   @default("Other")
+  description  String
+  imageUrl     String
+  displayOrder Int      @default(0)
+  isActive     Boolean  @default(true)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
 // =============== QUESTION BANK ===============
 model QuestionBank {
   id        String   @id @default(cuid())
