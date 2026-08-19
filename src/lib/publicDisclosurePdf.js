@@ -44,13 +44,12 @@ function resultRowsForClass(rows, resultClass) {
   }));
 }
 
-function publicDocumentUrl(document, origin) {
+function publicDocumentUrl(document) {
   if (!document?.fileUrl) return '';
-  if (document.isStatic) return new URL(document.fileUrl, origin).toString();
-  return `${origin}/api/public/mandatory-disclosure/${encodeURIComponent(document.id)}`;
+  return `/api/public/mandatory-disclosure/${encodeURIComponent(document.id)}`;
 }
 
-export async function buildPublicDisclosurePdf({ info: rawInfo, documents: rawDocuments, origin }) {
+export async function buildPublicDisclosurePdf({ info: rawInfo, documents: rawDocuments }) {
   const info = normalizePublicDisclosureInfo(rawInfo);
   const documents = Array.isArray(rawDocuments) ? rawDocuments : [];
   const pdf = new PDFDocument({
@@ -130,7 +129,7 @@ export async function buildPublicDisclosurePdf({ info: rawInfo, documents: rawDo
     tableRow(['SL No.', 'Documents / Information', 'Uploaded Documents'], widths, { header: true, bold: true });
     section.rows.forEach((row, index) => {
       const document = getDocumentForAppendixRow(documents, row);
-      const url = publicDocumentUrl(document, origin);
+      const url = publicDocumentUrl(document);
       tableRow([
         String(index + 1),
         document?.title || row.label,
@@ -144,7 +143,7 @@ export async function buildPublicDisclosurePdf({ info: rawInfo, documents: rawDo
       tableRow([
         String(section.rows.length + index + 1),
         document.title,
-        { text: 'View PDF', link: publicDocumentUrl(document, origin) },
+        { text: 'View PDF', link: publicDocumentUrl(document) },
       ], widths, { alternate: (section.rows.length + index) % 2 === 1 });
     });
   };

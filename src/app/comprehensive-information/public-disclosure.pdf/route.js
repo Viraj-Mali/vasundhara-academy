@@ -30,13 +30,12 @@ async function readDocuments() {
   return prisma.document.findMany({ orderBy: [{ order: 'asc' }, { createdAt: 'desc' }] });
 }
 
-export async function GET(request) {
+export async function GET() {
   try {
     const [info, documents] = await Promise.all([readInfo(), readDocuments()]);
     const pdf = await buildPublicDisclosurePdf({
       info,
       documents,
-      origin: new URL(request.url).origin,
     });
     return new NextResponse(pdf, {
       status: 200,

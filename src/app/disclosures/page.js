@@ -82,7 +82,7 @@ function DocumentTable({ rows, documents, additionalDocuments = [] }) {
                 <td>
                   {hasFile ? (
                     <a
-                      href={doc.isStatic ? doc.fileUrl : `/api/public/mandatory-disclosure/${encodeURIComponent(doc.id)}`}
+                      href={`/api/public/mandatory-disclosure/${encodeURIComponent(doc.id)}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="appendix-action"
