@@ -52,7 +52,7 @@ export async function POST(req) {
     const uploadContext = formData.get('uploadContext');
     const isPublicDisclosurePdf = uploadContext === 'public-disclosure-pdf';
     const isComprehensiveInformationPdf = uploadContext === 'comprehensive-information-pdf';
-    const isStoryAchievementImage = uploadContext === 'story-achievement-image';
+    const isManagedContentImage = uploadContext === 'story-achievement-image' || uploadContext === 'teacher-training-image';
     const isValidatedPdfUpload = isPublicDisclosurePdf || isComprehensiveInformationPdf;
     const hasPdfExtension = isPdfFileName(file.name || '');
     const isPdf = hasPdfExtension || pdfMimeTypes.has((file.type || '').toLowerCase());
@@ -67,7 +67,7 @@ export async function POST(req) {
       }
     }
 
-    if (isStoryAchievementImage && !isStoryImageFile(file, buffer)) {
+    if (isManagedContentImage && !isStoryImageFile(file, buffer)) {
       return NextResponse.json({ error: 'Only JPG, JPEG, PNG, and WEBP images are allowed' }, { status: 400 });
     }
 

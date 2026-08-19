@@ -189,6 +189,32 @@ model StoryAchievement {
   updatedAt    DateTime  @updatedAt
 }
 
+// =============== TEACHER TRAINING & DEVELOPMENT ===============
+model TeacherTraining {
+  id            String                 @id @default(cuid())
+  title         String
+  description   String
+  category      String                 @default("Other")
+  trainingDate  DateTime?
+  coverImageUrl String?
+  displayOrder  Int                    @default(0)
+  isActive      Boolean                @default(true)
+  createdAt     DateTime               @default(now())
+  updatedAt     DateTime               @updatedAt
+  images        TeacherTrainingImage[]
+}
+
+model TeacherTrainingImage {
+  id           String          @id @default(cuid())
+  trainingId   String
+  imageUrl     String
+  displayOrder Int             @default(0)
+  createdAt    DateTime        @default(now())
+  training     TeacherTraining @relation(fields: [trainingId], references: [id], onDelete: Cascade)
+
+  @@index([trainingId])
+}
+
 // =============== QUESTION BANK ===============
 model QuestionBank {
   id        String   @id @default(cuid())

@@ -18,6 +18,7 @@ const sidebarItems = [
     { label: 'Hero Background Slider', href: '/admin/hero-background-slider', icon: 'fas fa-images' },
     { label: 'Events', href: '/admin/events', icon: 'fas fa-calendar-alt', badgeKey: 'events' },
     { label: 'Stories & Achievements', href: '/admin/stories-achievements', icon: 'fas fa-trophy' },
+    { label: 'Teacher Training', href: '/admin/teacher-training', icon: 'fas fa-chalkboard-teacher' },
     { label: 'Messages', href: '/admin/messages', icon: 'fas fa-envelope' },
     { label: 'Gallery', href: '/admin/gallery', icon: 'fas fa-images', badgeKey: 'gallery' },
   ]},
