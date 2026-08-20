@@ -80,8 +80,8 @@ export default function ContactPage() {
                 <div>
                   <h4>Office Phone</h4>
                   <p>
-                    Principal: +91 94220 51190<br />
-                    Vice Principal: +91 88052 54793
+                    Mr. Mayur Wakchaure sir: 9665557795<br />
+                    Ms. Gaje Mam: 9075735191
                   </p>
                 </div>
               </div>
