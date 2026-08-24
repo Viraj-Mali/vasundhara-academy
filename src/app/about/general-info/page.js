@@ -110,6 +110,13 @@ export default function GeneralInfoPage() {
             </div>
             <p>Abhinav Shikshan Sanstha, Akole<br />Dist. Ahilyanagar, Maharashtra</p>
           </div>
+          <div className="info-card">
+            <div className="info-card-header">
+              <div className="info-card-icon"><i className="fas fa-globe"></i></div>
+              <h3>School Website Address</h3>
+            </div>
+            <p><strong>vasundharaacademy.school.in</strong></p>
+          </div>
         </div>
       </section>
     </>
