@@ -16,11 +16,18 @@ const socialLinks = [
     button: 'Open Instagram',
     url: 'https://www.instagram.com/vasundhara_academy?igsh=MThkYmN6OWpxa3J3OA==',
   },
+  {
+    name: 'Facebook',
+    icon: 'fab fa-facebook-f',
+    text: 'Follow our latest school updates and activities on Facebook.',
+    button: 'Open Facebook',
+    url: 'https://www.facebook.com/share/1DxYTzVSKA/',
+  },
 ];
 
 export const metadata = {
   title: 'Social Media | Vasundhara Academy Akole',
-  description: 'Connect with Vasundhara Academy on our official YouTube and Instagram platforms.',
+  description: 'Connect with Vasundhara Academy on our official YouTube, Instagram, and Facebook platforms.',
 };
 
 export default function SocialMediaPage() {

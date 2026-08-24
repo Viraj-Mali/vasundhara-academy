@@ -4,11 +4,11 @@
 }
 
 .social-media-grid {
-  max-width: 900px;
+  max-width: 1200px;
   margin: 2rem auto 0;
   padding: 0 2rem;
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 2rem;
 }
 
@@ -55,6 +55,12 @@
 
 .social-media-card .btn {
   gap: 0.45rem;
+}
+
+@media (max-width: 992px) {
+  .social-media-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 @media (max-width: 768px) {
