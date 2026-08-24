@@ -19,10 +19,10 @@ export default function Footer() {
             quality CBSE education, holistic development, and values-driven learning.
           </p>
           <div className="footer-social">
-            <a href="#" aria-label="Facebook"><i className="fab fa-facebook-f"></i></a>
-            <a href="#" aria-label="Instagram"><i className="fab fa-instagram"></i></a>
-            <a href="#" aria-label="YouTube"><i className="fab fa-youtube"></i></a>
-            <a href="https://wa.me/919881945960" aria-label="WhatsApp"><i className="fab fa-whatsapp"></i></a>
+            <a href="https://www.facebook.com/share/1DxYTzVSKA/" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i className="fab fa-facebook-f"></i></a>
+            <a href="https://www.instagram.com/vasundhara_academy?igsh=MThkYmN6OWpxa3J3OA==" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i className="fab fa-instagram"></i></a>
+            <a href="https://youtube.com/@vasundharaacademyakole1701?si=ySycXGkIP8PRDkji" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i className="fab fa-youtube"></i></a>
+            <a href="https://wa.me/919881945960" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"><i className="fab fa-whatsapp"></i></a>
           </div>
         </div>
 
