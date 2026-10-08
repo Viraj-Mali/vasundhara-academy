@@ -100,6 +100,146 @@ export default function CurriculumPage() {
               <li><strong>Half-Yearly and Annual Exams</strong> as per CBSE norms.</li>
             </ul>
           </div>
+
+          <div className="evaluation-tables-wrapper">
+            {/* Table 1: Grade I to Grade VIII */}
+            <div className="evaluation-table-card">
+              <div className="evaluation-card-header">
+                <h3 className="evaluation-grade-title">
+                  <i className="fas fa-graduation-cap"></i> Grade I to Grade VIII
+                </h3>
+                <span className="evaluation-assessment-badge">Internal Assessment (20 Marks)</span>
+              </div>
+              <div className="evaluation-table-responsive">
+                <table className="evaluation-table">
+                  <thead>
+                    <tr>
+                      <th>Component</th>
+                      <th>Marks</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <span className="component-name">Periodic Tests</span>
+                        <span className="component-note">(• The average of the best two test scores is taken and scaled down to 10 marks.)</span>
+                      </td>
+                      <td>
+                        <span className="marks-badge">10 Marks</span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <span className="component-name">Notebook Submission</span>
+                      </td>
+                      <td>
+                        <span className="marks-badge">05 Marks</span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <span className="component-name">Subject Enrichment Activities</span>
+                      </td>
+                      <td>
+                        <span className="marks-badge">05 Marks</span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <span className="component-name">Term -I Examination</span>
+                      </td>
+                      <td>
+                        <span className="marks-badge">80 Marks</span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <span className="component-name">Annual Examination</span>
+                      </td>
+                      <td>
+                        <span className="marks-badge">80 Marks</span>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            {/* Table 2: Grade IX & X */}
+            <div className="evaluation-table-card">
+              <div className="evaluation-card-header">
+                <h3 className="evaluation-grade-title">
+                  <i className="fas fa-award"></i> Grade IX & X
+                </h3>
+                <span className="evaluation-assessment-badge">Internal Assessment</span>
+              </div>
+              <div className="evaluation-table-responsive">
+                <table className="evaluation-table">
+                  <thead>
+                    <tr>
+                      <th>Component</th>
+                      <th>Marks</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <span className="component-name">Periodic Tests</span>
+                        <span className="component-note">
+                          <span className="component-note-item">• No. of Periodic Test - 4</span>
+                          <span className="component-note-item">• 50 Marks each</span>
+                        </span>
+                      </td>
+                      <td>
+                        <span className="marks-badge">05 Marks</span>
+                        <span className="marks-note">(05 marks for one best score.)</span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <span className="component-name">Multiple Assessment</span>
+                      </td>
+                      <td>
+                        <span className="marks-badge">05 Marks</span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <span className="component-name">Subject Enrichment Activities</span>
+                      </td>
+                      <td>
+                        <span className="marks-badge">05 Marks</span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <span className="component-name">Portfolio</span>
+                      </td>
+                      <td>
+                        <span className="marks-badge">05 Marks</span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <span className="component-name">Term -I Examination</span>
+                      </td>
+                      <td>
+                        <span className="marks-badge">80 Marks</span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <span className="component-name">Annual Examination</span>
+                      </td>
+                      <td>
+                        <span className="marks-badge">80 Marks</span>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
     </>

@@ -76,6 +76,7 @@
   line-height: 1.7;
   display: -webkit-box;
   -webkit-line-clamp: 3;
+  line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
@@ -547,3 +548,165 @@
 @media (max-width: 480px) {
   .staff-grid { grid-template-columns: 1fr; }
 }
+
+/* ── Evaluation System Tables ── */
+.evaluation-tables-wrapper {
+  margin-top: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+.evaluation-table-card {
+  background: var(--white);
+  border-radius: var(--radius-xl);
+  border: 1px solid rgba(10, 22, 40, 0.08);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.evaluation-table-card:hover {
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+}
+
+.evaluation-card-header {
+  background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+  color: var(--white);
+  padding: 1.25rem 1.75rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  border-bottom: 3px solid var(--gold);
+}
+
+.evaluation-grade-title {
+  font-family: var(--font-heading);
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--white);
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.evaluation-grade-title i {
+  color: var(--gold);
+  font-size: 1.1rem;
+}
+
+.evaluation-assessment-badge {
+  background: rgba(212, 168, 83, 0.2);
+  color: var(--gold-light);
+  border: 1px solid rgba(212, 168, 83, 0.4);
+  padding: 0.35rem 0.9rem;
+  border-radius: var(--radius-full);
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.evaluation-table-responsive {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.evaluation-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.evaluation-table th {
+  background: var(--off-white);
+  color: var(--navy);
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+  font-weight: 700;
+  padding: 1rem 1.5rem;
+  border-bottom: 2px solid var(--gray-200);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.evaluation-table th:last-child {
+  text-align: center;
+  width: 200px;
+}
+
+.evaluation-table td {
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid var(--gray-100);
+  color: var(--gray-700);
+  font-size: 0.92rem;
+  vertical-align: middle;
+}
+
+.evaluation-table td:last-child {
+  text-align: center;
+}
+
+.evaluation-table tbody tr {
+  transition: background-color 0.2s ease;
+}
+
+.evaluation-table tbody tr:hover {
+  background-color: rgba(212, 168, 83, 0.05);
+}
+
+.evaluation-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.component-name {
+  font-weight: 600;
+  color: var(--navy);
+  display: block;
+}
+
+.component-note {
+  display: block;
+  font-size: 0.82rem;
+  color: var(--gray-500);
+  margin-top: 0.25rem;
+  font-weight: 400;
+  line-height: 1.4;
+}
+
+.component-note-item {
+  display: block;
+}
+
+.marks-badge {
+  display: inline-block;
+  background: rgba(10, 22, 40, 0.05);
+  color: var(--navy);
+  font-weight: 700;
+  padding: 0.35rem 0.85rem;
+  border-radius: var(--radius-md);
+  font-size: 0.9rem;
+  border: 1px solid rgba(10, 22, 40, 0.1);
+  white-space: nowrap;
+}
+
+.marks-note {
+  display: block;
+  font-size: 0.78rem;
+  color: var(--gray-500);
+  font-weight: 400;
+  margin-top: 0.25rem;
+}
+
+@media (max-width: 600px) {
+  .evaluation-card-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .evaluation-table th, .evaluation-table td {
+    padding: 0.75rem 1rem;
+  }
+}
+

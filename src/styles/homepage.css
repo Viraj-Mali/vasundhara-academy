@@ -185,66 +185,40 @@
 /* ── About Section ── */
 .about-section { padding: 6rem 0; background: var(--white); }
 .about-inner {
-  max-width: 1200px;
+  max-width: 900px;
   margin: 0 auto;
   padding: 0 2rem;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 4rem;
-  align-items: center;
+  text-align: center;
 }
-.about-images { position: relative; }
-.about-img-main {
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  box-shadow: var(--shadow-xl);
+.about-text {
+  max-width: 800px;
+  margin: 0 auto;
 }
-.about-img-accent {
-  position: absolute;
-  bottom: -2rem;
-  right: -2rem;
-  width: 200px;
-  border-radius: var(--radius-md);
-  overflow: hidden;
-  border: 5px solid var(--white);
-  box-shadow: var(--shadow-lg);
-}
-.about-badge {
-  position: absolute;
-  top: -1rem;
-  left: -1rem;
-  width: 90px;
-  height: 90px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, var(--gold), var(--gold-dark));
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  color: var(--navy);
-  box-shadow: var(--shadow-gold);
-}
-.about-badge i { font-size: 1.3rem; margin-bottom: 0.2rem; }
-.about-badge span { font-size: 0.55rem; font-weight: 700; text-align: center; line-height: 1.2; }
 .about-desc {
   color: var(--gray-500);
   line-height: 1.8;
-  margin-bottom: 1rem;
-  font-size: 0.95rem;
+  margin-bottom: 1.2rem;
+  font-size: 1.05rem;
+  text-align: center;
 }
 .about-features {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0.8rem;
-  margin: 1.5rem 0 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem 1.8rem;
+  margin: 2rem 0 2.5rem;
 }
 .about-feature {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  font-size: 0.9rem;
-  color: var(--gray-700);
-  font-weight: 500;
+  gap: 0.6rem;
+  font-size: 0.95rem;
+  color: var(--navy);
+  font-weight: 600;
+  background: var(--off-white);
+  padding: 0.6rem 1.3rem;
+  border-radius: var(--radius-full);
+  border: 1px solid rgba(10, 22, 40, 0.06);
 }
 .about-feature i { color: var(--gold); }
 
@@ -456,8 +430,7 @@
   .stat-divider { display: none; }
   .stat-number { font-size: 2rem; }
 
-  .about-inner { grid-template-columns: 1fr; gap: 3rem; }
-  .about-images { max-width: 400px; margin: 0 auto; }
+  .about-inner { padding: 0 1rem; }
   
   .features-grid { grid-template-columns: 1fr; }
   .achievements-grid { grid-template-columns: 1fr; }

@@ -72,18 +72,6 @@ export default function HomePage() {
       {/* ── ABOUT SECTION ── */}
       <section className="about-section">
         <div className="about-inner">
-          <div className="about-images">
-            <div className="about-img-main">
-              <img src="/images/school-photo-3.jpg" alt="Students engaging in classroom activities at Vasundhara Academy Akole" width="800" height="600" loading="lazy" />
-            </div>
-            <div className="about-img-accent">
-              <img src="/images/school-photo-1.jpg" alt="Student achievements and trophies at Vasundhara Academy" width="400" height="300" loading="lazy" />
-            </div>
-            <div className="about-badge">
-              <i className="fas fa-trophy"></i>
-              <span>Award<br />Winning</span>
-            </div>
-          </div>
           <div className="about-text">
             <span className="section-tag"><i className="fas fa-minus"></i> About Us</span>
             <h2 className="section-title">Building Tomorrow&apos;s Leaders Today</h2>
