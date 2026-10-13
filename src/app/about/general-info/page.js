@@ -99,7 +99,7 @@ export default function GeneralInfoPage() {
             </div>
             <p>
               Mr. Mayur Wakchaure sir: 9665557795<br />
-              Ms. Gaje Mam: 9075735191<br /><br />
+              Ms. Jyoti Gaje Mam: 9075735191<br /><br />
               Email: vasundhara.academy2016@gmail.com
             </p>
           </div>

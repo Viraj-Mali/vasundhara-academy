@@ -81,7 +81,7 @@ export default function ContactPage() {
                   <h4>Office Phone</h4>
                   <p>
                     Mr. Mayur Wakchaure sir: 9665557795<br />
-                    Ms. Gaje Mam: 9075735191
+                    Ms. Jyoti Gaje Mam: 9075735191
                   </p>
                 </div>
               </div>
