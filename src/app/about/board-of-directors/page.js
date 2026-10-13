@@ -40,10 +40,8 @@ export default function BoardPage() {
           ) : (
             members.map((m) => (
               <div key={m.id} className="board-card">
-                {m.photo ? (
-                  <img src={m.photo} alt={m.name} style={{ width: '100px', height: '100px', borderRadius: '50%', objectFit: 'cover', border: '3px solid var(--gold)', marginBottom: '1rem' }} />
-                ) : (
-                  <div className="board-photo-placeholder">{m.name?.charAt(0)}</div>
+                {m.photo && (
+                  <img src={m.photo} alt={m.name} className="board-photo" />
                 )}
                 <h3>{m.name}</h3>
                 <p>{m.designation}</p>
