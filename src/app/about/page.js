@@ -35,7 +35,7 @@ export default function AboutPage() {
               With a strong focus on academic excellence, innovative teaching methods, and value-based education, we strive to create a learning atmosphere that empowers every child to realize their fullest potential. Along with scholastic achievement, equal emphasis is given to co-curricular activities, sports, life skills, environmental awareness, and personality development.
             </p>
             <p>
-              Guided by dedicated educators and supported by progressive educational practices, Vasundhara Academy continues to shape young minds into future-ready citizens who are intellectually competent, morally strong, and socially sensitive. Inspired by the enduring strength of the Sahyadri mountains and the nurturing flow of the Pravara River, our academy stands as a beacon of learning, discipline, and transformation in the Akole region.
+              Guided by dedicated educators and supported by progressive educational practices, Vasundhara Academy continues to shape young minds into future-ready citizens who are intellectually competent, morally strong, and socially sensitive. Inspired by the enduring strength of the Sahyadri mountains and the nurturing flow of the Pravara River, Vasundhara Academy stands as a beacon of learning, discipline, and transformation in the Akole region.
             </p>
           </div>
         </div>
